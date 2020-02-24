@@ -15,5 +15,10 @@
         public string Description { get; set; }
 
         public string ImagePath { get; set; }
+
+        [Required]
+        public string ProductId { get; set; }
+
+        public Product Product { get; set; }
     }
 }

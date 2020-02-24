@@ -6,8 +6,10 @@
 
     using KaminiCenter.Data.Common.Models;
 
-    public class Product_Group : BaseDeletableModel<string>
+    public class TypeOfChamber : BaseDeletableModel<string>
     {
-        public string GroupName { get; set; }
+        public string Name { get; set; }
+
+        public string Description { get; set; }
     }
 }

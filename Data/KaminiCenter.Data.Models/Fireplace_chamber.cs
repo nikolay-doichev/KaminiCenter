@@ -23,7 +23,9 @@ namespace KaminiCenter.Data.Models
 
         public string ImagePath { get; set; }
 
-        public int TypeOfChamber_Id { get; set; }
+        public int TypeOfChamberId { get; set; }
+
+        public TypeOfChamber TypeOfChamber { get; set; }
 
         [Required]
         public string PorductId { get; set; }
@@ -31,7 +33,7 @@ namespace KaminiCenter.Data.Models
         public Product Product { get; set; }
 
         [Required]
-        public string Group_Id { get; set; }
+        public string GroupId { get; set; }
 
         public Product_Group Group { get; set; }
     }

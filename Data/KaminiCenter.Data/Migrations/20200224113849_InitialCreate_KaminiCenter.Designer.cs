@@ -4,14 +4,16 @@ using KaminiCenter.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KaminiCenter.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200224113849_InitialCreate_KaminiCenter")]
+    partial class InitialCreate_KaminiCenter
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,15 +48,9 @@ namespace KaminiCenter.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProductId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Accessories");
                 });
@@ -201,8 +197,11 @@ namespace KaminiCenter.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ProductId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Product_Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -266,8 +265,11 @@ namespace KaminiCenter.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GroupId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Group_Id")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
@@ -296,11 +298,8 @@ namespace KaminiCenter.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeOfChamberId")
+                    b.Property<int>("TypeOfChamber_Id")
                         .HasColumnType("int");
-
-                    b.Property<string>("TypeOfChamberId1")
-                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -309,8 +308,6 @@ namespace KaminiCenter.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("TypeOfChamberId1");
 
                     b.ToTable("Fireplace_Chambers");
                 });
@@ -425,7 +422,7 @@ namespace KaminiCenter.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("GroupName")
+                    b.Property<string>("Group_Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -640,39 +637,22 @@ namespace KaminiCenter.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("KaminiCenter.Data.Models.Accessorie", b =>
-                {
-                    b.HasOne("KaminiCenter.Data.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("KaminiCenter.Data.Models.Comment", b =>
                 {
                     b.HasOne("KaminiCenter.Data.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
                 });
 
             modelBuilder.Entity("KaminiCenter.Data.Models.Fireplace_chamber", b =>
                 {
                     b.HasOne("KaminiCenter.Data.Models.Product_Group", "Group")
                         .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("GroupId");
 
                     b.HasOne("KaminiCenter.Data.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
-
-                    b.HasOne("KaminiCenter.Data.Models.TypeOfChamber", "TypeOfChamber")
-                        .WithMany()
-                        .HasForeignKey("TypeOfChamberId1");
                 });
 
             modelBuilder.Entity("KaminiCenter.Data.Models.Product", b =>

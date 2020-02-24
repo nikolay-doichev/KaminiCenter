@@ -24,6 +24,24 @@
         {
         }
 
+        public DbSet<Accessorie> Accessories { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<Finished_Model> Finished_Models { get; set; }
+
+        public DbSet<Fireplace_chamber> Fireplace_Chambers { get; set; }
+
+        public DbSet<KaminiCenterUser> KaminiCenterUsers { get; set; }
+
+        public DbSet<Product> Products { get; set; }
+
+        public DbSet<Product_Group> Product_Groups { get; set; }
+
+        public DbSet<Project> Projects { get; set; }
+
+        public DbSet<TypeOfChamber> TypeOfChambers { get; set; }
+
         public DbSet<Setting> Settings { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
