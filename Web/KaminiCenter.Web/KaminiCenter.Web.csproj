@@ -205,4 +205,9 @@
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\property-grid.html" />
+    <None Include="wwwroot\property-single.html" />
+  </ItemGroup>
 </Project>

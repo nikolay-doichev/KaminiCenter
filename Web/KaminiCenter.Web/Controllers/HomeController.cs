@@ -8,7 +8,14 @@
 
     public class HomeController : BaseController
     {
+        [HttpGet("/")]
         public IActionResult Index()
+        {
+            return this.View();
+        }
+
+        [HttpGet("/Home/Index")]
+        public IActionResult IndexFullPage()
         {
             return this.View();
         }
