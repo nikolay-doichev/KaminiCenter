@@ -17,7 +17,7 @@
         [HttpGet("/Home/Index")]
         public IActionResult IndexFullPage()
         {
-            return this.View();
+            return this.Index();
         }
 
         public IActionResult Privacy()
