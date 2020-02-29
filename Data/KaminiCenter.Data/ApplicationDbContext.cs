@@ -40,8 +40,6 @@
 
         public DbSet<Project> Projects { get; set; }
 
-        public DbSet<TypeOfChamber> TypeOfChambers { get; set; }
-
         public DbSet<Setting> Settings { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);

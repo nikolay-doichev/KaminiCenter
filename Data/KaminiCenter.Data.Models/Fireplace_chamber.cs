@@ -1,11 +1,13 @@
-﻿using KaminiCenter.Data.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace KaminiCenter.Data.Models
+﻿namespace KaminiCenter.Data.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Text;
+
+    using KaminiCenter.Data.Common.Models;
+    using KaminiCenter.Data.Models.Enums;
+
     public class Fireplace_chamber : BaseDeletableModel<string>
     {
         [Required]
@@ -22,8 +24,6 @@ namespace KaminiCenter.Data.Models
         public string Description { get; set; }
 
         public string ImagePath { get; set; }
-
-        public int TypeOfChamberId { get; set; }
 
         public TypeOfChamber TypeOfChamber { get; set; }
 

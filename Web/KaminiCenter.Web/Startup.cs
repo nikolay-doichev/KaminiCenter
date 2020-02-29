@@ -1,7 +1,7 @@
 ﻿namespace KaminiCenter.Web
 {
     using System.Reflection;
-
+    using AutoMapper;
     using KaminiCenter.Data;
     using KaminiCenter.Data.Common;
     using KaminiCenter.Data.Common.Repositories;
@@ -9,6 +9,9 @@
     using KaminiCenter.Data.Repositories;
     using KaminiCenter.Data.Seeding;
     using KaminiCenter.Services.Data;
+    using KaminiCenter.Services.Data.FireplaceServices;
+    using KaminiCenter.Services.Data.GroupService;
+    using KaminiCenter.Services.Data.ProductService;
     using KaminiCenter.Services.Mapping;
     using KaminiCenter.Services.Messaging;
     using KaminiCenter.Web.ViewModels;
@@ -59,6 +62,13 @@
             // Application services
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
+
+            // Add AutoMapper
+
+            // My Custom Services
+            services.AddTransient<IGroupService, GroupService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IFireplaceService, FireplaceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
