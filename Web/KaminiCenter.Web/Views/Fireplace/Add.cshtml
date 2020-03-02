@@ -1,17 +1,51 @@
-﻿@model KaminiCenter.Web.ViewModels.Fireplace.FireplaceInputModel
+﻿@using KaminiCenter.Data.Models.Enums;
+@model KaminiCenter.Web.ViewModels.Fireplace.FireplaceInputModel
 
 @{
-    ViewData["Title"] = "Добавяне на камини";
+    ViewData["Title"] = "Добавяне на камина";
 }
 
-<h1>Камини</h1>
+<h1>Добавяне на камина</h1>
 
-<h4>Моля въведете данните за камината</h4>
+<h4>Моля попълнете данните за вашата камина</h4>
 <hr />
-<div class="row">
+<div class="container-fluid">
     <div class="col-md-4">
         <form asp-action="Add">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <!-- Group -->
+            <div class="select form-group">
+                <h4>Категория</h4>
+                <select asp-for="Group" data-placeholder="Изберете група" class="chosen-select-no-single form-control">
+                    <option>Камини</option>
+                    <option>Проекти</option>
+                    <option>Модели</option>
+                    <option>Аксесоари</option>
+                </select>
+                <span asp-validation-for="Group" class="text-danger"></span>
+            </div>
+            <div class="margin-top-25"></div>
+            <!-- End of Categoryy -->
+            <!-- Type of Chamber -->
+            <div class="select form-group">
+                <h4>Тип на камерата</h4>
+                <select asp-for="TypeOfChamber" data-placeholder="Изберете тип на камерата" class="chosen-select-no-single form-control">
+                    <option>Базови</option>
+                    <option>С водна риза</option>
+                    <option>С вертикално отваряне</option>
+                    <option>Чугунени печки</option>
+                    <option>Чугунени врати</option>
+                </select>
+                <span asp-validation-for="TypeOfChamber" class="text-danger"></span>
+            </div>
+            <div class="margin-top-25"></div>
+            <!-- End Of Type Chamber-->
+
             <div class="form-group">
                 <label asp-for="Power" class="control-label"></label>
                 <input asp-for="Power" class="form-control" />
@@ -37,13 +71,21 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+            <h4>Снимка</h4>
             <div class="form-group">
-                <label asp-for="TypeOfChamber" class="control-label"></label>
-                <input asp-for="TypeOfChamber" class="form-control" />
-                <span asp-validation-for="TypeOfChamber" class="text-danger"></span>
+                <label asp-for="ImagePath" class="upload-btn">
+                    <i class="fa fa-upload"></i> Upload
+                    <input asp-for="ImagePath" type="file" class="form-control" />
+                </label>
+                <div class="margin-top-0"></div>
+                <span asp-validation-for="ImagePath" class="text-danger"></span>
+                <div class="margin-top-0"></div>
+                <span id="file-selected"></span>
             </div>
+            <div class="clearfxix"></div>
+            <div class="margin-top-15"></div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Създай" class="btn btn-primary" />
             </div>
         </form>
     </div>

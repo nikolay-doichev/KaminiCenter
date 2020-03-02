@@ -4,7 +4,10 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using KaminiCenter.Common;
+    using KaminiCenter.Services;
     using KaminiCenter.Services.Data.FireplaceServices;
+    using KaminiCenter.Web.ViewModels.Fireplace;
     using Microsoft.AspNetCore.Mvc;
 
     public class FireplaceController : Controller
@@ -18,7 +21,22 @@
 
         public IActionResult Add()
         {
-            return this.View();
+            var createFireplaceInputModel = new FireplaceInputModel();
+
+            return this.View(createFireplaceInputModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(FireplaceInputModel inputModel)
+        {
+            //var photoUrl = await this.cloudinaryService.UploadPhotoAsync(
+            //    inputModel.ImagePath,
+            //    $"{userId}-{recipeCreateInputModel.Title}",
+            //    GlobalConstants.CloudFolderForFireplacePhotos);
+
+            //inputModel.ImagePath = photoUrl;
+
+            return null;
         }
     }
 }

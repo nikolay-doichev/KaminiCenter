@@ -7,6 +7,8 @@
 
     public class AddFireplaceInputModel
     {
+        public string PorductId { get; set; }
+        public string GroupId { get; set; }
         public string Power { get; set; }
 
         public string Size { get; set; }
@@ -21,8 +23,5 @@
 
         public string TypeOfChamber { get; set; }
 
-        public string PorductId { get; set; }
-
-        public string GroupId { get; set; }
     }
 }
