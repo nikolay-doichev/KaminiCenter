@@ -20,6 +20,11 @@
             return this.Index();
         }
 
+        public IActionResult HttpError(int statusCode)
+        {
+            return this.View(statusCode);
+        }
+
         public IActionResult Privacy()
         {
             return this.View();
