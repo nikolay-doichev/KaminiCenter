@@ -10,6 +10,6 @@ namespace KaminiCenter.Services.Data.ProductService
     {
         Task AddProductAsync(string name, string groupName);
 
-        Task GetIdByName(string name);
+        string GetIdByNameAndGroup(string name, string groupName);
     }
 }

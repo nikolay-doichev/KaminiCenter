@@ -15,7 +15,7 @@
     using KaminiCenter.Services.Mapping;
     using KaminiCenter.Services.Messaging;
     using KaminiCenter.Web.ViewModels;
-
+    using KaminiCenter.Web.ViewModels.Fireplace;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -74,7 +74,8 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+            AutoMapperConfig.RegisterMappings(
+                typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
             // Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())

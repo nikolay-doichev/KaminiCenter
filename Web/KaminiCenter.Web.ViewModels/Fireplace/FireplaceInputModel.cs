@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace KaminiCenter.Web.ViewModels.Fireplace
+﻿namespace KaminiCenter.Web.ViewModels.Fireplace
 {
-    public class FireplaceInputModel
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Text;
+
+    using AutoMapper;
+    using KaminiCenter.Services.Mapping;
+    using Microsoft.AspNetCore.Http;
+
+    public class FireplaceInputModel : IMapTo<AddFireplaceInputModel>
     {
         [Display(Name = "Име на продукта")]
         public string Name { get; set; }
@@ -40,6 +43,6 @@ namespace KaminiCenter.Web.ViewModels.Fireplace
         public string Description { get; set; }
 
         [Display(Name = "Снимка на продукта")]
-        public IFormFile ImagePath { get; set; }
+        public IFormFile ImagePath { get; set; }       
     }
 }

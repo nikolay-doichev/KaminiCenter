@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -40,6 +41,16 @@
 
             await this.productRepository.AddAsync(product);
             await this.productRepository.SaveChangesAsync();
+        }
+
+        public string GetIdByNameAndGroup(string name, string groupName)
+        {
+            string productId = this.productRepository.All()
+                                                  .Where(p => p.Name == name 
+                                                  && p.Group.GroupName == groupName)
+                                                  .Select(p => p.Id).FirstOrDefault();
+
+            return productId;
         }
     }
 }

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\KaminiCenter.Data.Models\KaminiCenter.Data.Models.csproj" />
+    <ProjectReference Include="..\..\KaminiCenter.Services.Models\KaminiCenter.Services.Models.csproj" />
     <ProjectReference Include="..\..\Services\KaminiCenter.Services.Mapping\KaminiCenter.Services.Mapping.csproj" />
   </ItemGroup>
 

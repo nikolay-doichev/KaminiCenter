@@ -1,11 +1,13 @@
 ﻿namespace KaminiCenter.Web.ViewModels.Fireplace
 {
+    using KaminiCenter.Data.Models;
+    using KaminiCenter.Services.Mapping;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class AddFireplaceInputModel
+    public class AddFireplaceInputModel : IMapTo<Fireplace_chamber>, IMapFrom<Fireplace_chamber>
     {
         
         public string Name { get; set; }
