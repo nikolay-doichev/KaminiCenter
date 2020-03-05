@@ -37,6 +37,8 @@
                 throw new ArgumentNullException("Cannot safe null or whitespace values!");
             }
 
+            var product = this.productService.AddProductAsync(model.Name, model.Group);
+            
 
             var fireplace = new Fireplace_chamber
             {
@@ -47,8 +49,8 @@
                 Description = model.Description,
                 ImagePath = model.ImagePath,
                 TypeOfChamber = typeOfChamber,
-                ProductId = model.PorductId,
-                GroupId = model.GroupId,
+                //ProductId = model.PorductId,
+                //GroupId = model.GroupId,
             };
 
             await this.fireplaceRepository.AddAsync(fireplace);

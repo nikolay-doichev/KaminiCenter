@@ -8,6 +8,8 @@ namespace KaminiCenter.Services.Data.ProductService
 {
     public interface IProductService
     {
-        Task AddProductAsync(AddProductInputModel productInputModel);
+        Task AddProductAsync(string name, string groupName);
+
+        Task GetIdByName(string name);
     }
 }

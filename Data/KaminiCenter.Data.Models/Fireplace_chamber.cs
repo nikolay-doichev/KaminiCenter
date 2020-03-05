@@ -11,6 +11,8 @@
     public class Fireplace_chamber : BaseDeletableModel<string>
     {
         [Required]
+        [MinLength(3)]
+        [StringLength(10)]
         public string Power { get; set; }
 
         [Required]
@@ -19,7 +21,8 @@
         [Required]
         public string Chimney { get; set; }
 
-        public double Price { get; set; }
+        [Range(typeof(decimal), "0.00", "79228162514264337593543950335")]
+        public decimal Price { get; set; }
 
         public string Description { get; set; }
 
