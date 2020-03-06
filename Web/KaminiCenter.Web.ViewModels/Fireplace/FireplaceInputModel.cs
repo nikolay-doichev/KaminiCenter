@@ -43,6 +43,6 @@
         public string Description { get; set; }
 
         [Display(Name = "Снимка на продукта")]
-        public IFormFile ImagePath { get; set; }       
+        public IFormFile ImagePath { get; set; }
     }
 }

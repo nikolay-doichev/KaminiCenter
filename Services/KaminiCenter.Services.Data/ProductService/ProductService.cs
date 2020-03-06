@@ -35,6 +35,7 @@
             var product = new Product
             {
                 // TO Check for Id Initializesion
+                Id = Guid.NewGuid().ToString(),
                 Name = name,
                 GroupId = group.Id,
             };

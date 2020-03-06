@@ -14,6 +14,7 @@
     using KaminiCenter.Services.Data.ProductService;
     using KaminiCenter.Services.Mapping;
     using KaminiCenter.Services.Messaging;
+    using KaminiCenter.Web.MappingConfiguration;
     using KaminiCenter.Web.ViewModels;
     using KaminiCenter.Web.ViewModels.Fireplace;
     using Microsoft.AspNetCore.Builder;
@@ -64,6 +65,7 @@
             services.AddTransient<ISettingsService, SettingsService>();
 
             // Add AutoMapper
+            services.AddAutoMapper(typeof(Startup));
 
             // My Custom Services
             services.AddTransient<IGroupService, GroupService>();

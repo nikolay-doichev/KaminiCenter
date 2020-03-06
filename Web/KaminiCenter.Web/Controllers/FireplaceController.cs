@@ -1,17 +1,12 @@
 ﻿namespace KaminiCenter.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using System.Threading.Tasks;
+
     using AutoMapper;
-    using KaminiCenter.Common;
-    using KaminiCenter.Services;
     using KaminiCenter.Services.Data.FireplaceServices;
-    using KaminiCenter.Services.Mapping;
+    using KaminiCenter.Services.Models.Fireplace;
     using KaminiCenter.Web.ViewModels.Fireplace;
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
 
     public class FireplaceController : Controller
@@ -19,9 +14,10 @@
         private readonly IFireplaceService fireplaceService;
         private readonly IMapper mapper;
 
-        public FireplaceController(IFireplaceService fireplaceService)
+        public FireplaceController(IFireplaceService fireplaceService, IMapper mapper)
         {
             this.fireplaceService = fireplaceService;
+            this.mapper = mapper;
         }
 
         public IActionResult Add()
@@ -34,7 +30,9 @@
         [HttpPost]
         public async Task<IActionResult> Add(FireplaceInputModel inputModel)
         {
-            var fireplaceInputModel = inputModel.To<AddFireplaceInputModel>();
+            var fireplaceInputModel = this.mapper.Map<AddFireplaceInputModel>(inputModel);
+
+
             await this.fireplaceService.AddFireplaceAsync(fireplaceInputModel);
 
             string filePath = $@"C:\Temp\{inputModel.Name}.jpeg";
@@ -46,6 +44,13 @@
             fireplaceInputModel.ImagePath = filePath;
 
             return this.Redirect("/Fireplace/All");
+        }
+
+        public async Task<IActionResult> All()
+        {
+            var fireplace = this.fireplaceService.GetAllFireplaceAsync();
+
+            return this.View(fireplace);
         }
 
         public async Task<IActionResult> Details()

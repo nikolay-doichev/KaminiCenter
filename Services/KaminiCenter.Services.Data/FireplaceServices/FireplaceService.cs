@@ -1,12 +1,17 @@
 ﻿namespace KaminiCenter.Services.Data.FireplaceServices
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
+    using AutoMapper;
     using KaminiCenter.Data.Common.Repositories;
     using KaminiCenter.Data.Models;
     using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services.Data.GroupService;
     using KaminiCenter.Services.Data.ProductService;
+    using KaminiCenter.Services.Mapping;
+    using KaminiCenter.Services.Models.Fireplace;
     using KaminiCenter.Web.ViewModels.Fireplace;
 
     public class FireplaceService : IFireplaceService
@@ -14,13 +19,15 @@
         private readonly IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository;
         private readonly IGroupService groupService;
         private readonly IProductService productService;
+        private readonly IMapper mapper;
 
         public FireplaceService(
-            IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository, IGroupService groupService, IProductService productService)
+            IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository, IGroupService groupService, IProductService productService, IMapper mapper)
         {
             this.fireplaceRepository = fireplaceRepository;
             this.groupService = groupService;
             this.productService = productService;
+            this.mapper = mapper;
         }
 
         public async Task AddFireplaceAsync(AddFireplaceInputModel model)
@@ -43,6 +50,7 @@
 
             var fireplace = new Fireplace_chamber
             {
+                Id = Guid.NewGuid().ToString(),
                 Power = model.Power,
                 Size = model.Size,
                 Chimney = model.Chimney,
@@ -56,6 +64,15 @@
 
             await this.fireplaceRepository.AddAsync(fireplace);
             await this.fireplaceRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<AllFireplaceViewModel> GetAllFireplaceAsync()
+        {
+            var fireplaces = this.fireplaceRepository
+                .All()
+                .Select(f => this.mapper.Map<AllFireplaceViewModel>(f));
+
+            return fireplaces;
         }
     }
 }
