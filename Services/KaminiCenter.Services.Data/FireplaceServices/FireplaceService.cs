@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using AutoMapper;
     using KaminiCenter.Data.Common.Repositories;
     using KaminiCenter.Data.Models;
@@ -11,7 +12,6 @@
     using KaminiCenter.Services.Data.GroupService;
     using KaminiCenter.Services.Data.ProductService;
     using KaminiCenter.Services.Mapping;
-    using KaminiCenter.Services.Models.Fireplace;
     using KaminiCenter.Web.ViewModels.Fireplace;
 
     public class FireplaceService : IFireplaceService
@@ -66,13 +66,13 @@
             await this.fireplaceRepository.SaveChangesAsync();
         }
 
-        public IEnumerable<AllFireplaceViewModel> GetAllFireplaceAsync()
+        public IEnumerable<T> GetAllFireplaceAsync<T>()
         {
-            var fireplaces = this.fireplaceRepository
+            IQueryable<Fireplace_chamber> fireplaces = this.fireplaceRepository
                 .All()
-                .Select(f => this.mapper.Map<AllFireplaceViewModel>(f));
+                .OrderBy(x => x.Product.Name);
 
-            return fireplaces;
+            return fireplaces.To<T>().ToList();
         }
     }
 }

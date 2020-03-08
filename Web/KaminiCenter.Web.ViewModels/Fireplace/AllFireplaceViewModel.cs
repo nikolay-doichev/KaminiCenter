@@ -1,14 +1,11 @@
 ﻿namespace KaminiCenter.Web.ViewModels.Fireplace
 {
+    using System.Collections.Generic;
+
     using KaminiCenter.Services.Mapping;
-    using KaminiCenter.Services.Models.Fireplace;
 
-    public class AllFireplaceViewModel : IMapFrom<AllFireplaceViewModel>
+    public class AllFireplaceViewModel
     {
-        public string Name { get; set; }
-
-        public string Power { get; set; }
-
-        public string ImagePath { get; set; }
+        public IEnumerable<IndexFireplaceViewModel> Fireplaces { get; set; }
     }
 }

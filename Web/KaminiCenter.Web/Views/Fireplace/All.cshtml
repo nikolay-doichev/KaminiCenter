@@ -1,47 +1,75 @@
-﻿@model IEnumerable<KaminiCenter.Web.ViewModels.Fireplace.AllFireplaceViewModel>
+﻿@model KaminiCenter.Web.ViewModels.Fireplace.AllFireplaceViewModel
 
 @{
     ViewData["Title"] = "All";
 }
-
-<h1>All</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Power)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImagePath)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Power)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImagePath)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <h1 class="display-4">Всички камини</h1>
+<br />
+    <div class="row">
+        
+        @foreach (var fireplace in Model.Fireplaces)
+        {
+               <div class="col-md-4">
+                   <div class="card-box-d">
+                       <div class="card-img-d">
+                           <img src="@fireplace.ImagePath" alt="@fireplace.Name" class="img-d img-fluid">
+                       </div>
+                       <div class="card-overlay card-overlay-hover">
+                           <div class="card-header-d">
+                               <div class="card-title-d align-self-center">
+                                   <h3 class="title-d">
+                                       <a href="/Fireplace/Details?name=@fireplace.Name" class="link-two">
+                                           @fireplace.Name
+                                       </a>
+                                   </h3>
+                               </div>
+                           </div>
+                           <div class="card-body-d">
+                               <p class="content-d color-text-a">
+                                   Някакво инфо за камината
+                               </p>
+                               <div class="info-agents color-a">
+                                   <p>
+                                       <strong>Мощност: </strong> @fireplace.Power
+                                   </p>
+                                   <p>
+                                       <strong>Размери: </strong> @fireplace.Size
+                                   </p>
+                               </div>
+                           </div>
+                           <div class="card-footer-d">
+                               <div class="socials-footer d-flex justify-content-center">
+                                   <ul class="list-inline">
+                                       <li class="list-inline-item">
+                                           <a href="#" class="link-one">
+                                               <i class="fa fa-facebook" aria-hidden="true"></i>
+                                           </a>
+                                       </li>
+                                       <li class="list-inline-item">
+                                           <a href="#" class="link-one">
+                                               <i class="fa fa-twitter" aria-hidden="true"></i>
+                                           </a>
+                                       </li>
+                                       <li class="list-inline-item">
+                                           <a href="#" class="link-one">
+                                               <i class="fa fa-instagram" aria-hidden="true"></i>
+                                           </a>
+                                       </li>
+                                       <li class="list-inline-item">
+                                           <a href="#" class="link-one">
+                                               <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                                           </a>
+                                       </li>
+                                       <li class="list-inline-item">
+                                           <a href="#" class="link-one">
+                                               <i class="fa fa-dribbble" aria-hidden="true"></i>
+                                           </a>
+                                       </li>
+                                   </ul>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+        }
+</div>

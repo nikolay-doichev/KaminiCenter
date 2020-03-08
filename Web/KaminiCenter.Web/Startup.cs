@@ -1,6 +1,7 @@
 ﻿namespace KaminiCenter.Web
 {
     using System.Reflection;
+
     using AutoMapper;
     using KaminiCenter.Data;
     using KaminiCenter.Data.Common;
@@ -14,9 +15,7 @@
     using KaminiCenter.Services.Data.ProductService;
     using KaminiCenter.Services.Mapping;
     using KaminiCenter.Services.Messaging;
-    using KaminiCenter.Web.MappingConfiguration;
     using KaminiCenter.Web.ViewModels;
-    using KaminiCenter.Web.ViewModels.Fireplace;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -118,6 +117,7 @@
                 endpoints =>
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                        endpoints.MapControllerRoute("fireplaceDetails", "{controller=Fireplace}/{action=Details}/{name:minlength(3)}", new { control = "Fireplace", action = "Details" });
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
                     });

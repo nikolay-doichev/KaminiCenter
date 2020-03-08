@@ -1,11 +1,14 @@
 ﻿namespace KaminiCenter.Web.Controllers
 {
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using AutoMapper;
+    using KaminiCenter.Data.Common.Repositories;
+    using KaminiCenter.Data.Models;
     using KaminiCenter.Services.Data.FireplaceServices;
-    using KaminiCenter.Services.Models.Fireplace;
+    using KaminiCenter.Services.Mapping;
     using KaminiCenter.Web.ViewModels.Fireplace;
     using Microsoft.AspNetCore.Mvc;
 
@@ -13,11 +16,13 @@
     {
         private readonly IFireplaceService fireplaceService;
         private readonly IMapper mapper;
+        private readonly IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository;
 
-        public FireplaceController(IFireplaceService fireplaceService, IMapper mapper)
+        public FireplaceController(IFireplaceService fireplaceService, IMapper mapper, IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository)
         {
             this.fireplaceService = fireplaceService;
             this.mapper = mapper;
+            this.fireplaceRepository = fireplaceRepository;
         }
 
         public IActionResult Add()
@@ -35,7 +40,7 @@
 
             await this.fireplaceService.AddFireplaceAsync(fireplaceInputModel);
 
-            string filePath = $@"C:\Temp\{inputModel.Name}.jpeg";
+            string filePath = $@"C:\Temp\{inputModel.Name}";
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await inputModel.ImagePath.CopyToAsync(fileStream);
@@ -46,17 +51,19 @@
             return this.Redirect("/Fireplace/All");
         }
 
-        public async Task<IActionResult> All()
+        public IActionResult All()
         {
-            var fireplace = this.fireplaceService.GetAllFireplaceAsync();
+            var viewModel = new AllFireplaceViewModel 
+            {
+                Fireplaces = 
+                    this.fireplaceService.GetAllFireplaceAsync<IndexFireplaceViewModel>(),
+            };
 
-            return this.View(fireplace);
+            return this.View(viewModel);
         }
 
-        public async Task<IActionResult> Details()
+        public IActionResult Details(string name)
         {
-            //return this.PhysicalFile();
-
             return this.View();
         }
     }
