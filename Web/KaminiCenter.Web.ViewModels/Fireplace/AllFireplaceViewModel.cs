@@ -7,5 +7,7 @@
     public class AllFireplaceViewModel
     {
         public IEnumerable<IndexFireplaceViewModel> Fireplaces { get; set; }
+
+        public string TypeOfChamber { get; set; }
     }
 }

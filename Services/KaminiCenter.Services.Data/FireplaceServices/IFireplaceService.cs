@@ -9,6 +9,8 @@
     {
         Task AddFireplaceAsync(AddFireplaceInputModel fireplaceInputModel);
 
-        IEnumerable<T> GetAllFireplaceAsync<T>();
+        IEnumerable<T> GetAllFireplaceAsync<T>(string type);
+
+        T GetByName<T>(string name);
     }
 }

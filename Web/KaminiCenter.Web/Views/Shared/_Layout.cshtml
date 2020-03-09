@@ -1,10 +1,11 @@
 ﻿@using KaminiCenter.Common
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
+    <title>Камини Център</title>
 
     <environment names="Development">
         <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" asp-append-version="true" />
@@ -137,7 +138,7 @@
                                 Камери
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-controller="Fireplace" asp-action="All">Базови горивни камери</a>
+                                <a class="dropdown-item" href="/Fireplace/All?type=Basic">Базови горивни камери</a>
                                 <a class="dropdown-item" href="blog-single.html">С вертикално отваряне</a>
                                 <a class="dropdown-item" href="agents-grid.html">Камери с водна риза</a>
                                 <a class="dropdown-item" href="agent-single.html">Чугунени печки</a>

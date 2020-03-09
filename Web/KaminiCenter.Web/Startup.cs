@@ -9,6 +9,7 @@
     using KaminiCenter.Data.Models;
     using KaminiCenter.Data.Repositories;
     using KaminiCenter.Data.Seeding;
+    using KaminiCenter.Services;
     using KaminiCenter.Services.Data;
     using KaminiCenter.Services.Data.FireplaceServices;
     using KaminiCenter.Services.Data.GroupService;
@@ -70,6 +71,7 @@
             services.AddTransient<IGroupService, GroupService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IFireplaceService, FireplaceService>();
+            services.AddTransient<IEnumParseService, EnumParseService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -118,6 +120,7 @@
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("fireplaceDetails", "{controller=Fireplace}/{action=Details}/{name:minlength(3)}", new { control = "Fireplace", action = "Details" });
+                        endpoints.MapControllerRoute("fireplaceTypes", "{controller=Fireplace}/{action=All}/{type:minlength(3)}", new { control = "Fireplace", action = "All" });
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
                     });

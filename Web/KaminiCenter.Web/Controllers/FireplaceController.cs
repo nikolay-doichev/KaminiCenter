@@ -7,6 +7,8 @@
     using AutoMapper;
     using KaminiCenter.Data.Common.Repositories;
     using KaminiCenter.Data.Models;
+    using KaminiCenter.Data.Models.Enums;
+    using KaminiCenter.Services;
     using KaminiCenter.Services.Data.FireplaceServices;
     using KaminiCenter.Services.Mapping;
     using KaminiCenter.Web.ViewModels.Fireplace;
@@ -16,13 +18,13 @@
     {
         private readonly IFireplaceService fireplaceService;
         private readonly IMapper mapper;
-        private readonly IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository;
+        private readonly IEnumParseService enumParseService;
 
-        public FireplaceController(IFireplaceService fireplaceService, IMapper mapper, IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository)
+        public FireplaceController(IFireplaceService fireplaceService, IMapper mapper, IEnumParseService enumParseService)
         {
             this.fireplaceService = fireplaceService;
             this.mapper = mapper;
-            this.fireplaceRepository = fireplaceRepository;
+            this.enumParseService = enumParseService;
         }
 
         public IActionResult Add()
@@ -37,7 +39,6 @@
         {
             var fireplaceInputModel = this.mapper.Map<AddFireplaceInputModel>(inputModel);
 
-
             await this.fireplaceService.AddFireplaceAsync(fireplaceInputModel);
 
             string filePath = $@"C:\Temp\{inputModel.Name}";
@@ -51,12 +52,12 @@
             return this.Redirect("/Fireplace/All");
         }
 
-        public IActionResult All()
+        public IActionResult All(string type)
         {
-            var viewModel = new AllFireplaceViewModel 
+            var viewModel = new AllFireplaceViewModel
             {
-                Fireplaces = 
-                    this.fireplaceService.GetAllFireplaceAsync<IndexFireplaceViewModel>(),
+                Fireplaces =
+                    this.fireplaceService.GetAllFireplaceAsync<IndexFireplaceViewModel>(type).Where(x => x.TypeOfChamber == type),
             };
 
             return this.View(viewModel);
@@ -64,7 +65,11 @@
 
         public IActionResult Details(string name)
         {
-            return this.View();
+            var viewModel = this.fireplaceService.GetByName<DetailsFireplaceViewModel>(name);
+
+            viewModel.TypeOfChamber = this.enumParseService.GetEnumDescription(viewModel.TypeOfChamber, typeof(TypeOfChamber));
+
+            return this.View(viewModel);
         }
     }
 }
