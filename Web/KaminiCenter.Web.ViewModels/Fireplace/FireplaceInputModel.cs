@@ -9,8 +9,10 @@
     using KaminiCenter.Services.Mapping;
     using Microsoft.AspNetCore.Http;
 
-    public class FireplaceInputModel : IMapTo<AddFireplaceInputModel>
+    public class FireplaceInputModel
     {
+        public string Id { get; set; }
+
         [Display(Name = "Име на продукта")]
         public string Name { get; set; }
 

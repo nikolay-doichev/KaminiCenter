@@ -12,7 +12,6 @@
     {
         [Required]
         [MinLength(3)]
-        [StringLength(10)]
         public string Power { get; set; }
 
         [Required]

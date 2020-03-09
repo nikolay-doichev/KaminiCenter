@@ -1,16 +1,13 @@
-﻿using KaminiCenter.Data.Common.Repositories;
-using KaminiCenter.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using KaminiCenter.Services.Common.Exceptions;
-using System.Linq;
-using KaminiCenter.Services.Models.Group;
-using AutoMapper;
-
-namespace KaminiCenter.Services.Data.GroupService
+﻿namespace KaminiCenter.Services.Data.GroupService
 {
+    using System;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using AutoMapper;
+    using KaminiCenter.Data.Common.Repositories;
+    using KaminiCenter.Data.Models;
+
     public class GroupService : IGroupService
     {
         private readonly IDeletableEntityRepository<Product_Group> groupRepository;
@@ -28,6 +25,8 @@ namespace KaminiCenter.Services.Data.GroupService
             {
                 Id = Guid.NewGuid().ToString(),
                 GroupName = name,
+                CreatedOn = DateTime.UtcNow,
+                ModifiedOn = DateTime.UtcNow,
             };
 
             await this.groupRepository.AddAsync(group);

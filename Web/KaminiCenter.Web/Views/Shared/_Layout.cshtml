@@ -1,5 +1,5 @@
 ﻿@using KaminiCenter.Common
-
+@using KaminiCenter.Data.Models.Enums;
 <!DOCTYPE html>
 <html>
 <head>
@@ -137,12 +137,12 @@
                                aria-haspopup="true" aria-expanded="false">
                                 Камери
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/Fireplace/All?type=Basic">Базови горивни камери</a>
-                                <a class="dropdown-item" href="blog-single.html">С вертикално отваряне</a>
-                                <a class="dropdown-item" href="agents-grid.html">Камери с водна риза</a>
-                                <a class="dropdown-item" href="agent-single.html">Чугунени печки</a>
-                                <a class="dropdown-item" href="agent-single.html">Чугунени врати</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
+                                <a class="dropdown-item" href="/Fireplace/All?type=@TypeOfChamber.Basic">Базови горивни камери</a>
+                                <a class="dropdown-item" href="/Fireplace/All?type=@TypeOfChamber.VerticalОpening">С вертикално отваряне</a>
+                                <a class="dropdown-item" href="/Fireplace/All?type=@TypeOfChamber.WaterJacket">Камери с водна риза</a>
+                                <a class="dropdown-item" href="/Fireplace/All?type=@TypeOfChamber.IronStoves">Чугунени печки</a>
+                                <a class="dropdown-item" href="/Fireplace/All?type=@TypeOfChamber.IronDoors">Чугунени врати</a>
                             </div>
                         </li>
                         <li class="nav-item dropdown">

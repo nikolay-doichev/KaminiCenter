@@ -19,25 +19,22 @@
         private readonly IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository;
         private readonly IGroupService groupService;
         private readonly IProductService productService;
-        private readonly IMapper mapper;
 
         public FireplaceService(
-            IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository, IGroupService groupService, IProductService productService, IMapper mapper)
+            IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository, IGroupService groupService, IProductService productService)
         {
             this.fireplaceRepository = fireplaceRepository;
             this.groupService = groupService;
             this.productService = productService;
-            this.mapper = mapper;
         }
 
-        public async Task AddFireplaceAsync(AddFireplaceInputModel model)
+        public async Task AddFireplaceAsync(FireplaceInputModel model)
         {
             var typeOfChamber = Enum.Parse<TypeOfChamber>(model.TypeOfChamber);
 
             if (model.Power == null ||
                 model.Size == null ||
-                model.Chimney == null ||
-                model.ImagePath == null)
+                model.Chimney == null)
             {
                 throw new ArgumentNullException("Cannot safe null or whitespace values!");
             }
@@ -54,10 +51,12 @@
                 Chimney = model.Chimney,
                 Price = model.Price,
                 Description = model.Description,
-                ImagePath = model.ImagePath,
+                ImagePath = model.ImagePath.ToString(),
                 TypeOfChamber = typeOfChamber,
                 ProductId = productId,
                 GroupId = groupId,
+                CreatedOn = DateTime.UtcNow,
+                ModifiedOn = DateTime.UtcNow,
             };
 
             await this.fireplaceRepository.AddAsync(fireplace);

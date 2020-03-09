@@ -10,7 +10,6 @@
     using KaminiCenter.Data.Common.Repositories;
     using KaminiCenter.Data.Models;
     using KaminiCenter.Services.Data.GroupService;
-    using KaminiCenter.Services.Models.Product;
 
     public class ProductService : IProductService
     {
@@ -38,10 +37,12 @@
                 Id = Guid.NewGuid().ToString(),
                 Name = name,
                 GroupId = group.Id,
+                CreatedOn = DateTime.UtcNow,
+                ModifiedOn = DateTime.UtcNow,
             };
 
             await this.productRepository.AddAsync(product);
-            await this.productRepository.SaveChangesAsync();
+            var count = await this.productRepository.SaveChangesAsync();
         }
 
         public string GetIdByNameAndGroup(string name, string groupName)

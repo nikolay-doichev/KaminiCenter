@@ -4,9 +4,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using AutoMapper;
-    using KaminiCenter.Data.Common.Repositories;
-    using KaminiCenter.Data.Models;
+    using AutoMapper;    
     using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services;
     using KaminiCenter.Services.Data.FireplaceServices;
@@ -37,9 +35,7 @@
         [HttpPost]
         public async Task<IActionResult> Add(FireplaceInputModel inputModel)
         {
-            var fireplaceInputModel = this.mapper.Map<AddFireplaceInputModel>(inputModel);
-
-            await this.fireplaceService.AddFireplaceAsync(fireplaceInputModel);
+            var fireplaceInputModel = this.fireplaceService.AddFireplaceAsync(inputModel);
 
             string filePath = $@"C:\Temp\{inputModel.Name}";
             using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -47,7 +43,7 @@
                 await inputModel.ImagePath.CopyToAsync(fileStream);
             }
 
-            fireplaceInputModel.ImagePath = filePath;
+            //fireplaceInputModel.ImagePath = filePath;
 
             return this.Redirect("/Fireplace/All");
         }

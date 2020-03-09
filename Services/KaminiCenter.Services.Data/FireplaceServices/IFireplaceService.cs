@@ -7,7 +7,7 @@
 
     public interface IFireplaceService
     {
-        Task AddFireplaceAsync(AddFireplaceInputModel fireplaceInputModel);
+        Task AddFireplaceAsync(FireplaceInputModel fireplaceInputModel);
 
         IEnumerable<T> GetAllFireplaceAsync<T>(string type);
 
