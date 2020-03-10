@@ -1,10 +1,7 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace KaminiCenter.Services
@@ -38,7 +35,7 @@ namespace KaminiCenter.Services
                     File = new FileDescription(fileName, memoryStream),
                 };
 
-                uploadResult = this.cloudinary.Upload(uploadParams);
+                uploadResult = await this.cloudinary.UploadAsync(uploadParams);
             }
 
             return uploadResult?.SecureUri.AbsoluteUri;

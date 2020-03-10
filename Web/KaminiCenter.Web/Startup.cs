@@ -3,6 +3,7 @@
     using System.Reflection;
 
     using AutoMapper;
+    using CloudinaryDotNet;
     using KaminiCenter.Data;
     using KaminiCenter.Data.Common;
     using KaminiCenter.Data.Common.Repositories;
@@ -55,6 +56,15 @@
 
             services.AddSingleton(this.configuration);
 
+            // Cloudinary
+            Account account = new Account(
+                this.configuration["CloudName"],
+                this.configuration["ApiKey"],
+                this.configuration["ApiSecret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+            services.AddSingleton(cloudinary);
+
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -72,6 +82,7 @@
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IFireplaceService, FireplaceService>();
             services.AddTransient<IEnumParseService, EnumParseService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

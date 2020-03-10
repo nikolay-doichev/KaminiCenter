@@ -30,7 +30,7 @@
             };
 
             await this.groupRepository.AddAsync(group);
-            await this.groupRepository.SaveChangesAsync();
+            await this.groupRepository.SaveChangesAsync().ConfigureAwait(continueOnCapturedContext: false);
         }
 
         public Product_Group FindByGroupName(string name)

@@ -42,7 +42,7 @@
             };
 
             await this.productRepository.AddAsync(product);
-            var count = await this.productRepository.SaveChangesAsync();
+            await this.productRepository.SaveChangesAsync();
         }
 
         public string GetIdByNameAndGroup(string name, string groupName)

@@ -4,25 +4,29 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using AutoMapper;    
+    using AutoMapper;
+    using CloudinaryDotNet;
+    using CloudinaryDotNet.Actions;
+    using KaminiCenter.Common;
     using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services;
     using KaminiCenter.Services.Data.FireplaceServices;
     using KaminiCenter.Services.Mapping;
     using KaminiCenter.Web.ViewModels.Fireplace;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     public class FireplaceController : Controller
     {
         private readonly IFireplaceService fireplaceService;
-        private readonly IMapper mapper;
         private readonly IEnumParseService enumParseService;
+        private readonly ICloudinaryService cloudinaryService;
 
-        public FireplaceController(IFireplaceService fireplaceService, IMapper mapper, IEnumParseService enumParseService)
+        public FireplaceController(IFireplaceService fireplaceService, IEnumParseService enumParseService, ICloudinaryService cloudinaryService)
         {
             this.fireplaceService = fireplaceService;
-            this.mapper = mapper;
             this.enumParseService = enumParseService;
+            this.cloudinaryService = cloudinaryService;
         }
 
         public IActionResult Add()
@@ -37,13 +41,12 @@
         {
             var fireplaceInputModel = this.fireplaceService.AddFireplaceAsync(inputModel);
 
-            string filePath = $@"C:\Temp\{inputModel.Name}";
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
-            {
-                await inputModel.ImagePath.CopyToAsync(fileStream);
-            }
+            var photoUrl = await this.cloudinaryService.UploadPhotoAsync(
+               inputModel.ImagePath,
+               $"{inputModel.Group}_{inputModel.Name}_{inputModel.Id}",
+               GlobalConstants.CloudFolderForFireplacePhotos);
 
-            //fireplaceInputModel.ImagePath = filePath;
+            //inputModel.ImagePath = photoUrl;
 
             return this.Redirect("/Fireplace/All");
         }
@@ -66,6 +69,13 @@
             viewModel.TypeOfChamber = this.enumParseService.GetEnumDescription(viewModel.TypeOfChamber, typeof(TypeOfChamber));
 
             return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Upload(IFormFile formFile)
+        {
+            // await this.cloudinary.UploadPhotoAsync(formFile,)
+            return this.Redirect("/");
         }
     }
 }
