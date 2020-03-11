@@ -37,7 +37,12 @@
             <!-- Type of Chamber -->
             <div class="select form-group">
                 <h4>Тип на камерата</h4>
-                <select asp-for="TypeOfChamber" class="chosen-select-no-single form-control" asp-items="@Html.GetEnumSelectList<TypeOfChamber>()">
+                <select asp-for="TypeOfChamber" class="chosen-select-no-single form-control">
+                    <option value="1">Базови горивни камери</option>
+                    <option value="2">Камери с вертикално отваряне</option>
+                    <option value="3">Камери с водна риза</option>
+                    <option value="4">Чугунени печки</option>
+                    <option value="5">Чугунени врати</option>
                 </select>
                 <span asp-validation-for="TypeOfChamber" class="text-danger"></span>
             </div>

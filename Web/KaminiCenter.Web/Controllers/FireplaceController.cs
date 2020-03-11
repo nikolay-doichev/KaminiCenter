@@ -20,13 +20,11 @@
     {
         private readonly IFireplaceService fireplaceService;
         private readonly IEnumParseService enumParseService;
-        private readonly ICloudinaryService cloudinaryService;
 
-        public FireplaceController(IFireplaceService fireplaceService, IEnumParseService enumParseService, ICloudinaryService cloudinaryService)
+        public FireplaceController(IFireplaceService fireplaceService, IEnumParseService enumParseService)
         {
             this.fireplaceService = fireplaceService;
             this.enumParseService = enumParseService;
-            this.cloudinaryService = cloudinaryService;
         }
 
         public IActionResult Add()
@@ -39,14 +37,7 @@
         [HttpPost]
         public async Task<IActionResult> Add(FireplaceInputModel inputModel)
         {
-            var fireplaceInputModel = this.fireplaceService.AddFireplaceAsync(inputModel);
-
-            var photoUrl = await this.cloudinaryService.UploadPhotoAsync(
-               inputModel.ImagePath,
-               $"{inputModel.Group}_{inputModel.Name}_{inputModel.Id}",
-               GlobalConstants.CloudFolderForFireplacePhotos);
-
-            //inputModel.ImagePath = photoUrl;
+            await this.fireplaceService.AddFireplaceAsync(inputModel);
 
             return this.Redirect("/Fireplace/All");
         }
@@ -59,6 +50,10 @@
                     this.fireplaceService.GetAllFireplaceAsync<IndexFireplaceViewModel>(type).Where(x => x.TypeOfChamber == type),
             };
 
+            // foreach (var item in viewModel.Fireplaces)
+            // {
+            //    item.TypeOfChamber = this.enumParseService.GetEnumDescription(item.TypeOfChamber, typeof(TypeOfChamber));
+            // }
             return this.View(viewModel);
         }
 
@@ -69,13 +64,6 @@
             viewModel.TypeOfChamber = this.enumParseService.GetEnumDescription(viewModel.TypeOfChamber, typeof(TypeOfChamber));
 
             return this.View(viewModel);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Upload(IFormFile formFile)
-        {
-            // await this.cloudinary.UploadPhotoAsync(formFile,)
-            return this.Redirect("/");
         }
     }
 }

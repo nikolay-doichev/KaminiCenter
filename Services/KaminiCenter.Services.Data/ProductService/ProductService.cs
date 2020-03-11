@@ -48,7 +48,7 @@
         public string GetIdByNameAndGroup(string name, string groupName)
         {
             string productId = this.productRepository.All()
-                                                  .Where(p => p.Name == name 
+                                                  .Where(p => p.Name == name
                                                   && p.Group.GroupName == groupName)
                                                   .Select(p => p.Id).FirstOrDefault();
 

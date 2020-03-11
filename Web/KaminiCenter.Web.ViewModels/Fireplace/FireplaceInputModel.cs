@@ -6,10 +6,11 @@
     using System.Text;
 
     using AutoMapper;
+    using KaminiCenter.Data.Models;
     using KaminiCenter.Services.Mapping;
     using Microsoft.AspNetCore.Http;
 
-    public class FireplaceInputModel
+    public class FireplaceInputModel : IMapFrom<Fireplace_chamber>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
@@ -46,5 +47,16 @@
 
         [Display(Name = "Снимка на продукта")]
         public IFormFile ImagePath { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<FireplaceInputModel, Fireplace_chamber>()
+                .ForMember(
+                    destination => destination.Group,
+                    opts => opts.MapFrom(origin => new Product_Group { GroupName = origin.Group }))
+                .ForMember(
+                    destination => destination.ImagePath,
+                    opts => opts.Ignore());
+        }
     }
 }

@@ -11,13 +11,12 @@
     public class GroupService : IGroupService
     {
         private readonly IDeletableEntityRepository<Product_Group> groupRepository;
-        private readonly IMapper mapper;
 
         public GroupService(
-            IDeletableEntityRepository<Product_Group> groupRepository, IMapper mapper)
+            IDeletableEntityRepository<Product_Group> groupRepository)
         {
             this.groupRepository = groupRepository;
-            this.mapper = mapper;        }
+        }
 
         public async Task CreateAsync(string name)
         {
@@ -30,7 +29,7 @@
             };
 
             await this.groupRepository.AddAsync(group);
-            await this.groupRepository.SaveChangesAsync().ConfigureAwait(continueOnCapturedContext: false);
+            await this.groupRepository.SaveChangesAsync();
         }
 
         public Product_Group FindByGroupName(string name)
