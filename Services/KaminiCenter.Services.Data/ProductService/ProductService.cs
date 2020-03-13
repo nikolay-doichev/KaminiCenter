@@ -9,6 +9,7 @@
     using KaminiCenter.Data;
     using KaminiCenter.Data.Common.Repositories;
     using KaminiCenter.Data.Models;
+    using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services.Data.GroupService;
 
     public class ProductService : IProductService
@@ -22,13 +23,13 @@
             this.groupService = groupService;
         }
 
-        public async Task AddProductAsync(string name, string groupName)
+        public async Task AddProductAsync(string name)
         {
-            var group = this.groupService.FindByGroupName(groupName);
+            var group = this.groupService.FindByGroupName(GroupType.Fireplace.ToString());
 
             if (group == null)
             {
-                await this.groupService.CreateAsync(groupName);
+                throw new ArgumentNullException("There isn`t such group name");
             }
 
             var product = new Product
@@ -49,7 +50,7 @@
         {
             string productId = this.productRepository.All()
                                                   .Where(p => p.Name == name
-                                                  && p.Group.GroupName == groupName)
+                                                  && p.Group.GroupName.ToString() == groupName)
                                                   .Select(p => p.Id).FirstOrDefault();
 
             return productId;

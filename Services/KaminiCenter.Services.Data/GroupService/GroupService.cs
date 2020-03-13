@@ -7,6 +7,7 @@
     using AutoMapper;
     using KaminiCenter.Data.Common.Repositories;
     using KaminiCenter.Data.Models;
+    using KaminiCenter.Data.Models.Enums;
 
     public class GroupService : IGroupService
     {
@@ -23,7 +24,7 @@
             var group = new Product_Group
             {
                 Id = Guid.NewGuid().ToString(),
-                GroupName = name,
+                GroupName = Enum.Parse<GroupType>(name),
                 CreatedOn = DateTime.UtcNow,
                 ModifiedOn = DateTime.UtcNow,
             };
@@ -34,7 +35,7 @@
 
         public Product_Group FindByGroupName(string name)
         {
-            var group = this.groupRepository.All().FirstOrDefault(g => g.GroupName == name);
+            var group = this.groupRepository.All().FirstOrDefault(g => g.GroupName.ToString() == name);
 
             return group;
         }

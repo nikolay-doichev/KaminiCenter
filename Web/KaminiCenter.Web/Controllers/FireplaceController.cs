@@ -1,5 +1,6 @@
 ﻿namespace KaminiCenter.Web.Controllers
 {
+    using System;
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
@@ -39,7 +40,7 @@
         {
             await this.fireplaceService.AddFireplaceAsync(inputModel);
 
-            return this.Redirect("/Fireplace/All");
+            return this.Redirect($"/Fireplace/All?type={inputModel.TypeOfChamber.ToString()}");
         }
 
         public IActionResult All(string type)
@@ -47,13 +48,10 @@
             var viewModel = new AllFireplaceViewModel
             {
                 Fireplaces =
-                    this.fireplaceService.GetAllFireplaceAsync<IndexFireplaceViewModel>(type).Where(x => x.TypeOfChamber == type),
+                    this.fireplaceService.GetAllFireplaceAsync<IndexFireplaceViewModel>(type)
+                    .Where(x => x.TypeOfChamber == type),
             };
 
-            // foreach (var item in viewModel.Fireplaces)
-            // {
-            //    item.TypeOfChamber = this.enumParseService.GetEnumDescription(item.TypeOfChamber, typeof(TypeOfChamber));
-            // }
             return this.View(viewModel);
         }
 
@@ -61,7 +59,7 @@
         {
             var viewModel = this.fireplaceService.GetByName<DetailsFireplaceViewModel>(name);
 
-            viewModel.TypeOfChamber = this.enumParseService.GetEnumDescription(viewModel.TypeOfChamber, typeof(TypeOfChamber));
+            viewModel.TypeOfChamber = this.enumParseService.GetEnumDescription(viewModel.TypeOfChamber, typeof(Data.Models.Enums.TypeOfChamber));
 
             return this.View(viewModel);
         }

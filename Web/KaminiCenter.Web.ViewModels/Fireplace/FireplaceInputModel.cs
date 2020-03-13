@@ -7,6 +7,7 @@
 
     using AutoMapper;
     using KaminiCenter.Data.Models;
+    using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services.Mapping;
     using Microsoft.AspNetCore.Http;
 
@@ -19,7 +20,7 @@
 
         [Display(Name = "Тип на продукта")]
 
-        public string Group { get; set; }
+        public string Group { get; set; } = GroupType.Fireplace.ToString();
 
         [Display(Name = "Тип на камерата")]
 
@@ -51,9 +52,6 @@
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<FireplaceInputModel, Fireplace_chamber>()
-                .ForMember(
-                    destination => destination.Group,
-                    opts => opts.MapFrom(origin => new Product_Group { GroupName = origin.Group }))
                 .ForMember(
                     destination => destination.ImagePath,
                     opts => opts.Ignore());

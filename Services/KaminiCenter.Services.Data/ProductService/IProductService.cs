@@ -4,7 +4,7 @@
 
     public interface IProductService
     {
-        Task AddProductAsync(string name, string groupName);
+        Task AddProductAsync(string name);
 
         string GetIdByNameAndGroup(string name, string groupName);
     }

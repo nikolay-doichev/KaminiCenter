@@ -5,9 +5,10 @@
     using System.Text;
 
     using KaminiCenter.Data.Common.Models;
+    using KaminiCenter.Data.Models.Enums;
 
     public class Product_Group : BaseDeletableModel<string>
     {
-        public string GroupName { get; set; }
+        public GroupType GroupName { get; set; }
     }
 }

@@ -22,14 +22,16 @@
         private readonly IGroupService groupService;
         private readonly IProductService productService;
         private readonly ICloudinaryService cloudinaryService;
+        private readonly IEnumParseService enumParse;
 
         public FireplaceService(
-            IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository, IGroupService groupService, IProductService productService, ICloudinaryService cloudinaryService)
+            IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository, IGroupService groupService, IProductService productService, ICloudinaryService cloudinaryService, IEnumParseService enumParse)
         {
             this.fireplaceRepository = fireplaceRepository;
             this.groupService = groupService;
             this.productService = productService;
             this.cloudinaryService = cloudinaryService;
+            this.enumParse = enumParse;
         }
 
         public async Task AddFireplaceAsync(FireplaceInputModel model)
@@ -43,7 +45,7 @@
                 throw new ArgumentNullException("Cannot safe null or whitespace values!");
             }
 
-            await this.productService.AddProductAsync(model.Name, model.Group);
+            await this.productService.AddProductAsync(model.Name);
             var productId = this.productService.GetIdByNameAndGroup(model.Name, model.Group);
             var groupId = this.groupService.FindByGroupName(model.Group).Id;
 
@@ -51,8 +53,6 @@
                model.ImagePath,
                $"{model.Group}_{model.Name}_{model.Id}",
                GlobalConstants.CloudFolderForFireplacePhotos);
-
-            //inputModel.ImagePath = photoUrl;
 
             var fireplace = new Fireplace_chamber
             {

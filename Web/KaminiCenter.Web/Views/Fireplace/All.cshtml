@@ -2,8 +2,13 @@
 
 @{
     ViewData["Title"] = "All";
+    var typeOfChamber = @Model.Fireplaces.Select(x => x.TypeOfChamber).FirstOrDefault();
+    if (typeOfChamber == "Basic")typeOfChamber = "Базови горивни камери";
+    if (typeOfChamber == "VerticalОpening")typeOfChamber = "Камери с вертикално отваряне";
+    if (typeOfChamber == "WaterJacket")typeOfChamber = "Камери с водна риза";
+    if (typeOfChamber == "IronDoors")typeOfChamber = "Чугунени врати";
 }
-    <h1 class="display-4">@Model.Fireplaces.Select(x => x.TypeOfChamber).FirstOrDefault()</h1>
+    <h1 class="display-4">@typeOfChamber</h1>
 
 <a class="btn btn-primary m-4" asp-controller="Fireplace" asp-action="Add">Създай нов запис</a>
 <br />
