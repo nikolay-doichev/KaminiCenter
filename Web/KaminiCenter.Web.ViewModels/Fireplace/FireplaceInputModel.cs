@@ -13,6 +13,11 @@
 
     public class FireplaceInputModel : IMapFrom<Fireplace_chamber>, IHaveCustomMappings
     {
+        public FireplaceInputModel()
+        {
+            this.Group = GroupType.Fireplace.ToString();
+        }
+
         public string Id { get; set; }
 
         [Display(Name = "Име на продукта")]
@@ -20,7 +25,7 @@
 
         [Display(Name = "Тип на продукта")]
 
-        public string Group { get; set; } = GroupType.Fireplace.ToString();
+        public string Group { get; set; }
 
         [Display(Name = "Тип на камерата")]
 

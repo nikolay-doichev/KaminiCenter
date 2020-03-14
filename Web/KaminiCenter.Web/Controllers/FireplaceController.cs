@@ -39,8 +39,9 @@
         public async Task<IActionResult> Add(FireplaceInputModel inputModel)
         {
             await this.fireplaceService.AddFireplaceAsync(inputModel);
+            var typeOfChamber = Enum.Parse<TypeOfChamber>(inputModel.TypeOfChamber);
 
-            return this.Redirect($"/Fireplace/All?type={inputModel.TypeOfChamber.ToString()}");
+            return this.Redirect($"/Fireplace/All?type={typeOfChamber}");
         }
 
         public IActionResult All(string type)
@@ -59,7 +60,7 @@
         {
             var viewModel = this.fireplaceService.GetByName<DetailsFireplaceViewModel>(name);
 
-            viewModel.TypeOfChamber = this.enumParseService.GetEnumDescription(viewModel.TypeOfChamber, typeof(Data.Models.Enums.TypeOfChamber));
+            //viewModel.TypeOfChamber = this.enumParseService.GetEnumDescription(viewModel.TypeOfChamber, typeof(Data.Models.Enums.TypeOfChamber));
 
             return this.View(viewModel);
         }

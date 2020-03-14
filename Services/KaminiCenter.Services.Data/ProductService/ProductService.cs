@@ -48,9 +48,11 @@
 
         public string GetIdByNameAndGroup(string name, string groupName)
         {
+            var inputGroupName = Enum.Parse<GroupType>(groupName);
+
             string productId = this.productRepository.All()
                                                   .Where(p => p.Name == name
-                                                  && p.Group.GroupName.ToString() == groupName)
+                                                  && p.Group.GroupName == inputGroupName)
                                                   .Select(p => p.Id).FirstOrDefault();
 
             return productId;

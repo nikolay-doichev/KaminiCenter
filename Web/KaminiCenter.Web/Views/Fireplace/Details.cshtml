@@ -1,7 +1,13 @@
 ﻿@model KaminiCenter.Web.ViewModels.Fireplace.DetailsFireplaceViewModel
-
+@using KaminiCenter.Data.Models.Enums
 @{
     ViewData["Title"] = "All";
+
+    string typeOfChamber = null;
+    if (Model.TypeOfChamber == "Basic")typeOfChamber = "Базови горивни камери";
+    if (Model.TypeOfChamber == "VerticalОpening")typeOfChamber = "Камери с вертикално отваряне";
+    if (Model.TypeOfChamber == "WaterJacket")typeOfChamber = "Камери с водна риза";
+    if (Model.TypeOfChamber == "IronDoors")typeOfChamber = "Чугунени врати";
 }
 
 <!--/ Intro Single star /-->
@@ -21,7 +27,7 @@
                             <a href="/Home/Index">Начало</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="/Fireplace/All">Камери</a>
+                            <a href="/Fireplace/All?type=@Model.TypeOfChamber">Камери</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
                             @Model.Name
@@ -77,7 +83,7 @@
                                     </p>
                                     <p>
                                         <strong>Цена: </strong>
-                                        <span class="color-text-a"> @Model.Price</span>лв.
+                                        <span class="color-text-a"> @Model.Price лв.</span>
                                     </p>
                                 </div>
                             </div>

@@ -35,9 +35,10 @@
 
         public Product_Group FindByGroupName(string name)
         {
-            var group = this.groupRepository.All().FirstOrDefault(g => g.GroupName.ToString() == name);
+            var inputGroupName = Enum.Parse<GroupType>(name);
+            var groupName = this.groupRepository.All().First(x => x.GroupName == inputGroupName);
 
-            return group;
+            return groupName;
         }
 
         public Task FindById(string id)

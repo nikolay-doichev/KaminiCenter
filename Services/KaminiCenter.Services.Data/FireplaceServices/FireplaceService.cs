@@ -40,7 +40,8 @@
 
             if (model.Power == null ||
                 model.Size == null ||
-                model.Chimney == null)
+                model.Chimney == null ||
+                model.ImagePath == null)
             {
                 throw new ArgumentNullException("Cannot safe null or whitespace values!");
             }
@@ -77,8 +78,7 @@
         public IEnumerable<T> GetAllFireplaceAsync<T>(string type)
         {
             IQueryable<Fireplace_chamber> fireplaces = this.fireplaceRepository
-                .All()
-                .OrderBy(x => x.Product.Name);
+                .AllAsNoTracking();
 
             return fireplaces.To<T>().ToList();
         }
