@@ -4,10 +4,10 @@
     ViewData["Title"] = "All";
 
     string typeOfChamber = null;
-    if (Model.TypeOfChamber == "Basic")typeOfChamber = "Базови горивни камери";
-    if (Model.TypeOfChamber == "VerticalОpening")typeOfChamber = "Камери с вертикално отваряне";
-    if (Model.TypeOfChamber == "WaterJacket")typeOfChamber = "Камери с водна риза";
-    if (Model.TypeOfChamber == "IronDoors")typeOfChamber = "Чугунени врати";
+    if (Model.TypeOfChamber == "Basic") { typeOfChamber = "Базови горивни камери"; }
+    if (Model.TypeOfChamber == "VerticalОpening") { typeOfChamber = "Камери с вертикално отваряне"; }
+    if (Model.TypeOfChamber == "WaterJacket") { typeOfChamber = "Камери с водна риза"; }
+    if (Model.TypeOfChamber == "IronDoors") { typeOfChamber = "Чугунени врати"; }
 }
 
 <!--/ Intro Single star /-->
@@ -50,6 +50,7 @@
                         <div class="agent-avatar-box">
                             <img src="@Model.ImagePath" alt="@Model.Name" class="agent-avatar img-fluid">
                         </div>
+                        <a href="/Fireplace/Edit?name=@Model.Name" class="btn btn-info">Промени</a>
                     </div>
                     <div class="col-md-5 section-md-t3">
                         <div class="agent-info-box">

@@ -1,20 +1,18 @@
-﻿@using KaminiCenter.Data.Models.Enums;
-@model KaminiCenter.Web.ViewModels.Fireplace.FireplaceInputModel
+﻿@model KaminiCenter.Web.ViewModels.Fireplace.DetailsFireplaceViewModel
+@using KaminiCenter.Data.Models.Enums;
+
+
 
 @{
-    ViewData["Title"] = "Добавяне на камина";
+    ViewData["Title"] = "Промяна на Камина";
 }
 
-<h1 class="m-4">Добавяне на камина</h1>
+<h1>Промяна стойностите на камина</h1>
 
-<h4 class="m-4">Моля попълнете данните за вашата камина</h4>
 <hr />
-
 <div class="container-fluid">
-    <form asp-controller="Fireplace" asp-action="Add" method="post"
-          enctype="multipart/form-data">
-        <div asp-validation-summary="All" class="text-danger"></div>
-
+    <form asp-action="Edit" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
             <div class="col-md-4">
 
@@ -89,18 +87,14 @@
                 </div>
                 <!-- End of Description of Chamber-->
 
-            </div>            
-            <div class="form-group m-4">
-                <input type="submit" value="Създай" class="btn btn-primary" />
-
-                <a class="btn btn-info" href="/Fireplace/All?type=@TypeOfChamber.Basic">Покажи всички</a>
-                
             </div>
-            
+            <div class="form-group m-4">
+                <input type="submit" value="Запази промените" class="btn btn-success" />
+
+                <a class="btn btn-info" href="/Fireplace/All?type=@TypeOfChamber.Basic">Отмени</a>
+
+            </div>
+
         </div>
     </form>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

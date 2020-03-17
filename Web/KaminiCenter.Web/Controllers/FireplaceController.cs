@@ -60,7 +60,14 @@
         {
             var viewModel = this.fireplaceService.GetByName<DetailsFireplaceViewModel>(name);
 
-            //viewModel.TypeOfChamber = this.enumParseService.GetEnumDescription(viewModel.TypeOfChamber, typeof(Data.Models.Enums.TypeOfChamber));
+            // viewModel.TypeOfChamber = this.enumParseService.GetEnumDescription(viewModel.TypeOfChamber, typeof(Data.Models.Enums.TypeOfChamber));
+            return this.View(viewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(string name)
+        {
+            var viewModel = this.fireplaceService.GetByName<DetailsFireplaceViewModel>(name);
 
             return this.View(viewModel);
         }

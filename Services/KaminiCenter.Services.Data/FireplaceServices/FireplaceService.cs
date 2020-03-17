@@ -18,6 +18,10 @@
 
     public class FireplaceService : IFireplaceService
     {
+        private const string InvalidFireplaceIdErrorMessage = "Fireplace with Id: {0} does not exist.";
+        private const string InvalidFireplaceNameErrorMessage = "Fireplace with Name: {0} does not exist.";
+        private const string NullValueErrorMessage = "Cannot safe null or whitespace values!";
+
         private readonly IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository;
         private readonly IGroupService groupService;
         private readonly IProductService productService;
@@ -43,7 +47,7 @@
                 model.Chimney == null ||
                 model.ImagePath == null)
             {
-                throw new ArgumentNullException("Cannot safe null or whitespace values!");
+                throw new ArgumentNullException(InvalidFireplaceIdErrorMessage);
             }
 
             await this.productService.AddProductAsync(model.Name);
@@ -88,6 +92,12 @@
             var fireplace = this.fireplaceRepository
                 .All().Where(x => x.Product.Name == name)
                 .To<T>().FirstOrDefault();
+
+            if (fireplace == null)
+            {
+                throw new ArgumentNullException(
+                    string.Format(InvalidFireplaceNameErrorMessage, name));
+            }
 
             return fireplace;
         }
