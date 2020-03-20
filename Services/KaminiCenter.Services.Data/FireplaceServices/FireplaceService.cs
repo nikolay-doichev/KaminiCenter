@@ -38,7 +38,7 @@
             this.enumParse = enumParse;
         }
 
-        public async Task AddFireplaceAsync(FireplaceInputModel model)
+        public async Task<string> AddFireplaceAsync(FireplaceInputModel model)
         {
             var typeOfChamber = Enum.Parse<TypeOfChamber>(model.TypeOfChamber);
 
@@ -77,6 +77,7 @@
 
             await this.fireplaceRepository.AddAsync(fireplace);
             await this.fireplaceRepository.SaveChangesAsync();
+            return fireplace.Id;
         }
 
         public IEnumerable<T> GetAllFireplaceAsync<T>(string type)
@@ -85,6 +86,16 @@
                 .AllAsNoTracking();
 
             return fireplaces.To<T>().ToList();
+        }
+
+        public T GetById<T>(string id)
+        {
+            var fireplaceId = this.fireplaceRepository
+                .All()
+                .Where(f => f.Id == id)
+                .To<T>().FirstOrDefault();
+
+            return fireplaceId;
         }
 
         public T GetByName<T>(string name)

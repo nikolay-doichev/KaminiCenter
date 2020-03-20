@@ -1,5 +1,8 @@
 ﻿@using KaminiCenter.Common
 @using KaminiCenter.Data.Models.Enums;
+@using KaminiCenter.Services
+@inject IEnumParseService enumParseService;
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -137,12 +140,13 @@
                                aria-haspopup="true" aria-expanded="false">
                                 Камери
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">                                
-                                <a class="dropdown-item" href="/Fireplace/All?type=@TypeOfChamber.Basic">Базови горивни камери</a>
-                                <a class="dropdown-item" href="/Fireplace/All?type=@TypeOfChamber.VerticalОpening">С вертикално отваряне</a>
-                                <a class="dropdown-item" href="/Fireplace/All?type=@TypeOfChamber.WaterJacket">Камери с водна риза</a>
-                                <a class="dropdown-item" href="/Fireplace/All?type=@TypeOfChamber.IronStoves">Чугунени печки</a>
-                                <a class="dropdown-item" href="/Fireplace/All?type=@TypeOfChamber.IronDoors">Чугунени врати</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach (var type in (TypeOfChamber[])Enum.GetValues(typeof(TypeOfChamber)))
+                                {          
+                                    var typeName = this.enumParseService.GetEnumDescription(type.ToString(), typeof(TypeOfChamber));
+                                <a class="dropdown-item" asp-controller="Fireplace" asp-action="All" asp-route-type="@type">@typeName</a>
+                                }
+                                
                             </div>
                         </li>
                         <li class="nav-item dropdown">

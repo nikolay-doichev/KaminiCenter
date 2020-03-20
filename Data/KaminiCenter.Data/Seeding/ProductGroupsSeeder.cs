@@ -1,12 +1,13 @@
 ﻿namespace KaminiCenter.Data.Seeding
 {
-    using KaminiCenter.Data.Models;
-    using KaminiCenter.Data.Models.Enums;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+
+    using KaminiCenter.Data.Models;
+    using KaminiCenter.Data.Models.Enums;
 
     public class ProductGroupsSeeder : ISeeder
     {

@@ -10,7 +10,7 @@
     if (Model.TypeOfChamber == "IronDoors") { typeOfChamber = "Чугунени врати"; }
 }
 
-<!--/ Intro Single star /-->
+<!--/ Intro Fireplace Start /-->
 <section class="intro-single">
     <div class="container">
         <div class="row">
@@ -38,9 +38,8 @@
         </div>
     </div>
 </section>
-<!--/ Intro Single End /-->
-
-<!--/ Agent Single Star /-->
+<!--/ Intro Fireplace End /-->
+<!--/ Fireplace Info Start /-->
 <section class="agent-single">
     <div class="container">
         <div class="row">
@@ -63,9 +62,9 @@
                             </div>
                             <div class="agent-content mb-3">
                                 <p class="content-d color-text-a">
-                                    @Model.Description
+                                    @Html.Raw(@Model.SanitizedDescription)
                                 </p>
-                                <div class="info-agents color-a">                                    
+                                <div class="info-agents color-a">
                                     <p>
                                         <strong>Модел: </strong>
                                         <span class="color-text-a"> @Model.Name</span>
@@ -194,4 +193,4 @@
         </div>
     </div>
 </section>
-<!--/ Agent Single End /-->
+<!--/ Fireplace Info End /-->

@@ -21,6 +21,7 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -51,7 +52,10 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
             services.AddRazorPages();
 
             services.AddSingleton(this.configuration);
@@ -132,7 +136,6 @@
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("fireplaceDetails", "{controller=Fireplace}/{action=Details}/{name:minlength(3)}", new { control = "Fireplace", action = "Details" });
                         endpoints.MapControllerRoute("fireplaceEdit", "{controller=Fireplace}/{action=Edit}/{name:minlength(3)}", new { control = "Fireplace", action = "Edit" });
-                        endpoints.MapControllerRoute("fireplaceTypes", "{controller=Fireplace}/{action=All}/{type:minlength(3)}", new { control = "Fireplace", action = "All" });
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
                     });

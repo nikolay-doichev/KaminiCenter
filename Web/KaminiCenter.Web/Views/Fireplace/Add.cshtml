@@ -89,17 +89,27 @@
                 </div>
                 <!-- End of Description of Chamber-->
 
-            </div>            
+            </div>
             <div class="form-group m-4">
                 <input type="submit" value="Създай" class="btn btn-primary" />
 
-                <a class="btn btn-info" href="/Fireplace/All?type=@TypeOfChamber.Basic">Покажи всички</a>
-                
+                <a class="btn btn-info"asp-controller="Fireplace" asp-action="All" asp-route-type="@Model.TypeOfChamber">Покажи всички</a>
+
             </div>
-            
+
         </div>
     </form>
 </div>
+
+<script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image paste table link code media"
+        ]
+    });
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

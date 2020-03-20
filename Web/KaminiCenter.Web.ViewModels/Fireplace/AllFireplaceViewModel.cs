@@ -1,7 +1,7 @@
 ﻿namespace KaminiCenter.Web.ViewModels.Fireplace
 {
     using System.Collections.Generic;
-    using AutoMapper;
+
     using KaminiCenter.Data.Models;
     using KaminiCenter.Services.Mapping;
 

@@ -14,6 +14,7 @@
     using KaminiCenter.Services.Data.FireplaceServices;
     using KaminiCenter.Services.Mapping;
     using KaminiCenter.Web.ViewModels.Fireplace;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,7 @@
             this.enumParseService = enumParseService;
         }
 
+        [Authorize]
         public IActionResult Add()
         {
             var createFireplaceInputModel = new FireplaceInputModel();
@@ -36,12 +38,18 @@
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Add(FireplaceInputModel inputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(inputModel);
+            }
+
             await this.fireplaceService.AddFireplaceAsync(inputModel);
             var typeOfChamber = Enum.Parse<TypeOfChamber>(inputModel.TypeOfChamber);
 
-            return this.Redirect($"/Fireplace/All?type={typeOfChamber}");
+            return this.RedirectToAction("All", new { type = typeOfChamber });
         }
 
         public IActionResult All(string type)
@@ -65,6 +73,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Edit(string name)
         {
             var viewModel = this.fireplaceService.GetByName<DetailsFireplaceViewModel>(name);

@@ -1,6 +1,7 @@
 ﻿namespace KaminiCenter.Web.ViewModels.Fireplace
 {
     using AutoMapper;
+    using Ganss.XSS;
     using KaminiCenter.Data.Models;
     using KaminiCenter.Services.Mapping;
 
@@ -21,6 +22,8 @@
         public decimal Price { get; set; }
 
         public string Description { get; set; }
+
+        public string SanitizedDescription => new HtmlSanitizer().Sanitize(this.Description);
 
         public string ImagePath { get; set; }
 
