@@ -74,11 +74,56 @@
 
         [HttpGet]
         [Authorize]
-        public IActionResult Edit(string name)
+        [Route("Fireplace/Edit/{id}")]
+        public IActionResult Edit(string id)
         {
-            var viewModel = this.fireplaceService.GetByName<DetailsFireplaceViewModel>(name);
+            var viewModel = this.fireplaceService.GetById<EditFireplaceViewModel>(id);
 
             return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("Fireplace/Edit/{id}")]
+        public async Task<IActionResult> Edit(EditFireplaceViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var viewModel = await this.fireplaceService.EditAsync<EditFireplaceViewModel>(model);
+
+            return this.RedirectToAction("Details", new { name = model.Name });
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Fireplace/Delete/{id}")]
+        public IActionResult Delete(string id)
+        {
+            var viewModel = this.fireplaceService.GetById<DeleteFireplaceViewModel>(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("Fireplace/Delete/{id}")]
+        public async Task<IActionResult> Delete(DeleteFireplaceViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var typeOfChamber = this.fireplaceService.GetById<DeleteFireplaceViewModel>(model.Id).TypeOfChamber;
+
+            await this.fireplaceService.DeleteAsync<DeleteFireplaceViewModel>(model);
+
+            var type = Enum.Parse<TypeOfChamber>(typeOfChamber);
+
+            return this.RedirectToAction("All", new { type = typeOfChamber });
         }
     }
 }

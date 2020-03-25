@@ -1,5 +1,7 @@
 ﻿@using KaminiCenter.Data.Models.Enums;
 @model KaminiCenter.Web.ViewModels.Fireplace.FireplaceInputModel
+@using KaminiCenter.Services;
+@inject IEnumParseService enumParseService;
 
 @{
     ViewData["Title"] = "Добавяне на камина";
@@ -29,6 +31,12 @@
                 <div class="select form-group">
                     <label asp-for="TypeOfChamber" class="control-label"></label>
                     <select asp-for="TypeOfChamber" class="chosen-select-no-single form-control">
+                        @foreach (var type in (TypeOfChamber[])Enum.GetValues(typeof(TypeOfChamber)))
+                        {
+                            var typeName = this.enumParseService.GetEnumDescription(type.ToString(), typeof(TypeOfChamber));
+                            <option value="@type.ToString()">@typeName</option>
+                        }
+
                         <option value="1">Базови горивни камери</option>
                         <option value="2">Камери с вертикално отваряне</option>
                         <option value="3">Камери с водна риза</option>

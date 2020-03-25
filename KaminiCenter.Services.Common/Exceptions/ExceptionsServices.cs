@@ -6,6 +6,8 @@ namespace KaminiCenter.Services.Common.Exceptions
 {
     public static class ExceptionsServices
     {
-        public const string Null_Or_NotFound_Id_ErrorMessage = "There is no such {0} with the Id: {1}";
+        public const string Null_Fireplace_Id_ErrorMessage = "There isn't such fireplace with the given Id: {1}";
+
+        public const string Null_Product_Id_ErrorMessage = "There isn't such product with the given Id: {1}";
     }
 }

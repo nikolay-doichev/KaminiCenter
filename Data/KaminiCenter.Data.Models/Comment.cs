@@ -1,11 +1,12 @@
-﻿using KaminiCenter.Data.Common.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-
-namespace KaminiCenter.Data.Models
+﻿namespace KaminiCenter.Data.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Text;
+
+    using KaminiCenter.Data.Common.Models;
+
     public class Comment : BaseDeletableModel<string>
     {
         [Required]

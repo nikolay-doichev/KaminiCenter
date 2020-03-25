@@ -9,6 +9,10 @@
     {
         Task<string> AddFireplaceAsync(FireplaceInputModel fireplaceInputModel);
 
+        Task<string> EditAsync<T>(EditFireplaceViewModel editModel);
+
+        Task DeleteAsync<T>(DeleteFireplaceViewModel deleteModel);
+
         IEnumerable<T> GetAllFireplaceAsync<T>(string type);
 
         T GetByName<T>(string name);

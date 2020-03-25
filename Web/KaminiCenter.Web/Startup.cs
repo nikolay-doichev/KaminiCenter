@@ -135,7 +135,6 @@
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("fireplaceDetails", "{controller=Fireplace}/{action=Details}/{name:minlength(3)}", new { control = "Fireplace", action = "Details" });
-                        endpoints.MapControllerRoute("fireplaceEdit", "{controller=Fireplace}/{action=Edit}/{name:minlength(3)}", new { control = "Fireplace", action = "Edit" });
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
                     });

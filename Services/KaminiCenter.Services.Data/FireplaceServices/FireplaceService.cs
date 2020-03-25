@@ -11,9 +11,11 @@
     using KaminiCenter.Data.Models;
     using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services;
+    using KaminiCenter.Services.Common.Exceptions;
     using KaminiCenter.Services.Data.GroupService;
     using KaminiCenter.Services.Data.ProductService;
     using KaminiCenter.Services.Mapping;
+    using KaminiCenter.Services.Models.Product;
     using KaminiCenter.Web.ViewModels.Fireplace;
 
     public class FireplaceService : IFireplaceService
@@ -80,6 +82,62 @@
             return fireplace.Id;
         }
 
+        public async Task DeleteAsync<T>(DeleteFireplaceViewModel deleteModel)
+        {
+            var fireplace = this.fireplaceRepository.All().Where(f => f.Id == deleteModel.Id).FirstOrDefault();
+
+            if (fireplace == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionsServices.Null_Fireplace_Id_ErrorMessage, deleteModel.Id));
+            }
+
+            fireplace.IsDeleted = true;
+            fireplace.DeletedOn = DateTime.UtcNow;
+
+            await this.productService.DeleteAsync(fireplace.ProductId);
+            this.fireplaceRepository.Update(fireplace);
+
+            await this.fireplaceRepository.SaveChangesAsync();
+        }
+
+        public async Task<string> EditAsync<T>(EditFireplaceViewModel editModel)
+        {
+            var fireplace = this.fireplaceRepository.All().Where(f => f.Id == editModel.Id).FirstOrDefault();
+
+            if (fireplace == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionsServices.Null_Fireplace_Id_ErrorMessage, editModel.Id));
+            }
+
+            var photoUrl = string.Empty;
+            if (editModel.ImagePath == null)
+            {
+                photoUrl = fireplace.ImagePath;
+            }
+            else
+            {
+                photoUrl = await this.cloudinaryService.UploadPhotoAsync(
+                editModel.ImagePath,
+                $"{editModel.Name}_{editModel.Id}",
+                GlobalConstants.CloudFolderForFireplacePhotos);
+            }
+
+            var product = this.productService.GetById(fireplace.ProductId);
+            var typeOfChamber = Enum.Parse<TypeOfChamber>(editModel.TypeOfChamber);
+
+            product.Name = editModel.Name;
+            fireplace.Power = editModel.Power;
+            fireplace.Chimney = editModel.Chimney;
+            fireplace.Price = editModel.Price;
+            fireplace.Size = editModel.Size;
+            fireplace.TypeOfChamber = typeOfChamber;
+            fireplace.Description = editModel.Description;
+            fireplace.ImagePath = photoUrl; // To upload the new image and ad the new
+
+            await this.fireplaceRepository.SaveChangesAsync();
+            return fireplace.Id;
+        }
+
         public IEnumerable<T> GetAllFireplaceAsync<T>(string type)
         {
             IQueryable<Fireplace_chamber> fireplaces = this.fireplaceRepository
@@ -94,6 +152,12 @@
                 .All()
                 .Where(f => f.Id == id)
                 .To<T>().FirstOrDefault();
+
+            if (fireplaceId == null)
+            {
+                throw new ArgumentNullException(
+                    string.Format(string.Format(ExceptionsServices.Null_Fireplace_Id_ErrorMessage, id)));
+            }
 
             return fireplaceId;
         }

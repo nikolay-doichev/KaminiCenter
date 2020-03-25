@@ -10,7 +10,9 @@
     using KaminiCenter.Data.Common.Repositories;
     using KaminiCenter.Data.Models;
     using KaminiCenter.Data.Models.Enums;
+    using KaminiCenter.Services.Common.Exceptions;
     using KaminiCenter.Services.Data.GroupService;
+    using KaminiCenter.Services.Mapping;
 
     public class ProductService : IProductService
     {
@@ -44,6 +46,32 @@
 
             await this.productRepository.AddAsync(product);
             await this.productRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(string id)
+        {
+            var product = this.GetById(id);
+
+            product.DeletedOn = DateTime.UtcNow;
+            product.IsDeleted = true;
+            this.productRepository.Update(product);
+
+            await this.productRepository.SaveChangesAsync();
+        }
+
+        public Product GetById(string id)
+        {
+            var product = this.productRepository
+                .All()
+                .Where(f => f.Id == id).FirstOrDefault();
+
+            if (product == null)
+            {
+                throw new ArgumentNullException(
+                    string.Format(string.Format(ExceptionsServices.Null_Product_Id_ErrorMessage, id)));
+            }
+
+            return product;
         }
 
         public string GetIdByNameAndGroup(string name, string groupName)

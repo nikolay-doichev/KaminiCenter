@@ -3,6 +3,7 @@ namespace KaminiCenter.Data.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using KaminiCenter.Data.Common.Models;
 
@@ -27,6 +28,15 @@ namespace KaminiCenter.Data.Models
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
+        // Additional Info
+        [Required]
+        [MaxLength(20)]
+        public string FirstName { get; set; }
+
+        [Required]
+        [MaxLength(20)]
+        public string LastName { get; set; }
 
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
