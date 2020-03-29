@@ -20,6 +20,10 @@ namespace KaminiCenter.Services.Common
             public const int ChimneyMinLength = 3;
             public const int ChimneyMaxLength = 5;
 
+            //Size Length const
+            public const int SizeMinLength = 3;
+            public const int SizeMaxLength = 20;
+
             //Description max lenght
             public const int DescriptionMaxLength = 1000;
 
@@ -28,6 +32,8 @@ namespace KaminiCenter.Services.Common
             public const string ChimneyError = "Описанието на Димоотвода трябва да е между {0} и {1} символи";
             public const string PowerError = "Мощността трябва да е между {0} и {1} символи";
             public const string NameError = "Името на продукта трябва да е между {0} и {1} символи";
+            public const string SizeError = "Описанието на размерите на продукта трябва да е между {0} и {1} символи";
+            public const string TypeOfChamberError = "Изберете тип на камерата!";
         }
     }
 }

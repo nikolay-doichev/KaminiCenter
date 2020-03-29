@@ -4,8 +4,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
-    using AutoMapper;
     using KaminiCenter.Common;
     using KaminiCenter.Data.Common.Repositories;
     using KaminiCenter.Data.Models;
@@ -15,7 +13,6 @@
     using KaminiCenter.Services.Data.GroupService;
     using KaminiCenter.Services.Data.ProductService;
     using KaminiCenter.Services.Mapping;
-    using KaminiCenter.Services.Models.Product;
     using KaminiCenter.Web.ViewModels.Fireplace;
 
     public class FireplaceService : IFireplaceService

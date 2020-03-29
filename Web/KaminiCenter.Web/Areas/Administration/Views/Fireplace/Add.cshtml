@@ -1,5 +1,5 @@
 ﻿@using KaminiCenter.Data.Models.Enums;
-@model KaminiCenter.Web.ViewModels.Fireplace.FireplaceInputModel;
+@model KaminiCenter.Web.ViewModels.Fireplace.FireplaceInputModel;            
 @using KaminiCenter.Services;
 @inject IEnumParseService enumParseService;
 
@@ -101,7 +101,7 @@
             <div class="form-group m-4">
                 <input type="submit" value="Създай" class="btn btn-primary" />
 
-                <a class="btn btn-info"asp-controller="Fireplace" asp-action="All" asp-route-type="@Model.TypeOfChamber">Покажи всички</a>
+                <a class="btn btn-info" asp-controller="Fireplace" asp-action="All" asp-route-type="@Model.TypeOfChamber">Покажи всички</a>
 
             </div>
 
