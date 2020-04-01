@@ -20,6 +20,7 @@
             this.enumParseService = enumParseService;
         }
 
+        [HttpGet]
         public IActionResult Add()
         {
             var createFireplaceInputModel = new FireplaceInputModel();
@@ -37,8 +38,9 @@
 
             await this.fireplaceService.AddFireplaceAsync(inputModel);
             var typeOfChamber = Enum.Parse<TypeOfChamber>(inputModel.TypeOfChamber);
+            this.TempData["SuccessfullyCreateFireplace"] = $"Успешно създадена камина {inputModel.Name}";
 
-            return this.RedirectToAction("All", new { type = typeOfChamber, area = "Administration" });
+            return this.RedirectToAction("All", "Fireplace", new { type = typeOfChamber, area = string.Empty });
         }
 
         [HttpGet]
@@ -61,7 +63,34 @@
 
             var viewModel = await this.fireplaceService.EditAsync<EditFireplaceViewModel>(model);
 
-            return this.RedirectToAction("Details", new { name = model.Name });
+            return this.RedirectToAction("Details", new { name = model.Name, area = string.Empty });
+        }
+
+        [HttpGet]
+        [Route("Fireplace/Delete/{id}")]
+        public IActionResult Delete(string id)
+        {
+            var viewModel = this.fireplaceService.GetById<DeleteFireplaceViewModel>(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Route("Fireplace/Delete/{id}")]
+        public async Task<IActionResult> Delete(DeleteFireplaceViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var typeOfChamber = this.fireplaceService.GetById<DeleteFireplaceViewModel>(model.Id).TypeOfChamber;
+
+            await this.fireplaceService.DeleteAsync<DeleteFireplaceViewModel>(model);
+
+            var type = Enum.Parse<TypeOfChamber>(typeOfChamber);
+
+            return this.RedirectToAction("All", new { type = typeOfChamber, area = string.Empty });
         }
     }
 }

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using KaminiCenter.Common;
     using KaminiCenter.Data.Common.Repositories;
     using KaminiCenter.Data.Models;
@@ -19,7 +20,6 @@
     {
         private const string InvalidFireplaceIdErrorMessage = "Fireplace with Id: {0} does not exist.";
         private const string InvalidFireplaceNameErrorMessage = "Fireplace with Name: {0} does not exist.";
-        private const string NullValueErrorMessage = "Cannot safe null or whitespace values!";
 
         private readonly IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository;
         private readonly IGroupService groupService;
@@ -46,7 +46,7 @@
                 model.Chimney == null ||
                 model.ImagePath == null)
             {
-                throw new ArgumentNullException(InvalidFireplaceIdErrorMessage);
+                throw new ArgumentNullException(string.Format(InvalidFireplaceIdErrorMessage, model.Id));
             }
 
             await this.productService.AddProductAsync(model.Name);

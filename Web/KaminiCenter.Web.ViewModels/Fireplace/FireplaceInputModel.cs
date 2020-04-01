@@ -11,6 +11,7 @@
     using KaminiCenter.Services.Mapping;
     using Microsoft.AspNetCore.Http;
 
+    using static KaminiCenter.Services.Common.ModelValidation;
     using static KaminiCenter.Services.Common.ModelValidation.Fireplace;
 
     public class FireplaceInputModel : IMapFrom<Fireplace_chamber>, IHaveCustomMappings
@@ -23,30 +24,30 @@
         public string Id { get; set; }
 
         [Display(Name = "Име на продукта")]
-        [Required(ErrorMessage = NameError)]
-        [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = NameError)]
         public string Name { get; set; }
 
         [Display(Name = "Тип на продукта")]
         public string Group { get; set; }
 
         [Display(Name = "Тип на камерата")]
-        [Required(ErrorMessage = TypeOfChamberError)]
+        [Required(ErrorMessage = EmptyFieldLengthError)]
         public string TypeOfChamber { get; set; }
 
         [Display(Name = "Мощност")]
-        [Required(ErrorMessage = PowerError)]
-        [StringLength(PowerMaxLength, MinimumLength = PowerMinLength)]
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [StringLength(PowerMaxLength, MinimumLength = PowerMinLength, ErrorMessage = PowerError)]
         public string Power { get; set; }
 
         [Display(Name = "Размери")]
-        [Required(ErrorMessage = SizeError)]
-        [StringLength(SizeMaxLength, MinimumLength = SizeMinLength)]
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [StringLength(SizeMaxLength, MinimumLength = SizeMinLength, ErrorMessage = SizeError)]
         public string Size { get; set; }
 
         [Display(Name = "Димоотвод")]
-        [Required(ErrorMessage = ChimneyError)]
-        [StringLength(ChimneyMaxLength, MinimumLength = ChimneyMinLength)]
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [StringLength(ChimneyMaxLength, MinimumLength = ChimneyMinLength, ErrorMessage = ChimneyError)]
         public string Chimney { get; set; }
 
         [Display(Name = "Цена на продукта")]
@@ -54,8 +55,8 @@
         public decimal Price { get; set; }
 
         [Display(Name = "Описание на продукта")]
-        [Required(ErrorMessage = DescriptionError)]
-        [StringLength(DescriptionMaxLength)]
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [StringLength(DescriptionMaxLength, ErrorMessage = DescriptionError)]
         public string Description { get; set; }
 
         [Display(Name = "Снимка на продукта")]

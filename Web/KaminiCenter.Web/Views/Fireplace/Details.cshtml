@@ -1,14 +1,13 @@
 ﻿@model KaminiCenter.Web.ViewModels.Fireplace.DetailsFireplaceViewModel
 @using KaminiCenter.Data.Models.Enums
-@{ 
-    string typeOfChamber = null;
-    if (Model.TypeOfChamber == "Basic") { typeOfChamber = "Базови горивни камери"; }
-    if (Model.TypeOfChamber == "VerticalОpening") { typeOfChamber = "Камери с вертикално отваряне"; }
-    if (Model.TypeOfChamber == "WaterJacket") { typeOfChamber = "Камери с водна риза"; }
-    if (Model.TypeOfChamber == "IronStoves") { typeOfChamber = "Чугунени печки"; }
-    if (Model.TypeOfChamber == "IronDoors") { typeOfChamber = "Чугунени врати"; }
+@using KaminiCenter.Common
+@using KaminiCenter.Services;
+@inject IEnumParseService enumParseService;
+@{
+    var typeName = this.enumParseService.GetEnumDescription(Model.TypeOfChamber, typeof(TypeOfChamber));
+    
 
-     ViewData["Title"] = @typeOfChamber;
+    ViewData["Title"] = @typeName;
 }
 
 <!--/ Intro Fireplace Start /-->
@@ -18,7 +17,7 @@
             <div class="col-md-12 col-lg-8">
                 <div class="title-single-box">
                     <h1 class="title-single">@Model.Name</h1>
-                    <span class="color-text-a">@typeOfChamber</span>
+                    <span class="color-text-a">@typeName</span>
                 </div>
             </div>
             <div class="col-md-12 col-lg-4">
@@ -50,8 +49,11 @@
                         <div class="agent-avatar-box">
                             <img src="@Model.ImagePath" alt="@Model.Name" class="agent-avatar img-fluid">
                         </div>
-                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Промени</a>
-                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрии</a>
+                        @if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Промени</a>
+                            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрии</a>
+                        }
                     </div>
                     <div class="col-md-5 section-md-t3">
                         <div class="agent-info-box">

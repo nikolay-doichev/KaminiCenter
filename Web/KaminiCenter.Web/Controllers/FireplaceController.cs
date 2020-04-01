@@ -31,6 +31,7 @@
                     .Where(x => x.TypeOfChamber == type),
             };
 
+            this.TempData["returnToall"] = type;
             return this.View(viewModel);
         }
 
@@ -38,37 +39,9 @@
         {
             var viewModel = this.fireplaceService.GetByName<DetailsFireplaceViewModel>(name);
 
-            // viewModel.TypeOfChamber = this.enumParseService.GetEnumDescription(viewModel.TypeOfChamber, typeof(Data.Models.Enums.TypeOfChamber));
-            return this.View(viewModel);
-        }
-
-        [HttpGet]
-        [Authorize]
-        [Route("Fireplace/Delete/{id}")]
-        public IActionResult Delete(string id)
-        {
-            var viewModel = this.fireplaceService.GetById<DeleteFireplaceViewModel>(id);
+            //viewModel.TypeOfChamber = this.enumParseService.GetEnumDescription(viewModel.TypeOfChamber, typeof(Data.Models.Enums.TypeOfChamber));
 
             return this.View(viewModel);
-        }
-
-        [HttpPost]
-        [Authorize]
-        [Route("Fireplace/Delete/{id}")]
-        public async Task<IActionResult> Delete(DeleteFireplaceViewModel model)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(model);
-            }
-
-            var typeOfChamber = this.fireplaceService.GetById<DeleteFireplaceViewModel>(model.Id).TypeOfChamber;
-
-            await this.fireplaceService.DeleteAsync<DeleteFireplaceViewModel>(model);
-
-            var type = Enum.Parse<TypeOfChamber>(typeOfChamber);
-
-            return this.RedirectToAction("All", new { type = typeOfChamber });
         }
     }
 }

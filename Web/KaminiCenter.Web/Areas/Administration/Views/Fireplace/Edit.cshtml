@@ -1,22 +1,17 @@
-﻿@using KaminiCenter.Data.Models.Enums;
-@model KaminiCenter.Web.ViewModels.Fireplace.FireplaceInputModel;
+﻿@model KaminiCenter.Web.ViewModels.Fireplace.EditFireplaceViewModel
+@using KaminiCenter.Data.Models.Enums;
 @using KaminiCenter.Services;
 @inject IEnumParseService enumParseService;
-
 @{
-    ViewData["Title"] = "Добавяне на камина";
+    ViewData["Title"] = "Промяна на Камина";
 }
 
-<h1 class="m-4">Добавяне на камина</h1>
+<h1>Промяна стойностите на камина</h1>
 
-<h4 class="m-4">Моля попълнете данните за вашата камина</h4>
 <hr />
-
 <div class="container-fluid">
-    <form asp-controller="Fireplace" asp-action="Add" method="post"
-          enctype="multipart/form-data">
-        <div asp-validation-summary="All" class="text-danger"></div>
-
+    <form asp-area="Administration" asp-controller="Fireplace" asp-action="Edit" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="row">
             <div class="col-md-4">
 
@@ -36,12 +31,6 @@
                             var typeName = this.enumParseService.GetEnumDescription(type.ToString(), typeof(TypeOfChamber));
                             <option value="@type.ToString()">@typeName</option>
                         }
-
-                        <option value="1">Базови горивни камери</option>
-                        <option value="2">Камери с вертикално отваряне</option>
-                        <option value="3">Камери с водна риза</option>
-                        <option value="4">Чугунени печки</option>
-                        <option value="5">Чугунени врати</option>
                     </select>
                     <span asp-validation-for="TypeOfChamber" class="text-danger"></span>
                 </div>
@@ -99,9 +88,9 @@
 
             </div>
             <div class="form-group m-4">
-                <input type="submit" value="Създай" class="btn btn-primary" />
+                <input type="submit" value="Запази промените" class="btn btn-success" />
 
-                <a class="btn btn-info"asp-controller="Fireplace" asp-action="All" asp-route-type="@Model.TypeOfChamber">Покажи всички</a>
+                <a class="btn btn-info" asp-area="" asp-controller="Fireplace" asp-action="All" asp-route-type="@Model.TypeOfChamber">Отмени</a>
 
             </div>
 
@@ -118,7 +107,3 @@
         ]
     });
 </script>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

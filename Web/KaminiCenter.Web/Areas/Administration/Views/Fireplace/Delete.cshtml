@@ -57,7 +57,7 @@
     </div>
     
     <form asp-action="Delete">
-        <input type="submit" value="Изтрии" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Изтрии" class="btn btn-danger" />
+        <a class="btn btn-info" asp-area="" asp-controller="Fireplace" asp-action="All" asp-route-type="@Model.TypeOfChamber">Отмени</a>
     </form>
 </div>

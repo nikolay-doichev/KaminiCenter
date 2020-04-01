@@ -1,85 +1,93 @@
 ﻿@model KaminiCenter.Web.ViewModels.Fireplace.AllFireplaceViewModel
-
+@using KaminiCenter.Data.Models.Enums;
+@using KaminiCenter.Services;
+@using KaminiCenter.Common;
+@inject IEnumParseService enumParseService;
 @{
     ViewData["Title"] = "All";
     var typeOfChamber = @Model.Fireplaces.Select(x => x.TypeOfChamber).FirstOrDefault();
-    if (typeOfChamber == "Basic")typeOfChamber = "Базови горивни камери";
-    if (typeOfChamber == "VerticalОpening")typeOfChamber = "Камери с вертикално отваряне";
-    if (typeOfChamber == "WaterJacket")typeOfChamber = "Камери с водна риза";
-    if (typeOfChamber == "IronStoves")typeOfChamber = "Чугунени печки";
-    if (typeOfChamber == "IronDoors")typeOfChamber = "Чугунени врати";
+    var typeName = this.enumParseService.GetEnumDescription(typeOfChamber.ToString(), typeof(TypeOfChamber));
 }
-    <h1 class="display-4">@typeOfChamber</h1>
+<h1 class="display-4">@typeName</h1>
 
-<a class="btn btn-primary m-4" asp-area="Administration" asp-controller="Fireplace" asp-action="Add">Създай нов запис</a>
+@if (this.TempData["SuccessfullyCreateFireplace"] != null)
+{
+    <div class="alert alert-success">
+        @this.TempData["SuccessfullyCreateFireplace"]
+    </div>
+}
+
+@if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
+    <a class="btn btn-primary m-4" asp-area="Administration" asp-controller="Fireplace" asp-action="Add">Създай нов запис</a>
+}
 <br />
-    <div class="row">
-        
-        @foreach (var fireplace in Model.Fireplaces)
-        {
-               <div class="col-md-4">
-                   <div class="card-box-d">
-                       <div class="card-img-d">
-                           <img src="@fireplace.ImagePath" alt="@fireplace.Name" class="img-d img-fluid">
-                       </div>
-                       <div class="card-overlay card-overlay-hover">
-                           <div class="card-header-d">
-                               <div class="card-title-d align-self-center">
-                                   <h3 class="title-d">
-                                       <a href="/Fireplace/Details?name=@fireplace.Name" class="link-two">
-                                           @fireplace.Name
-                                       </a>
-                                   </h3>
-                               </div>
-                           </div>
-                           <div class="card-body-d">
-                               <p class="content-d color-text-a">
-                                   @fireplace.ShortDesciption
-                               </p>
-                               <div class="info-agents color-a">
-                                   <p>
-                                       <strong>Мощност: </strong> @fireplace.Power
-                                   </p>
-                                   <p>
-                                       <strong>Размери: </strong> @fireplace.Size
-                                   </p>
-                               </div>
-                           </div>
-                           <div class="card-footer-d">
-                               <div class="socials-footer d-flex justify-content-center">
-                                   <ul class="list-inline">
-                                       <li class="list-inline-item">
-                                           <a href="#" class="link-one">
-                                               <i class="fa fa-facebook" aria-hidden="true"></i>
-                                           </a>
-                                       </li>
-                                       <li class="list-inline-item">
-                                           <a href="#" class="link-one">
-                                               <i class="fa fa-twitter" aria-hidden="true"></i>
-                                           </a>
-                                       </li>
-                                       <li class="list-inline-item">
-                                           <a href="#" class="link-one">
-                                               <i class="fa fa-instagram" aria-hidden="true"></i>
-                                           </a>
-                                       </li>
-                                       <li class="list-inline-item">
-                                           <a href="#" class="link-one">
-                                               <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                                           </a>
-                                       </li>
-                                       <li class="list-inline-item">
-                                           <a href="#" class="link-one">
-                                               <i class="fa fa-dribbble" aria-hidden="true"></i>
-                                           </a>
-                                       </li>
-                                   </ul>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
-               </div>
-        }
+<div class="row">
+
+    @foreach (var fireplace in Model.Fireplaces)
+    {
+        <div class="col-md-4">
+            <div class="card-box-d">
+                <div class="card-img-d">
+                    <img src="@fireplace.ImagePath" alt="@fireplace.Name" class="img-d img-fluid">
+                </div>
+                <div class="card-overlay card-overlay-hover">
+                    <div class="card-header-d">
+                        <div class="card-title-d align-self-center">
+                            <h3 class="title-d">
+                                <a asp-action="Details" asp-route-name="@fireplace.Name" class="link-two">
+                                    @fireplace.Name
+                                </a>
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="card-body-d">
+                        <p class="content-d color-text-a">
+                            @fireplace.ShortDesciption
+                        </p>
+                        <div class="info-agents color-a">
+                            <p>
+                                <strong>Мощност: </strong> @fireplace.Power
+                            </p>
+                            <p>
+                                <strong>Размери: </strong> @fireplace.Size
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-footer-d">
+                        <div class="socials-footer d-flex justify-content-center">
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a href="#" class="link-one">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#" class="link-one">
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#" class="link-one">
+                                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#" class="link-one">
+                                        <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#" class="link-one">
+                                        <i class="fa fa-dribbble" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
 
-    

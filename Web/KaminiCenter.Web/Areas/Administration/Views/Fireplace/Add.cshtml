@@ -1,5 +1,5 @@
 ﻿@using KaminiCenter.Data.Models.Enums;
-@model KaminiCenter.Web.ViewModels.Fireplace.FireplaceInputModel;            
+@model KaminiCenter.Web.ViewModels.Fireplace.FireplaceInputModel            
 @using KaminiCenter.Services;
 @inject IEnumParseService enumParseService;
 
@@ -13,7 +13,7 @@
 <hr />
 
 <div class="container-fluid">
-    <form asp-controller="Fireplace" asp-action="Add" method="post"
+    <form asp-area="Administration" asp-controller="Fireplace" asp-action="Add" method="post"
           enctype="multipart/form-data">
         <div asp-validation-summary="All" class="text-danger"></div>
 
@@ -36,12 +36,6 @@
                             var typeName = this.enumParseService.GetEnumDescription(type.ToString(), typeof(TypeOfChamber));
                             <option value="@type.ToString()">@typeName</option>
                         }
-
-                        <option value="1">Базови горивни камери</option>
-                        <option value="2">Камери с вертикално отваряне</option>
-                        <option value="3">Камери с водна риза</option>
-                        <option value="4">Чугунени печки</option>
-                        <option value="5">Чугунени врати</option>
                     </select>
                     <span asp-validation-for="TypeOfChamber" class="text-danger"></span>
                 </div>
@@ -101,7 +95,7 @@
             <div class="form-group m-4">
                 <input type="submit" value="Създай" class="btn btn-primary" />
 
-                <a class="btn btn-info" asp-controller="Fireplace" asp-action="All" asp-route-type="@Model.TypeOfChamber">Покажи всички</a>
+                <a class="btn btn-info" href="/Fireplace/All?type=@this.TempData["returnToall"]">Покажи всички</a>
 
             </div>
 

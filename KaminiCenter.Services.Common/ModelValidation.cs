@@ -6,6 +6,7 @@ namespace KaminiCenter.Services.Common
 {
     public static class ModelValidation
     {
+        public const string EmptyFieldLengthError = "Моля попълнете данните";
         public static class Fireplace
         {
             //Name Length const
@@ -28,11 +29,11 @@ namespace KaminiCenter.Services.Common
             public const int DescriptionMaxLength = 1000;
 
             //Error Message
-            public const string DescriptionError = "Описанието на продукта трябва да е между {0} и {1} символи";
-            public const string ChimneyError = "Описанието на Димоотвода трябва да е между {0} и {1} символи";
-            public const string PowerError = "Мощността трябва да е между {0} и {1} символи";
-            public const string NameError = "Името на продукта трябва да е между {0} и {1} символи";
-            public const string SizeError = "Описанието на размерите на продукта трябва да е между {0} и {1} символи";
+            public const string DescriptionError = "Описанието на продукта трябва да е съставен максимум от {1} символа";
+            public const string ChimneyError = "Описанието на Димоотвода трябва да е между {2} и {1} символи";
+            public const string PowerError = "Мощността трябва да е между {2} и {1} символи";
+            public const string NameError = "Името на продукта трябва да е между {2} и {1} символи";
+            public const string SizeError = "Описанието на размерите на продукта трябва да е между {2} и {1} символи";
             public const string TypeOfChamberError = "Изберете тип на камерата!";
         }
     }

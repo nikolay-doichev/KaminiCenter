@@ -1,7 +1,8 @@
 ﻿namespace KaminiCenter.Services.Data.ProductService
 {
-    using KaminiCenter.Data.Models;
     using System.Threading.Tasks;
+
+    using KaminiCenter.Data.Models;
 
     public interface IProductService
     {
