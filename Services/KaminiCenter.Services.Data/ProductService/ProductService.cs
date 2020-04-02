@@ -25,7 +25,7 @@
             this.groupService = groupService;
         }
 
-        public async Task AddProductAsync(string name)
+        public async Task AddProductAsync(string name, string userId)
         {
             var group = this.groupService.FindByGroupName(GroupType.Fireplace.ToString());
 
@@ -42,6 +42,7 @@
                 GroupId = group.Id,
                 CreatedOn = DateTime.UtcNow,
                 ModifiedOn = DateTime.UtcNow,
+                UserId = userId,
             };
 
             await this.productRepository.AddAsync(product);

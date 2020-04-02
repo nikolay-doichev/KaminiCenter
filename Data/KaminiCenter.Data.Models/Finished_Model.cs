@@ -10,11 +10,24 @@
 
     public class Finished_Model : BaseDeletableModel<string>
     {
+        public Finished_Model()
+        {
+            this.Comments = new HashSet<Comment>();
+        }
+
         [Required]
         public string Name { get; set; }
 
         public TypeProject TypeProject { get; set; }
 
         public string ImagePath { get; set; }
+
+        [Required]
+
+        public string ProductId { get; set; }
+
+        public Product Product { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }

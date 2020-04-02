@@ -19,6 +19,7 @@
     public class FireplaceService : IFireplaceService
     {
         private const string InvalidFireplaceIdErrorMessage = "Fireplace with Id: {0} does not exist.";
+        private const string NullFireplacePropertiesErrorMessage = "There is a property with null or whitespec value";
         private const string InvalidFireplaceNameErrorMessage = "Fireplace with Name: {0} does not exist.";
 
         private readonly IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository;
@@ -37,19 +38,20 @@
             this.enumParse = enumParse;
         }
 
-        public async Task<string> AddFireplaceAsync(FireplaceInputModel model)
+        public async Task<string> AddFireplaceAsync(FireplaceInputModel model, string userId)
         {
             var typeOfChamber = Enum.Parse<TypeOfChamber>(model.TypeOfChamber);
 
-            if (model.Power == null ||
+            if (model.Name == null ||
+                model.Power == null ||
                 model.Size == null ||
                 model.Chimney == null ||
                 model.ImagePath == null)
             {
-                throw new ArgumentNullException(string.Format(InvalidFireplaceIdErrorMessage, model.Id));
+                throw new ArgumentNullException(NullFireplacePropertiesErrorMessage);
             }
 
-            await this.productService.AddProductAsync(model.Name);
+            await this.productService.AddProductAsync(model.Name, userId);
             var productId = this.productService.GetIdByNameAndGroup(model.Name, model.Group);
             var groupId = this.groupService.FindByGroupName(model.Group).Id;
 
@@ -135,10 +137,20 @@
             return fireplace.Id;
         }
 
-        public IEnumerable<T> GetAllFireplaceAsync<T>(string type)
+        public IEnumerable<T> GetAllFireplaceAsync<T>(string type, int? take = null, int skip = 0)
         {
+            var typeOfChamber = Enum.Parse<TypeOfChamber>(type);
+
             IQueryable<Fireplace_chamber> fireplaces = this.fireplaceRepository
-                .AllAsNoTracking();
+                .All()
+                .OrderBy(x => x.Product.Name)
+                .Where(x => x.TypeOfChamber == typeOfChamber)
+                .Skip(skip);
+
+            if (take.HasValue)
+            {
+                fireplaces = fireplaces.Take(take.Value);
+            }
 
             return fireplaces.To<T>().ToList();
         }
@@ -172,6 +184,13 @@
             }
 
             return fireplace;
+        }
+
+        public int GetCountByTypeOfChamber(string type)
+        {
+            var typeOfChamber = Enum.Parse<TypeOfChamber>(type);
+
+            return this.fireplaceRepository.All().Count(x => x.TypeOfChamber == typeOfChamber);
         }
     }
 }

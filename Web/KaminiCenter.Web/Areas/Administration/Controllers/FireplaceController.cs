@@ -3,21 +3,28 @@
     using System;
     using System.Threading.Tasks;
 
+    using KaminiCenter.Data.Models;
     using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services;
     using KaminiCenter.Services.Data.FireplaceServices;
     using KaminiCenter.Web.ViewModels.Fireplace;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class FireplaceController : AdministrationController
     {
         private readonly IFireplaceService fireplaceService;
         private readonly IEnumParseService enumParseService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public FireplaceController(IFireplaceService fireplaceService, IEnumParseService enumParseService)
+        public FireplaceController(
+            IFireplaceService fireplaceService,
+            IEnumParseService enumParseService,
+            UserManager<ApplicationUser> userManager)
         {
             this.fireplaceService = fireplaceService;
             this.enumParseService = enumParseService;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -36,7 +43,9 @@
                 return this.View(inputModel);
             }
 
-            await this.fireplaceService.AddFireplaceAsync(inputModel);
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            await this.fireplaceService.AddFireplaceAsync(inputModel, user.Id.ToString());
             var typeOfChamber = Enum.Parse<TypeOfChamber>(inputModel.TypeOfChamber);
             this.TempData["SuccessfullyCreateFireplace"] = $"Успешно създадена камина {inputModel.Name}";
 

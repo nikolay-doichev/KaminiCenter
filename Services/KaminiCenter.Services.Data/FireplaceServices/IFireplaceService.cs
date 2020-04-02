@@ -7,16 +7,18 @@
 
     public interface IFireplaceService
     {
-        Task<string> AddFireplaceAsync(FireplaceInputModel fireplaceInputModel);
+        Task<string> AddFireplaceAsync(FireplaceInputModel fireplaceInputModel, string userId);
 
         Task<string> EditAsync<T>(EditFireplaceViewModel editModel);
 
         Task DeleteAsync<T>(DeleteFireplaceViewModel deleteModel);
 
-        IEnumerable<T> GetAllFireplaceAsync<T>(string type);
+        IEnumerable<T> GetAllFireplaceAsync<T>(string type, int? take = null, int skip = 0);
 
         T GetByName<T>(string name);
 
         T GetById<T>(string id);
+
+        int GetCountByTypeOfChamber(string type);
     }
 }

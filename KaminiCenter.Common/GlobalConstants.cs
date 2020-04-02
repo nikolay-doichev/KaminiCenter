@@ -9,5 +9,7 @@
         public const string UserRoleName = "User";
 
         public const string CloudFolderForFireplacePhotos = "fireplace_photos";
+
+        public const int ItemsPerPage = 3;
     }
 }

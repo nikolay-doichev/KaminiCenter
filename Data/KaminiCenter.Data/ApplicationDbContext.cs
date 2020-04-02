@@ -32,8 +32,6 @@
 
         public DbSet<Fireplace_chamber> Fireplace_Chambers { get; set; }
 
-        public DbSet<KaminiCenterUser> KaminiCenterUsers { get; set; }
-
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Product_Group> Product_Groups { get; set; }

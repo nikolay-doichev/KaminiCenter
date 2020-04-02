@@ -8,11 +8,11 @@
     var typeOfChamber = @Model.Fireplaces.Select(x => x.TypeOfChamber).FirstOrDefault();
     var typeName = this.enumParseService.GetEnumDescription(typeOfChamber.ToString(), typeof(TypeOfChamber));
 }
-<h1 class="display-4">@typeName</h1>
+<h1 class="display-4 m-4">@typeName</h1>
 
 @if (this.TempData["SuccessfullyCreateFireplace"] != null)
 {
-    <div class="alert alert-success">
+    <div class="alert alert-success alert-dismissible fade show">
         @this.TempData["SuccessfullyCreateFireplace"]
     </div>
 }
@@ -21,7 +21,7 @@
 {
     <a class="btn btn-primary m-4" asp-area="Administration" asp-controller="Fireplace" asp-action="Add">Създай нов запис</a>
 }
-<br />
+<hr />
 <div class="row">
 
     @foreach (var fireplace in Model.Fireplaces)
@@ -54,6 +54,9 @@
                             </p>
                         </div>
                     </div>
+
+
+                    <!--Footer Start-->
                     <div class="card-footer-d">
                         <div class="socials-footer d-flex justify-content-center">
                             <ul class="list-inline">
@@ -85,9 +88,75 @@
                             </ul>
                         </div>
                     </div>
+                    <!--Footer End-->
                 </div>
             </div>
         </div>
     }
 </div>
 
+<!--Paging Start-->
+<div class="row">
+    <div class="col-sm-12">
+        <nav class="pagination-a">
+            <ul class="pagination justify-content-end">
+                @if (this.Model.CurrentPage == 1)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">
+                            <span class="ion-ios-arrow-back"></span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link"
+                           asp-area=""
+                           asp-controller="Fireplace"
+                           asp-action="All"
+                           asp-route-type="@typeOfChamber"
+                           asp-route-page="@(this.Model.CurrentPage - 1)">
+                            <span class="ion-ios-arrow-back"></span>
+                        </a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= this.Model.PagesCount ; i++)
+                {
+                    var active = i == this.Model.CurrentPage ? "active" : string.Empty;
+                    <li class="page-item @active">
+                        <a class="page-link"
+                           asp-area=""
+                           asp-controller="Fireplace"
+                           asp-action="All"
+                           asp-route-type="@typeOfChamber"
+                           asp-route-page="@i">@i</a>
+                    </li>
+                }
+                @if (this.Model.CurrentPage == this.Model.PagesCount)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">
+                            <span class="ion-ios-arrow-forward"></span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item next">
+                        <a class="page-link"
+                           asp-area=""
+                           asp-controller="Fireplace"
+                           asp-action="All"
+                           asp-route-type="@typeOfChamber"
+                           asp-route-page="@(this.Model.CurrentPage + 1)">
+                            <span class="ion-ios-arrow-forward"></span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+<!--Paging End-->
