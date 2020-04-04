@@ -5,7 +5,7 @@
 @inject IEnumParseService enumParseService;
 @{
     var typeName = this.enumParseService.GetEnumDescription(Model.TypeOfChamber, typeof(TypeOfChamber));
-    
+
 
     ViewData["Title"] = @typeName;
 }
@@ -45,6 +45,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="row">
+                    <!--Image -->
                     <div class="col-md-6">
                         <div class="agent-avatar-box">
                             <img src="@Model.ImagePath" alt="@Model.Name" class="agent-avatar img-fluid">
@@ -55,6 +56,8 @@
                             <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрии</a>
                         }
                     </div>
+                    <!--Image -->
+                    <!--Details-->
                     <div class="col-md-5 section-md-t3">
                         <div class="agent-info-box">
                             <div class="agent-title">
@@ -91,103 +94,110 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="socials-footer">
-                                <ul class="list-inline">
-                                    <li class="list-inline-item">
-                                        <a href="#" class="link-one">
-                                            <i class="fa fa-facebook" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="link-one">
-                                            <i class="fa fa-twitter" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="link-one">
-                                            <i class="fa fa-instagram" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="link-one">
-                                            <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#" class="link-one">
-                                            <i class="fa fa-dribbble" aria-hidden="true"></i>
-                                        </a>
-                                    </li>
-                                </ul>
+                        </div>
+                    </div>
+                    <!--Comment Form-->
+                    <div class="col-md-6">
+                        <div class="row">
+                            <form class="form-a contactForm" asp-area="" asp-controller="Comment" asp-action="CreateComment" role="form">
+                                <div id="sendmessage">Вашето съобщение е изпратено!</div>
+                                <div id="errormessage"></div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <input type="hidden" name="ProductId" value="@this.Model.Id" />
+                                        <input type="hidden" name="ProductName" value="@this.Model.Name" />
+                                        <div class="form-group">
+                                            <input type="text" name="FullName" class="form-control form-control-lg form-control-a" placeholder="Име и фамилия">
+                                            <div class="validation"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <input name="email" type="email" class="form-control form-control-lg form-control-a" placeholder="Вашият Email адрес">
+                                            <div class="validation"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <div class="form-group">
+                                            <textarea name="Content" class="form-control" cols="45" rows="8"placeholder="Оставете коментар"></textarea>
+                                            <div class="validation"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-a">Оставете коментар</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                    <!--Comment Form End-->
+                    <div class="col-md-12 section-t8">
+                        <div class="title-box-d">
+                            <h3 class="title-d">My Properties (6)</h3>
+                        </div>
+                    </div>
+                    <div class="row property-grid grid">
+                        <div class="col-sm-12">
+                            <div class="grid-option">
+                                <form>
+                                    <select class="custom-select">
+                                        <option selected>All</option>
+                                        <option value="1">New to Old</option>
+                                        <option value="2">For Rent</option>
+                                        <option value="3">For Sale</option>
+                                    </select>
+                                </form>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12 section-t8">
-                <div class="title-box-d">
-                    <h3 class="title-d">My Properties (6)</h3>
-                </div>
-            </div>
-            <div class="row property-grid grid">
-                <div class="col-sm-12">
-                    <div class="grid-option">
-                        <form>
-                            <select class="custom-select">
-                                <option selected>All</option>
-                                <option value="1">New to Old</option>
-                                <option value="2">For Rent</option>
-                                <option value="3">For Sale</option>
-                            </select>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card-box-a card-shadow">
-                        <div class="img-box-a">
-                            <img src="img/property-1.jpg" alt="" class="img-a img-fluid">
-                        </div>
-                        <div class="card-overlay">
-                            <div class="card-overlay-a-content">
-                                <div class="card-header-a">
-                                    <h2 class="card-title-a">
-                                        <a href="#">
-                                            204 Mount
-                                            <br /> Olive Road Two
-                                        </a>
-                                    </h2>
+                        <div class="col-md-4">
+                            <div class="card-box-a card-shadow">
+                                <div class="img-box-a">
+                                    <img src="img/property-1.jpg" alt="" class="img-a img-fluid">
                                 </div>
-                                <div class="card-body-a">
-                                    <div class="price-box d-flex">
-                                        <span class="price-a">rent | $ 12.000</span>
+                                <div class="card-overlay">
+                                    <div class="card-overlay-a-content">
+                                        <div class="card-header-a">
+                                            <h2 class="card-title-a">
+                                                <a href="#">
+                                                    204 Mount
+                                                    <br /> Olive Road Two
+                                                </a>
+                                            </h2>
+                                        </div>
+                                        <div class="card-body-a">
+                                            <div class="price-box d-flex">
+                                                <span class="price-a">rent | $ 12.000</span>
+                                            </div>
+                                            <a href="#" class="link-a">
+                                                Click here to view
+                                                <span class="ion-ios-arrow-forward"></span>
+                                            </a>
+                                        </div>
+                                        <div class="card-footer-a">
+                                            <ul class="card-info d-flex justify-content-around">
+                                                <li>
+                                                    <h4 class="card-info-title">Area</h4>
+                                                    <span>
+                                                        340m
+                                                        <sup>2</sup>
+                                                    </span>
+                                                </li>
+                                                <li>
+                                                    <h4 class="card-info-title">Beds</h4>
+                                                    <span>2</span>
+                                                </li>
+                                                <li>
+                                                    <h4 class="card-info-title">Baths</h4>
+                                                    <span>4</span>
+                                                </li>
+                                                <li>
+                                                    <h4 class="card-info-title">Garages</h4>
+                                                    <span>1</span>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <a href="#" class="link-a">
-                                        Click here to view
-                                        <span class="ion-ios-arrow-forward"></span>
-                                    </a>
-                                </div>
-                                <div class="card-footer-a">
-                                    <ul class="card-info d-flex justify-content-around">
-                                        <li>
-                                            <h4 class="card-info-title">Area</h4>
-                                            <span>
-                                                340m
-                                                <sup>2</sup>
-                                            </span>
-                                        </li>
-                                        <li>
-                                            <h4 class="card-info-title">Beds</h4>
-                                            <span>2</span>
-                                        </li>
-                                        <li>
-                                            <h4 class="card-info-title">Baths</h4>
-                                            <span>4</span>
-                                        </li>
-                                        <li>
-                                            <h4 class="card-info-title">Garages</h4>
-                                            <span>1</span>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>

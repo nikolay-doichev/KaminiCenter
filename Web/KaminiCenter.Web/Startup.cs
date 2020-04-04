@@ -12,6 +12,7 @@
     using KaminiCenter.Data.Seeding;
     using KaminiCenter.Services;
     using KaminiCenter.Services.Data;
+    using KaminiCenter.Services.Data.CommentServices;
     using KaminiCenter.Services.Data.FireplaceServices;
     using KaminiCenter.Services.Data.GroupService;
     using KaminiCenter.Services.Data.ProductService;
@@ -86,7 +87,8 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(
+               serviceProvider => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
             services.AddTransient<ISettingsService, SettingsService>();
 
             // Add AutoMapper
@@ -98,6 +100,7 @@
             services.AddTransient<IFireplaceService, FireplaceService>();
             services.AddTransient<IEnumParseService, EnumParseService>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<ICommentService, CommentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

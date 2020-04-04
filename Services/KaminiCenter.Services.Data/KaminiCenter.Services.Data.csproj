@@ -26,6 +26,7 @@
     <ProjectReference Include="..\..\KaminiCenter.Services.Models\KaminiCenter.Services.Models.csproj" />
     <ProjectReference Include="..\..\Web\KaminiCenter.Web.ViewModels\KaminiCenter.Web.ViewModels.csproj" />
     <ProjectReference Include="..\KaminiCenter.Services.Mapping\KaminiCenter.Services.Mapping.csproj" />
+    <ProjectReference Include="..\KaminiCenter.Services.Messaging\KaminiCenter.Services.Messaging.csproj" />
     <ProjectReference Include="..\KaminiCenter.Services\KaminiCenter.Services.csproj" />
   </ItemGroup>
 

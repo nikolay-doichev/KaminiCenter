@@ -11,8 +11,8 @@
     using KaminiCenter.Services.Mapping;
     using Microsoft.AspNetCore.Http;
 
-    using static KaminiCenter.Services.Common.ModelValidation;
-    using static KaminiCenter.Services.Common.ModelValidation.Fireplace;
+    using static KaminiCenter.Web.ViewModels.ModelValidation;
+    using static KaminiCenter.Web.ViewModels.ModelValidation.Fireplace;
 
     public class FireplaceInputModel : IMapFrom<Fireplace_chamber>, IHaveCustomMappings
     {
