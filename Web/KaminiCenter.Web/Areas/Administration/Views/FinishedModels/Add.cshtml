@@ -1,0 +1,84 @@
+﻿@using KaminiCenter.Data.Models.Enums;
+@model KaminiCenter.Web.ViewModels.FinishedModels.AddFinishedModelInputModel            
+@using KaminiCenter.Services;
+@inject IEnumParseService enumParseService;
+
+@{
+    ViewData["Title"] = "Добавяне на Модел";
+}
+
+<h1 class="m-4">Добавяне на камина</h1>
+
+<h4 class="m-4">Моля попълнете данните за Модела</h4>
+<hr />
+
+<div class="container-fluid">
+    <form asp-area="Administration" asp-controller="FinishedModels" asp-action="Add" method="post"
+          enctype="multipart/form-data">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6">
+
+                <!-- Name of Chamber -->
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <!-- End of Name of Chamber -->
+                <!-- Type of Project -->
+                <div class="select form-group">
+                    <label asp-for="TypeProject" class="control-label"></label>
+                    <select asp-for="TypeProject" class="chosen-select-no-single form-control">
+                        @foreach (var type in (TypeProject[])Enum.GetValues(typeof(TypeProject)))
+                        {
+                            var typeName = this.enumParseService.GetEnumDescription(type.ToString(), typeof(TypeProject));
+                            <option value="@type.ToString()">@typeName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="TypeProject" class="text-danger"></span>
+                </div>
+                <div class="margin-top-25"></div>
+                <!-- End Of Type Project-->
+                <!-- Image Upload-->
+                <div class="form-group">
+                    <label asp-for="ImagePath"></label>
+                    <input asp-for="ImagePath" class="form-control" />
+                    <span asp-validation-for="ImagePath" class="text-danger"></span>
+                </div>
+                <!--End Image Upload-->
+            </div>
+            <div class="col-md-6">
+                <!-- Description of Chamber-->
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" rows="12" cols="50" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <!-- End of Description of Chamber-->
+
+            </div>
+            <div class="form-group m-4">
+                <input type="submit" value="Създай" class="btn btn-primary" />
+
+                <a class="btn btn-info" href="/FinishedModels/All/@this.TempData["returnToallModelsType"]">Покажи всички</a>
+
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image paste table link code media"
+        ]
+    });
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

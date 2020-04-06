@@ -10,17 +10,21 @@
 
     public class Finished_Model : BaseDeletableModel<string>
     {
-        [Required]
-        public string Name { get; set; }
-
         public TypeProject TypeProject { get; set; }
 
         public string ImagePath { get; set; }
+
+        public string Description { get; set; }
 
         [Required]
 
         public string ProductId { get; set; }
 
         public Product Product { get; set; }
+
+        [Required]
+        public string GroupId { get; set; }
+
+        public Product_Group Group { get; set; }
     }
 }

@@ -161,8 +161,11 @@
                                 Модели
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="property-single.html">Ъглов модел</a>
-                                <a class="dropdown-item" href="blog-single.html">Модел на права стена</a>
+                                @foreach (var type in (TypeProject[])Enum.GetValues(typeof(TypeProject)))
+                                {
+                                    var typeName = this.enumParseService.GetEnumDescription(type.ToString(), typeof(TypeProject));
+                                    <a class="dropdown-item" asp-controller="FinishedModels" asp-action="All" asp-route-type="@type">@typeName</a>
+                                }
                             </div>
                         </li>
                         <li class="nav-item dropdown">

@@ -11,6 +11,7 @@
     using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services;
     using KaminiCenter.Services.Common.Exceptions;
+    using KaminiCenter.Services.Common.Exceptions;
     using KaminiCenter.Services.Data.GroupService;
     using KaminiCenter.Services.Data.ProductService;
     using KaminiCenter.Services.Mapping;
@@ -19,7 +20,6 @@
     public class FireplaceService : IFireplaceService
     {
         private const string InvalidFireplaceIdErrorMessage = "Fireplace with Id: {0} does not exist.";
-        private const string NullFireplacePropertiesErrorMessage = "There is a property with null or whitespec value";
         private const string InvalidFireplaceNameErrorMessage = "Fireplace with Name: {0} does not exist.";
 
         private readonly IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository;
@@ -48,7 +48,7 @@
                 model.Chimney == null ||
                 model.ImagePath == null)
             {
-                throw new ArgumentNullException(NullFireplacePropertiesErrorMessage);
+                throw new ArgumentNullException(ExceptionsServices.Null_PropertiesErrorMessage);
             }
 
             await this.productService.AddProductAsync(model.Name, userId);

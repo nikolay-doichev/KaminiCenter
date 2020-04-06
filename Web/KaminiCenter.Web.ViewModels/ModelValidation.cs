@@ -51,5 +51,16 @@
             public const string ContentError = "Съдържанието на коментара може да е от максимум {1} символа";
             public const string NameError = "Името трябва да е между {2} и {1} символи";
         }
+
+        public static class Finished_Model
+        {
+            // Name Length const
+            public const int NameMinLength = 2;
+            public const int NameMaxLength = 80;
+
+            // Error Message
+            public const string NameError = "Името на продукта трябва да е между {2} и {1} символи";
+            public const string TypeOfChamberError = "Изберете тип на камерата!";
+        }
     }
 }

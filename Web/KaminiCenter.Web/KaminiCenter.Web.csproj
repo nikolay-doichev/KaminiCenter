@@ -53,6 +53,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\FinishedModel\All.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Views\Fireplace\All.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -227,6 +230,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\FinishedModel - Copy\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
