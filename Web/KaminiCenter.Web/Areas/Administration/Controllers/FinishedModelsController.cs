@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using KaminiCenter.Data.Models;
     using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services.Data.FinishedModelService;
@@ -47,7 +48,57 @@
             var typeOfProject = Enum.Parse<TypeProject>(inputModel.TypeProject);
             this.TempData["SuccessfullyCreateFinishedModel"] = $"Успешно създаден модел с име: {inputModel.Name}";
 
-            return this.RedirectToAction("All", "FinishedModel", new { type = typeOfProject, area = string.Empty });
+            return this.RedirectToAction("All", "FinishedModels", new { type = typeOfProject, area = string.Empty });
+        }
+
+        [HttpGet]
+        [Route("FinishedModels/Edit/{id}")]
+        public IActionResult Edit(string id)
+        {
+            var viewModel = this.finishedModelService.GetById<EditFinishedModelViewModel>(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Route("FinishedModels/Edit/{id}")]
+        public async Task<IActionResult> Edit(EditFinishedModelViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var viewModel = await this.finishedModelService.EditAsync<EditFinishedModelViewModel>(model);
+
+            return this.RedirectToAction("Details", "FinishedModels", new { name = model.Name, area = string.Empty });
+        }
+
+        [HttpGet]
+        [Route("FinishedModels/Delete/{id}")]
+        public IActionResult Delete(string id)
+        {
+            var viewModel = this.finishedModelService.GetById<DeleteFinishedViewModel>(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Route("FinishedModels/Delete/{id}")]
+        public async Task<IActionResult> Delete(DeleteFinishedViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var typeOfProject = this.finishedModelService.GetById<DeleteFinishedViewModel>(model.Id).TypeProject;
+
+            await this.finishedModelService.DeleteAsync<DeleteFinishedViewModel>(model);
+
+            var type = Enum.Parse<TypeProject>(typeOfProject);
+
+            return this.RedirectToAction("All", "FinishedModels", new { type = typeOfProject, area = string.Empty });
         }
     }
 }

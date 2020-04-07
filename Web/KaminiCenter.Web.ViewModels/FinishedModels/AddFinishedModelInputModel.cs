@@ -10,6 +10,7 @@
     using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services.Mapping;
     using Microsoft.AspNetCore.Http;
+
     using static KaminiCenter.Web.ViewModels.ModelValidation;
     using static KaminiCenter.Web.ViewModels.ModelValidation.Finished_Model;
 
@@ -39,10 +40,6 @@
 
         [Display(Name = "Описание на продукта")]
         public string Description { get; set; }
-
-        [Required]
-
-        public string ProductId { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

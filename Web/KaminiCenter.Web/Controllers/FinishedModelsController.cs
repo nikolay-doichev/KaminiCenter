@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using KaminiCenter.Common;
     using KaminiCenter.Services.Data.FinishedModelService;
     using KaminiCenter.Web.ViewModels.FinishedModels;
@@ -18,7 +19,7 @@
             this.finishedModel = finishedModel;
         }
 
-        [Route("FinishedModel/All/{type}/{page?}")]
+        [Route("FinishedModels/All/{type}/{page?}")]
         public IActionResult All(string type, int page = 1)
         {
             int count = this.finishedModel.GetCountByTypeOfProject(type);
@@ -40,6 +41,13 @@
             }
 
             this.TempData["returnToallModelsType"] = type;
+            return this.View(viewModel);
+        }
+
+        public IActionResult Details(string name)
+        {
+            var viewModel = this.finishedModel.GetByName<DetailsFinishedModelsViewModel>(name);
+
             return this.View(viewModel);
         }
     }

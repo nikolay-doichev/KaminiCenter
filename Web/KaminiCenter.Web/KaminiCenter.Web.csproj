@@ -53,7 +53,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\FinishedModel\All.cshtml">
+    <Content Update="Views\FinishedModels\All.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="Views\Fireplace\All.cshtml">
@@ -230,7 +230,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\FinishedModel - Copy\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\js\" />
   </ItemGroup>

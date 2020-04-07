@@ -11,7 +11,6 @@
     using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services;
     using KaminiCenter.Services.Common.Exceptions;
-    using KaminiCenter.Services.Common.Exceptions;
     using KaminiCenter.Services.Data.GroupService;
     using KaminiCenter.Services.Data.ProductService;
     using KaminiCenter.Services.Mapping;
@@ -51,7 +50,7 @@
                 throw new ArgumentNullException(ExceptionsServices.Null_PropertiesErrorMessage);
             }
 
-            await this.productService.AddProductAsync(model.Name, userId);
+            await this.productService.AddProductAsync(model.Name, model.Group, userId);
             var productId = this.productService.GetIdByNameAndGroup(model.Name, model.Group);
             var groupId = this.groupService.FindByGroupName(model.Group).Id;
 

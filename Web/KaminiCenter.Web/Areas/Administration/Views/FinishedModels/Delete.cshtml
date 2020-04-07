@@ -1,10 +1,10 @@
-﻿@model KaminiCenter.Web.ViewModels.Fireplace.DeleteFireplaceViewModel
+﻿@model KaminiCenter.Web.ViewModels.FinishedModels.DeleteFinishedViewModel
 
 @{
-    ViewData["Title"] = "Изтриване на камина";
+    ViewData["Title"] = "Изтриване на модели";
 }
 
-<h3>Сигурни ли сте, че искате да изтриете камината?</h3>
+<h3>Сигурни ли сте, че искате да изтриете модела?</h3>
 <div>
     
     <hr />
@@ -32,23 +32,7 @@
                             <p>
                                 <strong>Модел: </strong>
                                 <span class="color-text-a"> @Model.Name</span>
-                            </p>
-                            <p>
-                                <strong>Мощност: </strong>
-                                <span class="color-text-a"> @Model.Power</span>
-                            </p>
-                            <p>
-                                <strong>Размери: </strong>
-                                <span class="color-text-a"> @Model.Size</span>
-                            </p>
-                            <p>
-                                <strong>Димоотвод: </strong>
-                                <span class="color-text-a"> @Model.Chimney</span>
-                            </p>
-                            <p>
-                                <strong>Цена: </strong>
-                                <span class="color-text-a"> @Model.Price лв.</span>
-                            </p>
+                            </p>                            
                         </div>
                     </div>                   
                 </div>
@@ -56,9 +40,9 @@
         </div>
     </div>
     <hr />
-    
+
     <form asp-action="Delete">
         <input type="submit" value="Изтрии" class="btn btn-danger" />
-        <a class="btn btn-info" asp-area="" asp-controller="Fireplace" asp-action="All" asp-route-type="@Model.TypeOfChamber">Отмени</a>
+        <a class="btn btn-info" asp-area="" asp-controller="FinishedModels" asp-action="All" asp-route-type="@Model.TypeProject">Отмени</a>
     </form>
 </div>

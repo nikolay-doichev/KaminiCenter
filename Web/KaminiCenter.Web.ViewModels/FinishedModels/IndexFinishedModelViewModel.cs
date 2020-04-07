@@ -16,7 +16,7 @@
 
         public string ImagePath { get; set; }
 
-        public string TypeOfProject { get; set; }
+        public string TypeProject { get; set; }
 
         public string Description { get; set; }
 

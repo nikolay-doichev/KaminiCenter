@@ -25,9 +25,9 @@
             this.groupService = groupService;
         }
 
-        public async Task AddProductAsync(string name, string userId)
+        public async Task AddProductAsync(string name, string groupType, string userId)
         {
-            var group = this.groupService.FindByGroupName(GroupType.Fireplace.ToString());
+            var group = this.groupService.FindByGroupName(groupType);
 
             if (group == null)
             {

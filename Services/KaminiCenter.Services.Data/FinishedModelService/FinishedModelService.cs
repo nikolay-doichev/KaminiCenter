@@ -19,7 +19,7 @@
     public class FinishedModelService : IFinishedModelService
     {
         private const string NullFinishedModelPropertiesErrorMessage = "There is a property with null or whitespec value";
-        private const string InvalidFireplaceNameErrorMessage = "Fireplace with Name: {0} does not exist.";
+        private const string InvalidFinishedModelNameErrorMessage = "FinishedModel with Name: {0} does not exist.";
 
         private readonly IDeletableEntityRepository<Finished_Model> finishedModelRepository;
         private readonly IProductService productService;
@@ -48,7 +48,7 @@
                 throw new ArgumentNullException(NullFinishedModelPropertiesErrorMessage);
             }
 
-            await this.productService.AddProductAsync(model.Name, userId);
+            await this.productService.AddProductAsync(model.Name, model.Group, userId);
             var productId = this.productService.GetIdByNameAndGroup(model.Name, model.Group);
             var groupId = this.groupService.FindByGroupName(model.Group).Id;
 
@@ -75,14 +75,56 @@
             return finishedModel.Id;
         }
 
-        public Task DeleteAsync<T>(DeleteFinishedViewModel deleteModel)
+        public async Task DeleteAsync<T>(DeleteFinishedViewModel deleteModel)
         {
-            throw new NotImplementedException();
+            var finishedModel = this.finishedModelRepository.All().Where(f => f.Id == deleteModel.Id).FirstOrDefault();
+
+            if (finishedModel == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionsServices.Null_Fireplace_Id_ErrorMessage, deleteModel.Id));
+            }
+
+            finishedModel.IsDeleted = true;
+            finishedModel.DeletedOn = DateTime.UtcNow;
+
+            await this.productService.DeleteAsync(finishedModel.ProductId);
+            this.finishedModelRepository.Update(finishedModel);
+
+            await this.finishedModelRepository.SaveChangesAsync();
         }
 
-        public Task<string> EditAsync<T>(EditFinishedModelViewModel editModel)
+        public async Task<string> EditAsync<T>(EditFinishedModelViewModel editModel)
         {
-            throw new NotImplementedException();
+            var finishedModel = this.finishedModelRepository.All().Where(f => f.Id == editModel.Id).FirstOrDefault();
+
+            if (finishedModel == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionsServices.Null_FinishedModel_Id_ErrorMessage, editModel.Id));
+            }
+
+            var photoUrl = string.Empty;
+            if (editModel.ImagePath == null)
+            {
+                photoUrl = finishedModel.ImagePath;
+            }
+            else
+            {
+                photoUrl = await this.cloudinaryService.UploadPhotoAsync(
+                editModel.ImagePath,
+                $"{editModel.Name}_{editModel.Id}",
+                GlobalConstants.CloudFolderForFireplacePhotos);
+            }
+
+            var product = this.productService.GetById(finishedModel.ProductId);
+            var typeOfProject = Enum.Parse<TypeProject>(editModel.TypeProject);
+
+            product.Name = editModel.Name;
+            finishedModel.TypeProject = typeOfProject;
+            finishedModel.Description = editModel.Description;
+            finishedModel.ImagePath = photoUrl; // To upload the new image and ad the new
+
+            await this.finishedModelRepository.SaveChangesAsync();
+            return finishedModel.Id;
         }
 
         public IEnumerable<T> GetAllFinishedModelsAsync<T>(string type, int? take = null, int skip = 0)
@@ -128,7 +170,7 @@
             if (finishedModel == null)
             {
                 throw new ArgumentNullException(
-                    string.Format(InvalidFireplaceNameErrorMessage, name));
+                    string.Format(InvalidFinishedModelNameErrorMessage, name));
             }
 
             return finishedModel;
@@ -136,7 +178,9 @@
 
         public int GetCountByTypeOfProject(string type)
         {
-            throw new NotImplementedException();
+            var typeOfProjectr = Enum.Parse<TypeProject>(type);
+
+            return this.finishedModelRepository.All().Count(x => x.TypeProject == typeOfProjectr);
         }
     }
 }
