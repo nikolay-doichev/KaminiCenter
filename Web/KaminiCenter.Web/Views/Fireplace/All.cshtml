@@ -16,7 +16,7 @@
         typeName = this.enumParseService.GetEnumDescription(typeOfChamber.ToString(), typeof(TypeOfChamber));
     }
 }
-<h1 class="display-4 m-4">@typeName</h1>
+<h1 class="display-4 m-4 mb-4">@typeName</h1>
 
 @if (this.TempData["SuccessfullyCreateFireplace"] != null)
 {
@@ -27,7 +27,7 @@
 
 @if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName))
 {
-    <a class="btn btn-primary m-4" asp-area="Administration" asp-controller="Fireplace" asp-action="Add">Създай нов запис</a>
+    <a class="btn btn-primary m-4 mb-1" asp-area="Administration" asp-controller="Fireplace" asp-action="Add">Създай нов запис</a>
 }
 <hr />
 <div class="row">

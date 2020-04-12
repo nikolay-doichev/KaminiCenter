@@ -19,6 +19,7 @@
         <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/lib/animate/animate.min.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/lib/ionicons/css/ionicons.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" asp-append-version="true">
     </environment>
     <environment names="Staging,Production">
         <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
@@ -28,8 +29,8 @@
         <link href="~/js/main.js" rel="stylesheet" asp-append-version="true" />
         <link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true">
         <link href="~/lib/animate/animate.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/lib/animate/animate.min.css" rel="stylesheet" asp-append-version="true" />
         <link href="~/lib/ionicons/css/ionicons.min.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" asp-append-version="true">
     </environment>
 </head>
 <body>
@@ -149,10 +150,10 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @foreach (var type in (TypeOfChamber[])Enum.GetValues(typeof(TypeOfChamber)))
-                                {          
+                                {
                                     var typeName = this.enumParseService.GetEnumDescription(type.ToString(), typeof(TypeOfChamber));
-                                <a class="dropdown-item" asp-controller="Fireplace" asp-action="All" asp-route-type="@type">@typeName</a>
-                                }                                
+                                    <a class="dropdown-item" asp-controller="Fireplace" asp-action="All" asp-route-type="@type">@typeName</a>
+                                }
                             </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -168,16 +169,45 @@
                                 }
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
+
+                        <li class="dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
                                 Проекти
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="property-single.html">Ъглов модел</a>
-                                <a class="dropdown-item" href="blog-single.html">Модел на права стена</a>
-                            </div>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li class="dropdown-submenu">
+                                    <a tabindex="-1" href="#" class="dropdown-item dropdown-toggle">Модел на ъгъл</a>
+
+                                    <ul style="list-style-type:circle" class="dropdown-content">
+                                        @foreach (var type in (TypeProject[])Enum.GetValues(typeof(TypeProject)))
+                                        {
+                                            var typeName = this.enumParseService.GetEnumDescription(type.ToString(), typeof(TypeProject));
+                                            <li><a class="dropdown-item"
+                                                   asp-controller="Project" 
+                                                   asp-action="All" 
+                                                   asp-route-typeLocation="@TypeLocation.Corner" 
+                                                   asp-route-type="@type">@typeName
+                                                </a></li>
+                                        }
+                                    </ul>
+                                    <a tabindex="-1" href="#" class="dropdown-item dropdown-toggle">Модел на права стена</a>
+                                    <ul style="list-style-type:circle" class="dropdown-content">
+                                        @foreach (var type in (TypeProject[])Enum.GetValues(typeof(TypeProject)))
+                                        {
+                                            var typeName = this.enumParseService.GetEnumDescription(type.ToString(), typeof(TypeProject));
+                                            <li><a class="dropdown-item"
+                                                   asp-controller="Project"
+                                                   asp-action="All"
+                                                   asp-route-typeLocation="@TypeLocation.StraightWall"
+                                                   asp-route-type="@type">@typeName</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>
                         </li>
+
+
                         <li class="nav-item">
                             <a class="nav-link" href="property-grid.html">Аксесоари</a>
                         </li>
@@ -216,7 +246,6 @@
         <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js" asp-append-version="true"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
-        <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
         <script src="~/lib/jquery/jquery-migrate.min.js" asp-append-version="true"></script>
         <script src="~/lib/popper/popper.min.js" asp-append-version="true"></script>
         <script src="~/lib/bootstrap/js/bootstrap.min.js" asp-append-version="true"></script>
@@ -224,7 +253,7 @@
         <script src="~/lib/owlcarousel/owl.carousel.min.js" asp-append-version="true"></script>
         <script src="~/lib/scrollreveal/scrollreveal.min.js" asp-append-version="true"></script>
         <script src="~/lib/moment/min/moment-with-locales.min.js" asp-append-version="true"></script>
-        <script src="contactform/contactform.js" asp-append-version="true"></script>
+        <script src="~/contactform/contactform.js" asp-append-version="true"></script>
     </environment>
     <environment names="Staging,Production">
         <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
@@ -246,3 +275,14 @@
     @this.RenderSection("Scripts", required: false)
 </body>
 </html>
+<script asp-append-version="true">
+     $(document).ready(function() {
+    $('.dropdown-toggle').dropdown();
+
+    $('.dropdown-submenu>a').unbind('click').click(function(e){
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+    });
+});
+</script>

@@ -59,6 +59,9 @@
     <Content Update="Views\Fireplace\All.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="Views\Project\All.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\about.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

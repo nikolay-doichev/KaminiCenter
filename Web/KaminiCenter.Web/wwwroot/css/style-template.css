@@ -677,10 +677,37 @@ a:hover {
   min-width: 220px;
 }
 
-.navbar-default .dropdown .dropdown-menu .dropdown-item:hover {
-  background-color: #ffffff;
-  color: #2eca6a;
-  transition: all 500ms ease;
+.dropdown-item-submenu {
+    display: inherit;
+    padding: 12px 18px;
+    transition: all 500ms ease;
+    font-weight: 600;
+    min-width: 220px;
+    overflow: hidden;
+}
+.nav ul.submenu {
+    display: none;
+    position: absolute;
+    left: 153px;
+    top: 147px;
+    width: 150px;
+    text-align: center;
+}
+
+    .nav ul.submenu li {
+        text-align: left;
+        color: white;
+    }
+
+.nav li:hover ul.submenu:hover {
+    color: #D3B663;
+    display: block;
+}
+
+.navbar-default .dropdown .dropdown-menu .dropdown-item .dropdown-item-submenu:hover {
+    background-color: #ffffff;
+    color: #2eca6a;
+    transition: all 500ms ease;
 }
 
 .navbar-default .dropdown .dropdown-menu .dropdown-item.active {
@@ -695,6 +722,17 @@ a:hover {
   opacity: 1;
   filter: alpha(opacity=1);
 }
+
+.navbar-nav li:hover > ul.dropdown-menu {
+    display: block;
+}
+
+/* rotate caret on hover */
+.dropdown-menu > li > a:hover:after {
+    text-decoration: underline;
+    transform: rotate(-90deg);
+}
+
 
 /*------/ Hamburger Navbar /------*/
 

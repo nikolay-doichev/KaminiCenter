@@ -72,6 +72,8 @@
             от тип 
             <div style='font - family: inherit; text - align: inherit'><em><strong>{fireplace.TypeOfChamber}</strong></em></div>");
 
+            contentEmail.AppendLine($@"<img src='{fireplace.ImagePath}' alt='{fireplace.Name}'>");
+
             contentEmail.AppendLine(@$"Съдържание на коментарът: 
             <div style='font - family: inherit; text - align: inherit'><em><strong>{model.Content}</strong></em></div>");
 

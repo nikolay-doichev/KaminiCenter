@@ -24,7 +24,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/Home/Index">Начало</a>
+                            <a href="/Home/Index">Начална страница</a>
                         </li>
                         <li class="breadcrumb-item">
                             <a asp-controller="Fireplace" asp-action="All" asp-route-type="@Model.TypeOfChamber">Камери</a>
@@ -101,9 +101,9 @@
                     <!--Comment Form-->
                     <div class="col-md-6">
                         <div class="row">
-                            <form class="form-a contactForm" asp-area="" asp-controller="Comment" asp-action="CreateComment" role="form">
-                                <div id="sendmessage">Вашето съобщение е изпратено!</div>
-                                <div id="errormessage"></div>
+                            <form asp-area="" asp-controller="Comment" asp-action="CreateComment">
+                                @*<div id="sendmessage">Вашето съобщение е изпратено!</div>
+                                <div id="errormessage"></div>*@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <input type="hidden" name="ProductId" value="@this.Model.Id" />

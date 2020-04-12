@@ -25,16 +25,17 @@
         private readonly IGroupService groupService;
         private readonly IProductService productService;
         private readonly ICloudinaryService cloudinaryService;
-        private readonly IEnumParseService enumParse;
 
         public FireplaceService(
-            IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository, IGroupService groupService, IProductService productService, ICloudinaryService cloudinaryService, IEnumParseService enumParse)
+            IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository,
+            IGroupService groupService,
+            IProductService productService,
+            ICloudinaryService cloudinaryService)
         {
             this.fireplaceRepository = fireplaceRepository;
             this.groupService = groupService;
             this.productService = productService;
             this.cloudinaryService = cloudinaryService;
-            this.enumParse = enumParse;
         }
 
         public async Task<string> AddFireplaceAsync(FireplaceInputModel model, string userId)

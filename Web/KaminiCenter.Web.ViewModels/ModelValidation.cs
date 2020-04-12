@@ -8,12 +8,12 @@
     {
         public const string EmptyFieldLengthError = "Моля попълнете данните";
 
+        // Name Length const
+        public const int NameMinLength = 2;
+        public const int NameMaxLength = 80;
+
         public static class Fireplace
         {
-            // Name Length const
-            public const int NameMinLength = 2;
-            public const int NameMaxLength = 80;
-
             // Power Length const
             public const int PowerMinLength = 3;
             public const int PowerMaxLength = 8;
@@ -43,10 +43,6 @@
             // Content max lenght
             public const int ContentMaxLength = 1000;
 
-            // Name Length const
-            public const int NameMinLength = 2;
-            public const int NameMaxLength = 80;
-
             // Error Message
             public const string ContentError = "Съдържанието на коментара може да е от максимум {1} символа";
             public const string NameError = "Името трябва да е между {2} и {1} символи";
@@ -54,13 +50,19 @@
 
         public static class Finished_Model
         {
-            // Name Length const
-            public const int NameMinLength = 2;
-            public const int NameMaxLength = 80;
-
             // Error Message
             public const string NameError = "Името на продукта трябва да е между {2} и {1} символи";
-            public const string TypeOfChamberError = "Изберете тип на камерата!";
+            public const string TypeOfProjectError = "Изберете тип на проекта!";
+        }
+
+        public static class Project
+        {
+            public const string NameError = "Името на проекта трябва да е между {2} и {1} символи";
+        }
+
+        public static class Accessorie
+        {
+            public const string NameError = "Името на аксесоара трябва да е между {2} и {1} символи";
         }
     }
 }

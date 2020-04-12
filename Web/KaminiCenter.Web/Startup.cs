@@ -17,6 +17,7 @@
     using KaminiCenter.Services.Data.FireplaceServices;
     using KaminiCenter.Services.Data.GroupService;
     using KaminiCenter.Services.Data.ProductService;
+    using KaminiCenter.Services.Data.ProjectsService;
     using KaminiCenter.Services.Mapping;
     using KaminiCenter.Services.Messaging;
     using KaminiCenter.Web.ViewModels;
@@ -103,6 +104,7 @@
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IFinishedModelService, FinishedModelService>();
+            services.AddTransient<IProjectService, ProjectService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -156,6 +158,8 @@
 
                         endpoints.MapControllerRoute("fireplaceAllWithPage", "{controller=Fireplace}/{action=All}/{type:minlength(3)}/{page?}", new { control = "Fireplace", action = "All" });
                         endpoints.MapControllerRoute("finishedModelAllWithPage", "{controller=FinishedModels}/{action=All}/{type:minlength(3)}/{page?}", new { control = "FinishedModels", action = "All" });
+
+                        endpoints.MapControllerRoute("projectWithPage", "{controller=Project}/{action=All}/{typeLocation:minlength(3)}/{type:minlength(3)}/{page?}", new { control = "Project", action = "All" });
 
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 

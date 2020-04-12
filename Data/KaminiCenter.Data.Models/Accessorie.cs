@@ -9,8 +9,6 @@
 
     public class Accessorie : BaseDeletableModel<string>
     {
-        public string Name { get; set; }
-
         [Required]
         public string Description { get; set; }
 
@@ -20,5 +18,10 @@
         public string ProductId { get; set; }
 
         public Product Product { get; set; }
+
+        [Required]
+        public string GroupId { get; set; }
+
+        public Product_Group Group { get; set; }
     }
 }

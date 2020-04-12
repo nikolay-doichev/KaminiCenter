@@ -1,0 +1,176 @@
+﻿@model KaminiCenter.Web.ViewModels.Projects.AllProjectViewModel
+@using KaminiCenter.Data.Models.Enums;
+@using KaminiCenter.Services;
+@using KaminiCenter.Common;
+@inject IEnumParseService enumParseService;
+@{
+    ViewData["Title"] = "All";
+    var typeOfProject = @Model.Projects.Select(x => x.TypeProject).FirstOrDefault();
+    var typeOfLocation = @Model.Projects.Select(x => x.TypeLocation).FirstOrDefault();
+    var typeName = string.Empty;
+    var typeLocationBgName = string.Empty;
+    if (typeOfProject == null)
+    {
+        typeName = "Направете първия запис от категорията";
+    }
+    else
+    {
+        typeName = this.enumParseService.GetEnumDescription(typeOfProject.ToString(), typeof(TypeProject));
+        typeLocationBgName = this.enumParseService.GetEnumDescription(typeOfLocation.ToString(), typeof(TypeLocation));
+    }
+}
+<h1 class="display-4 m-4 mb-4">@typeName</h1>
+
+@if (this.TempData["SuccessfullyCreateProject"] != null)
+{
+    <div class="alert alert-success alert-dismissible">
+        @this.TempData["SuccessfullyCreateProject"]
+    </div>
+}
+
+@if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
+    <a class="btn btn-primary m-4 mb-1" asp-area="Administration" asp-controller="Project" asp-action="Add">Създай нов запис</a>
+}
+<hr />
+
+<!--/ Intro Single star /-->
+@if (typeOfProject != null)
+{
+    <section class="intro-single">
+        <div class="container m-4 mb-4">
+            <div class="row">
+                <div class="col-md-12 col-lg-8">
+                    <div class="title-single-box">
+                        <h1 class="title-single">@typeLocationBgName</h1>
+                        <span class="color-text-a">@typeName</span>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="/Home/Index">Начална страница</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a asp-area=""
+                                   asp-controller="Project"
+                                   asp-action="All"
+                                   asp-route-typeLocation="@typeOfLocation"
+                                   asp-route-type="@typeOfProject">@typeLocationBgName</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                @typeName
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<!--/ Intro Single End /-->
+<br />
+
+<section class="news-grid grid">
+    <div class="container m-4">
+        <div class="row">
+            @foreach (var project in Model.Projects)
+            {
+                <div class="col-md-4">
+                    <div class="card-box-b card-shadow news-box">
+                        <div class="img-box-b">
+                            <img src="@project.ImagePath" alt="@project.Name" class="img-b img-fluid">
+                        </div>
+                        <div class="card-overlay">
+                            <div class="card-header-b">
+                                <div class="card-category-b">
+                                    <a href="#" class="category-b">@typeLocationBgName</a>
+                                </div>
+                                <div class="card-title-b">
+                                    <h2 class="title-2">
+                                        <a asp-controller="Project" asp-action="Details" asp-route-name="@project.Name">
+                                            @project.Name
+                                        </a>
+                                    </h2>
+                                </div>
+                                <div class="card-date">
+                                    <span class="date-b">18 Sep. 2017</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!--Paging Start-->
+<div class="row">
+    <div class="col-sm-12">
+        <nav class="pagination-a">
+            <ul class="pagination justify-content-end">
+                @if (this.Model.CurrentPage == 1)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">
+                            <span class="ion-ios-arrow-back"></span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link"
+                           asp-area=""
+                           asp-controller="Project"
+                           asp-action="All"
+                           asp-route-typeLocation="@typeOfLocation"
+                           asp-route-type="@typeOfProject"
+                           asp-route-page="@(this.Model.CurrentPage - 1)">
+                            <span class="ion-ios-arrow-back"></span>
+                        </a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= this.Model.PagesCount; i++)
+                {
+                    var active = i == this.Model.CurrentPage ? "active" : string.Empty;
+                    <li class="page-item @active">
+                        <a class="page-link"
+                           asp-area=""
+                           asp-controller="Project"
+                           asp-action="All"
+                           asp-route-typeLocation="@typeOfLocation"
+                           asp-route-type="@typeOfProject"
+                           asp-route-page="@i">@i</a>
+                    </li>
+                }
+                @if (this.Model.CurrentPage == this.Model.PagesCount)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">
+                            <span class="ion-ios-arrow-forward"></span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item next">
+                        <a class="page-link"
+                           asp-area=""
+                           asp-controller="Project"
+                           asp-action="All"
+                           asp-route-typeLocation="@typeOfLocation"
+                           asp-route-type="@typeOfProject"
+                           asp-route-page="@(this.Model.CurrentPage + 1)">
+                            <span class="ion-ios-arrow-forward"></span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+<!--Paging End-->
