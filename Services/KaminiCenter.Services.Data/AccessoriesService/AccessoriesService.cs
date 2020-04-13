@@ -12,10 +12,13 @@
     using KaminiCenter.Services.Common.Exceptions;
     using KaminiCenter.Services.Data.GroupService;
     using KaminiCenter.Services.Data.ProductService;
+    using KaminiCenter.Services.Mapping;
     using KaminiCenter.Web.ViewModels.Accessories;
 
     public class AccessoriesService : IAccessoriesService
     {
+        private const string InvalidAccessorieNameErrorMessage = "Accessorie with Name: {0} does not exist.";
+
         private readonly IDeletableEntityRepository<Accessorie> accessoriesRepository;
         private readonly IProductService productService;
         private readonly IGroupService groupService;
@@ -84,29 +87,87 @@
             await this.accessoriesRepository.SaveChangesAsync();
         }
 
-        public Task<string> EditAsync<T>(EditAccessorieViewModel editModel)
+        public async Task<string> EditAsync<T>(EditAccessorieViewModel editModel)
         {
-            throw new NotImplementedException();
+            var accessories = this.accessoriesRepository.All().Where(f => f.Id == editModel.Id).FirstOrDefault();
+
+            if (accessories == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionsServices.Null_Accessories_Id_ErrorMessage, editModel.Id));
+            }
+
+            var photoUrl = string.Empty;
+            if (editModel.ImagePath == null)
+            {
+                photoUrl = accessories.ImagePath;
+            }
+            else
+            {
+                photoUrl = await this.cloudinaryService.UploadPhotoAsync(
+                editModel.ImagePath,
+                $"{editModel.Name}_{editModel.Id}",
+                GlobalConstants.CloudFolderForFireplacePhotos);
+            }
+
+            var product = this.productService.GetById(accessories.ProductId);
+
+            product.Name = editModel.Name;
+            accessories.Description = editModel.Description;
+            accessories.ImagePath = photoUrl; // To upload the new image and ad the new
+
+            await this.accessoriesRepository.SaveChangesAsync();
+            return accessories.Id;
         }
 
         public IEnumerable<T> GetAllAccessorieAsync<T>(int? take = null, int skip = 0)
         {
-            throw new NotImplementedException();
+            IQueryable<Accessorie> accessories = this.accessoriesRepository
+                .All()
+                .OrderBy(x => x.Product.Name)
+                .Skip(skip);
+
+            if (take.HasValue)
+            {
+                accessories = accessories.Take(take.Value);
+            }
+
+            return accessories.To<T>().ToList();
         }
 
         public T GetById<T>(string id)
         {
-            throw new NotImplementedException();
+            var accessorieId = this.accessoriesRepository
+                .All()
+                .Where(f => f.Id == id)
+                .To<T>().FirstOrDefault();
+
+            if (accessorieId == null)
+            {
+                throw new ArgumentNullException(
+                    string.Format(string.Format(ExceptionsServices.Null_Accessories_Id_ErrorMessage, id)));
+            }
+
+            return accessorieId;
         }
 
         public T GetByName<T>(string name)
         {
-            throw new NotImplementedException();
+            var accessorie = this.accessoriesRepository
+                .All().Where(x => x.Product.Name == name)
+                .To<T>().FirstOrDefault();
+
+            if (accessorie == null)
+            {
+                throw new ArgumentNullException(
+                    string.Format(InvalidAccessorieNameErrorMessage, name));
+            }
+
+            return accessorie;
         }
 
         public int GetCount()
         {
-            throw new NotImplementedException();
+            return this.accessoriesRepository.All().Count();
         }
     }
 }

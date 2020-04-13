@@ -1,0 +1,120 @@
+﻿@model KaminiCenter.Web.ViewModels.Accessories.AllAccessorieViewModel
+@using KaminiCenter.Services;
+@using KaminiCenter.Common;
+@{
+    ViewData["Title"] = "All";
+    var title = string.Empty;
+    if (Model.Accessorie.Count() == 0)
+    {
+        title = "Направете първия запис от категорията";
+    }
+    else
+    {
+        title = "Аксесоари";
+    }
+}
+<h1 class="display-4 m-4 mb-4">@title</h1>
+
+@if (this.TempData["SuccessfullyCreateAccessorie"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show">
+        @this.TempData["SuccessfullyCreateAccessorie"]
+    </div>
+}
+
+@if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
+    <a class="btn btn-primary m-4 mb-1" asp-area="Administration" asp-controller="Accessorie" asp-action="Add">Създай нов запис</a>
+}
+<hr />
+<section class="news-grid grid">
+    <div class="container m-4">
+        <div class="row">
+            @foreach (var accessorie in Model.Accessorie)
+            {
+                <div class="col-md-4">
+                    <div class="card-box-b card-shadow news-box">
+                        <div class="img-box-b">
+                            <img src="@accessorie.ImagePath" alt="@accessorie.Name" class="img-b img-fluid">
+                        </div>
+                        <div class="card-overlay">
+                            <div class="card-header-b">
+                                
+                                <div class="card-title-b">
+                                    <h2 class="title-2">
+                                        <a asp-controller="Accessorie" asp-action="Details" asp-route-name="@accessorie.Name">
+                                            @accessorie.Name
+                                        </a>
+                                    </h2>
+                                </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!--Paging Start-->
+<div class="row">
+    <div class="col-sm-12">
+        <nav class="pagination-a">
+            <ul class="pagination justify-content-end">
+                @if (this.Model.CurrentPage == 1)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">
+                            <span class="ion-ios-arrow-back"></span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link"
+                           asp-area=""
+                           asp-controller="Accessorie"
+                           asp-action="All"
+                           asp-route-page="@(this.Model.CurrentPage - 1)">
+                            <span class="ion-ios-arrow-back"></span>
+                        </a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= this.Model.PagesCount ; i++)
+                {
+                    var active = i == this.Model.CurrentPage ? "active" : string.Empty;
+                    <li class="page-item @active">
+                        <a class="page-link"
+                           asp-area=""
+                           asp-controller="Accessorie"
+                           asp-action="All"
+                           asp-route-page="@i">@i</a>
+                    </li>
+                }
+                @if (this.Model.CurrentPage == this.Model.PagesCount)
+                {
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">
+                            <span class="ion-ios-arrow-forward"></span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item next">
+                        <a class="page-link"
+                           asp-area=""
+                           asp-controller="Accessorie"
+                           asp-action="All"
+                           asp-route-page="@(this.Model.CurrentPage + 1)">
+                            <span class="ion-ios-arrow-forward"></span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</div>
+<!--Paging End-->

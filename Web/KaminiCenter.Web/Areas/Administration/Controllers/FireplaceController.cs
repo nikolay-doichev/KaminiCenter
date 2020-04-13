@@ -14,16 +14,13 @@
     public class FireplaceController : AdministrationController
     {
         private readonly IFireplaceService fireplaceService;
-        private readonly IEnumParseService enumParseService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public FireplaceController(
             IFireplaceService fireplaceService,
-            IEnumParseService enumParseService,
             UserManager<ApplicationUser> userManager)
         {
             this.fireplaceService = fireplaceService;
-            this.enumParseService = enumParseService;
             this.userManager = userManager;
         }
 

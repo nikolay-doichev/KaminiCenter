@@ -8,7 +8,6 @@
     using KaminiCenter.Data.Models;
     using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services.Data.ProjectsService;
-    using KaminiCenter.Web.ViewModels.Accessorie;
     using KaminiCenter.Web.ViewModels.Projects;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;

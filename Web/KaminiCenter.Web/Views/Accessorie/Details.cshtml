@@ -1,0 +1,77 @@
+﻿@model KaminiCenter.Web.ViewModels.Accessories.DetailsAccessorieViewModel
+@using KaminiCenter.Common;
+@{
+    string title = "Аксесоари";
+    ViewData["Title"] = title;
+}
+
+<!--/ Intro Project Start /-->
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single">@Model.Name</h1>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="/Home/Index">Начало</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a asp-controller="Accessorie" asp-action="All">Аксесоари</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            @Model.Name
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<hr />
+<!--/ Intro Project End /-->
+<!--/ Project Info Start /-->
+<section class="agent-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <!--Image -->
+                    <div class="col-md-6">
+                        <div class="agent-avatar-box">
+                            <img src="@Model.ImagePath" alt="@Model.Name" class="agent-avatar img-fluid">
+                            <hr />
+                        </div>
+                        @if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <a asp-area="" asp-controller="Accessorie" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Промени</a>
+                            <a asp-controller="Accessorie" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрии</a>
+                        }
+                    </div>
+                    <!--Image -->
+                    <!--Details-->
+                    <div class="col-md-5 section-md-t3">
+                        <div class="agent-info-box">                            
+                            <div class="agent-content mb-3">
+                                <p class="content-d color-text-a">
+                                    @Html.Raw(@Model.SanitizedDescription)
+                                </p>
+                                <div class="info-agents color-a">
+                                    <p>
+                                        <strong>Модел: </strong>
+                                        <span class="color-text-a"> @Model.Name</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--/ Project Info End /-->

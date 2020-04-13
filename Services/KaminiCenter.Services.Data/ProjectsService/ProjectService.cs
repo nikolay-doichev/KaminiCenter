@@ -14,7 +14,6 @@
     using KaminiCenter.Services.Data.GroupService;
     using KaminiCenter.Services.Data.ProductService;
     using KaminiCenter.Services.Mapping;
-    using KaminiCenter.Web.ViewModels.Accessorie;
     using KaminiCenter.Web.ViewModels.Projects;
 
     public class ProjectService : IProjectService

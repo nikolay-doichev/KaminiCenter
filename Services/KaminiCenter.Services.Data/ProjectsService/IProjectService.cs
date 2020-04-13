@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
-    using KaminiCenter.Web.ViewModels.Accessorie;
+
     using KaminiCenter.Web.ViewModels.Projects;
 
     public interface IProjectService
