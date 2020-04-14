@@ -55,8 +55,8 @@
                         {
                             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-info">Промени</a>
                             <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Изтрии</a>
+                            <hr />
                         }
-                        <hr />
                     </div>
                     <!--Image -->
                     <!--Details-->
@@ -98,18 +98,19 @@
                             </div>
                         </div>
                     </div>
+                    <br />
                     <!--Comment Form-->
                     <div class="col-md-6">
                         <div class="row">
                             <form asp-area="" asp-controller="Comment" asp-action="CreateComment">
                                 @*<div id="sendmessage">Вашето съобщение е изпратено!</div>
-                                <div id="errormessage"></div>*@
+                                    <div id="errormessage"></div>*@
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <input type="hidden" name="ProductId" value="@this.Model.Id" />
                                         <input type="hidden" name="ProductName" value="@this.Model.Name" />
                                         <div class="form-group">
-                                            <input type="text" name="FullName" class="form-control form-control-lg form-control-a" placeholder="Име и фамилия">
+                                            <input type="text" name="FullName" class="form-control form-control-lg form-control-a" placeholder="Име и Фамилия">
                                             <div class="validation"></div>
                                         </div>
                                     </div>
@@ -121,7 +122,7 @@
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <div class="form-group">
-                                            <textarea name="Content" class="form-control" cols="45" rows="8"placeholder="Оставете коментар"></textarea>
+                                            <textarea name="Content" class="form-control" cols="45" rows="8" placeholder="Оставете коментар"></textarea>
                                             <div class="validation"></div>
                                         </div>
                                     </div>
@@ -130,10 +131,61 @@
                                     </div>
                                 </div>
                             </form>
-
                         </div>
                     </div>
+
                     <!--Comment Form End-->
+                    <!--All comments start-->
+                    <div class="col-md-12 col-lg-12 mt-4">
+                        <div class="title-box-d">
+                            <h3 class="title-d">Коментари (@Model.Comments.Count())</h3>
+                        </div>
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <div class="box-comments">
+                                <ul class="list-comments">
+                                    <li>
+
+                                        <div class="comment-details">
+                                            <h4 class="comment-author">@comment.FullName</h4>
+                                            <div class="text-muted small">
+                                                <time datetime="@comment.CreatedOn.ToString("O")"></time>
+                                            </div>
+                                            <p class="comment-description border-bottom border-success">
+                                                @comment.Content
+                                            </p>
+                                            @if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName) && comment.Answer == null)
+                                            {
+                                                <form asp-area="Administration" asp-controller="Comment" asp-action="CreateAnswer">
+                                                    <div class="row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <input type="hidden" name="CommentId" value="@comment.Id" />
+                                                            <input type="hidden" name="ProductName" value="@this.Model.Name" />
+                                                            <textarea name="answer" rows="6" cols="133"></textarea>
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            <button type="submit" class="btn btn-success pull-right">Отговори</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            }
+                                            @if (comment.Answer != null)
+                                            {
+                                                <p class="content-d color-text-a border-bottom border-success">
+                                                    @comment.Answer
+                                                </p>
+                                            }
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        }
+
+                    </div>
+                    <!--All comments end-->
+                    <!--Suggestion Form Start-->
                     <div class="col-md-12 section-t8">
                         <div class="title-box-d">
                             <h3 class="title-d">My Properties (6)</h3>
@@ -204,6 +256,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Suggestion Form End-->
                 </div>
             </div>
         </div>

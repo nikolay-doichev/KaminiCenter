@@ -55,7 +55,7 @@
             var photoUrl = await this.cloudinaryService.UploadPhotoAsync(
                model.ImagePath,
                $"{model.Group}_{model.Name}_{model.Id}",
-               GlobalConstants.CloudFolderForFireplacePhotos);
+               GlobalConstants.CloudFolderForFinishedModelPhotos);
 
             var finishedModel = new Finished_Model
             {
@@ -112,7 +112,7 @@
                 photoUrl = await this.cloudinaryService.UploadPhotoAsync(
                 editModel.ImagePath,
                 $"{editModel.Name}_{editModel.Id}",
-                GlobalConstants.CloudFolderForFireplacePhotos);
+                GlobalConstants.CloudFolderForFinishedModelPhotos);
             }
 
             var product = this.productService.GetById(finishedModel.ProductId);

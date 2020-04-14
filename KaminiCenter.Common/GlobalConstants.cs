@@ -10,6 +10,12 @@
 
         public const string CloudFolderForFireplacePhotos = "fireplace_photos";
 
+        public const string CloudFolderForAccessoriesPhotos = "accessorie_photos";
+
+        public const string CloudFolderForFinishedModelPhotos = "finishedModel_photos";
+
+        public const string CloudFolderForProjectPhotos = "project_photos";
+
         public const int ItemsPerPage = 3;
     }
 }

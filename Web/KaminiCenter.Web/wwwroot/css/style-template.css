@@ -966,7 +966,7 @@ a:hover {
   -webkit-animation-delay: .6s;
   animation-delay: .6s;
   margin-bottom: 1rem;
-  font-size: .9rem;
+  font-size: 1.5rem;
   color: #ffffff;
   letter-spacing: .05em;
 }
@@ -1300,7 +1300,6 @@ a:hover {
 }
 
 .box-comments .list-comments .comment-details {
-  display: table-cell;
   vertical-align: top;
   padding-left: 25px;
 }

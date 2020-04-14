@@ -1,15 +1,20 @@
 ﻿namespace KaminiCenter.Web.ViewModels.Fireplace
 {
+    using System.Collections.Generic;
+
     using AutoMapper;
     using Ganss.XSS;
     using KaminiCenter.Data.Models;
     using KaminiCenter.Services.Mapping;
+    using KaminiCenter.Web.ViewModels.Comment;
 
     public class DetailsFireplaceViewModel : IMapFrom<Fireplace_chamber>, IHaveCustomMappings
     {
         public string Id { get; set; }
 
         public string Name { get; set; }
+
+        public string ProductId { get; set; }
 
         public string TypeOfChamber { get; set; }
 
@@ -26,6 +31,8 @@
         public string SanitizedDescription => new HtmlSanitizer().Sanitize(this.Description);
 
         public string ImagePath { get; set; }
+
+        public IEnumerable<IndexCommentViewModel> Comments { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {

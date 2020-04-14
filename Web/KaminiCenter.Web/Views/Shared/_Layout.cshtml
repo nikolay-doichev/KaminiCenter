@@ -91,7 +91,7 @@
                                         @foreach (var type in (TypeProject[])Enum.GetValues(typeof(TypeProject)))
                                         {
                                             var typeName = this.enumParseService.GetEnumDescription(type.ToString(), typeof(TypeProject));
-                                            <li><a id="navbarDropdown"
+                                            <li><a class="dropdown-item"
                                                    asp-controller="Project" 
                                                    asp-action="All" 
                                                    asp-route-typeLocation="@TypeLocation.Corner" 

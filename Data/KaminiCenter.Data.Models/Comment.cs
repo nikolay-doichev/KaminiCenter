@@ -16,5 +16,13 @@
         public string ProductId { get; set; }
 
         public Product Product { get; set; }
+
+        [Required]
+        public string FullName { get; set; }
+
+        [EmailAddress]
+        public string Email { get; set; }
+
+        public string Answer { get; set; }
     }
 }

@@ -1,10 +1,13 @@
 ﻿namespace KaminiCenter.Web.Controllers
 {
     using System;
+    using System.Linq;
 
     using KaminiCenter.Common;
     using KaminiCenter.Services;
+    using KaminiCenter.Services.Data.CommentServices;
     using KaminiCenter.Services.Data.FireplaceServices;
+    using KaminiCenter.Web.ViewModels.Comment;
     using KaminiCenter.Web.ViewModels.Fireplace;
     using Microsoft.AspNetCore.Mvc;
 
@@ -12,13 +15,16 @@
     {
         private readonly IFireplaceService fireplaceService;
         private readonly IEnumParseService enumParseService;
+        private readonly ICommentService commentService;
 
         public FireplaceController(
             IFireplaceService fireplaceService,
-            IEnumParseService enumParseService)
+            IEnumParseService enumParseService,
+            ICommentService commentService)
         {
             this.fireplaceService = fireplaceService;
             this.enumParseService = enumParseService;
+            this.commentService = commentService;
         }
 
         [Route("Fireplace/All/{type}/{page?}")]
@@ -49,6 +55,9 @@
         public IActionResult Details(string name)
         {
             var viewModel = this.fireplaceService.GetByName<DetailsFireplaceViewModel>(name);
+            var comments = this.commentService.GetAllComments<IndexCommentViewModel>(viewModel.ProductId).ToList();
+
+            viewModel.Comments = comments;
 
             return this.View(viewModel);
         }

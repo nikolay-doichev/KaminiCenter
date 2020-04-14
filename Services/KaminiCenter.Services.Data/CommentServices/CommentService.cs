@@ -1,6 +1,8 @@
 ﻿namespace KaminiCenter.Services.Data.CommentServices
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -9,12 +11,16 @@
     using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services.Data.FireplaceServices;
     using KaminiCenter.Services.Data.ProductService;
+    using KaminiCenter.Services.Mapping;
     using KaminiCenter.Services.Messaging;
     using KaminiCenter.Web.ViewModels.Comment;
     using KaminiCenter.Web.ViewModels.Fireplace;
 
     public class CommentService : ICommentService
     {
+        private const string EmailAdminForSendingEmails = "nikolay.doichev@gmail.com";
+        private const string NameForSendingEmails = "Екипът на Камини Център";
+
         private readonly IDeletableEntityRepository<Comment> commentRepository;
         private readonly IProductService productService;
         private readonly IFireplaceService fireplaceService;
@@ -46,6 +52,8 @@
             {
                 Id = Guid.NewGuid().ToString(),
                 Content = model.Content,
+                FullName = model.FullName,
+                Email = model.Email,
                 ProductId = product,
                 IsDeleted = false,
                 CreatedOn = DateTime.UtcNow,
@@ -57,12 +65,40 @@
             await this.emailSender.SendEmailAsync(
                 model.Email,
                 model.FullName,
-                "nikolay.doichev@gmail.com",
+                EmailAdminForSendingEmails,
                 "Запитване",
                 content);
 
             await this.commentRepository.AddAsync(comment);
             await this.commentRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<T> GetAllComments<T>(string productId)
+        {
+            IQueryable<Comment> comments = this.commentRepository
+                .All()
+                .OrderByDescending(c => c.CreatedOn)
+                .Where(x => x.ProductId == productId);
+
+            return comments.To<T>().ToList();
+        }
+
+        public async Task CreateAnswer(string contentAnswer, string commentId)
+        {
+            var comment = this.commentRepository.All()
+                .Where(f => f.Id == commentId)
+                .FirstOrDefault();
+
+            comment.Answer = contentAnswer;
+
+            await this.commentRepository.SaveChangesAsync();
+
+            await this.emailSender.SendEmailAsync(
+                EmailAdminForSendingEmails,
+                NameForSendingEmails,
+                comment.Email,
+                "Отговор на Ваш коментар в сайта на Камини Център",
+                contentAnswer);
         }
 
         private static string GeneratEmailContent(CreateCommentInputModel model, DetailsFireplaceViewModel fireplace, StringBuilder contentEmail, Comment comment)

@@ -10,5 +10,9 @@
     public interface ICommentService
     {
         Task Create(CreateCommentInputModel model);
+
+        Task CreateAnswer(string contentAnswer, string commentId);
+
+        IEnumerable<T> GetAllComments<T>(string productId);
     }
 }
