@@ -7,6 +7,9 @@
     ViewData["Title"] = "All";
     var typeOfChamber = @Model.Fireplaces.Select(x => x.TypeOfChamber).FirstOrDefault();
     var typeName = string.Empty;
+    if(this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+    {
+
     if (typeOfChamber == null)
     {
         typeName = "Направете първия запис от категорията";
@@ -15,6 +18,7 @@
     {
         typeName = this.enumParseService.GetEnumDescription(typeOfChamber.ToString(), typeof(TypeOfChamber));
     }
+}
 }
 <h1 class="display-4 m-4 mb-4">@typeName</h1>
 

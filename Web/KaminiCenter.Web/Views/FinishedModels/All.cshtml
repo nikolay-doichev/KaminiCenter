@@ -7,6 +7,8 @@
     ViewData["Title"] = "All";
     var typeOfProject = @Model.FinishedModels.Select(x => x.TypeProject).FirstOrDefault();
     var typeName = string.Empty;
+if(this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
     if (typeOfProject == null)
     {
         typeName = "Направете първия запис от категорията";
@@ -15,6 +17,7 @@
     {
         typeName = this.enumParseService.GetEnumDescription(typeOfProject.ToString(), typeof(TypeProject));
     }
+}
 }
 <h1 class="display-4 m-4 mb-1">@typeName</h1>
 

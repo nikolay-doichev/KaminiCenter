@@ -9,6 +9,8 @@
     var typeOfLocation = @Model.Projects.Select(x => x.TypeLocation).FirstOrDefault();
     var typeName = string.Empty;
     var typeLocationBgName = string.Empty;
+if(this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{
     if (typeOfProject == null)
     {
         typeName = "Направете първия запис от категорията";
@@ -18,6 +20,7 @@
         typeName = this.enumParseService.GetEnumDescription(typeOfProject.ToString(), typeof(TypeProject));
         typeLocationBgName = this.enumParseService.GetEnumDescription(typeOfLocation.ToString(), typeof(TypeLocation));
     }
+}
 }
 <h1 class="display-4 m-4 mb-4">@typeName</h1>
 

@@ -4,7 +4,9 @@
 @{
     ViewData["Title"] = "All";
     var title = string.Empty;
-    if (Model.Accessorie.Count() == 0)
+if(this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+{    
+if (Model.Accessorie.Count() == 0)
     {
         title = "Направете първия запис от категорията";
     }
@@ -12,6 +14,7 @@
     {
         title = "Аксесоари";
     }
+}
 }
 <h1 class="display-4 m-4 mb-4">@title</h1>
 
