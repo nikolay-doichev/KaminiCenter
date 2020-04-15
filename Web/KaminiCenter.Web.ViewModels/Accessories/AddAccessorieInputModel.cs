@@ -18,7 +18,7 @@
     {
         public AddAccessorieInputModel()
         {
-            Group = GroupType.Accessories.ToString();
+            this.Group = GroupType.Accessories.ToString();
         }
 
         public string Id { get; set; }
