@@ -1,0 +1,164 @@
+﻿@model KaminiCenter.Web.ViewModels.ContactForm.ContactFormViewModel
+
+<body>
+    <!--/ Intro Single star /-->
+    <section class="intro-single">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-8">
+                    <div class="title-single-box">
+                        <h1 class="title-single">Кой сме ние!</h1>
+                        <span class="color-text-a">Камини Център ООД е основана през 1998г. в град София, с предмет на дейност – “проектиране, изработка и монтаж на камини”. Камината като важна част от интериора и алтернатива за цялостно отопление – това са целите на нашата работа. Фирмата е вносител на горивни камери за вграждане и печки тип камини. Водеща роля има качеството на материалите, прецизността на изработка, модерния дизайн-показатели, които осигуряват надежност и комфорт за нашите клиенти!</span>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="/Home/Index">Начална страница</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                За нас
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr />
+    <!--/ Intro Single End /-->
+    <!--/ Contact Star /-->
+    <section class="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="contact-map box">
+                        <div id="map" class="contact-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d23474.1435667978!2d23.336145000000002!3d42.655677!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40aa843f35228429%3A0x3d48872f4ee785ad!2z0LHRg9C7LiDigJ7QodC40LzQtdC-0L3QvtCy0YHQutC-INGI0L7RgdC14oCcIDIwLCAxNzAwINC2LtCzLiDQl9C-0L7Qv9Cw0YDQuiwg0KHQvtGE0LjRjywg0JHRitC70LPQsNGA0LjRjw!5e0!3m2!1sbg!2sus!4v1587055059597!5m2!1sbg!2sus" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 section-t8">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <form class="form-a" asp-area="" asp-controller="ForUs" asp-action="Index" method="post">
+                                <!-- form element -->
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <input asp-for="FullName" class="form-control form-control-lg form-control-a" placeholder="Име и Фамилия" />
+                                            <span asp-validation-for="FullName" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <input asp-for="Email" class="form-control form-control-lg form-control-a" placeholder="Вашият Email адрес" />
+                                            <span asp-validation-for="Email" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <div class="form-group">
+                                            <input asp-for="Subject" class="form-control form-control-lg form-control-a" placeholder="Относно" />
+                                            <span asp-validation-for="Subject" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <div class="form-group">
+                                            <textarea asp-for="Content" class="form-control" cols="45" rows="8" placeholder="Съобщение"></textarea>
+                                            <span asp-validation-for="Content" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-a">Изпратете съобщение</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- end form element -->
+                        <div class="col-md-5 section-md-t3">
+                            <div class="icon-box section-b2">
+                                <div class="icon-box-icon">
+                                    <span class="ion-ios-paper-plane"></span>
+                                </div>
+                                <div class="icon-box-content table-cell">
+                                    <div class="icon-box-title">
+                                        <h4 class="icon-title">Свържете се с нас</h4>
+                                    </div>
+                                    <div class="icon-box-content">
+                                        <p class="mb-1">
+                                            Email.
+                                            <span class="color-a">kaminicent@abv.bg</span>
+                                        </p>
+                                        <p class="mb-1">
+                                            Phone.
+                                            <span class="color-a">+359 2 962 48 17</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="icon-box section-b2">
+                                <div class="icon-box-icon">
+                                    <span class="ion-ios-pin"></span>
+                                </div>
+                                <div class="icon-box-content table-cell">
+                                    <div class="icon-box-title">
+                                        <h4 class="icon-title">Намерете ни</h4>
+                                    </div>
+                                    <div class="icon-box-content">
+                                        <p class="mb-1">
+                                            София, бул. “Симеоновско шосе” № 20
+                                            <br> кв. Витоша
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="icon-box">
+                                <div class="icon-box-icon">
+                                    <span class="ion-ios-redo"></span>
+                                </div>
+                                <div class="icon-box-content table-cell">
+                                    <div class="icon-box-title">
+                                        <h4 class="icon-title">Социални мрежи</h4>
+                                    </div>
+                                    <div class="icon-box-content">
+                                        <div class="socials-footer">
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <a href="https://www.facebook.com/kaminicenter" class="link-one">
+                                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="link-one">
+                                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="link-one">
+                                                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="link-one">
+                                                        <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="#" class="link-one">
+                                                        <i class="fa fa-dribbble" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>

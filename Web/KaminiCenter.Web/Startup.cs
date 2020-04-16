@@ -16,6 +16,7 @@
     using KaminiCenter.Services.Data.CommentServices;
     using KaminiCenter.Services.Data.FinishedModelService;
     using KaminiCenter.Services.Data.FireplaceServices;
+    using KaminiCenter.Services.Data.ForUs;
     using KaminiCenter.Services.Data.GroupService;
     using KaminiCenter.Services.Data.ProductService;
     using KaminiCenter.Services.Data.ProjectsService;
@@ -107,6 +108,7 @@
             services.AddTransient<IFinishedModelService, FinishedModelService>();
             services.AddTransient<IProjectService, ProjectService>();
             services.AddTransient<IAccessoriesService, AccessoriesService>();
+            services.AddTransient<IForUsService, ForUsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

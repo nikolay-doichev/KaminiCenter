@@ -3,7 +3,6 @@
 @using KaminiCenter.Services
 @inject IEnumParseService enumParseService;
 
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -120,7 +119,7 @@
                             <a class="nav-link" asp-controller="Accessorie" asp-action="All">Аксесоари</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="blog-grid.html">За нас</a>
+                            <a class="nav-link" asp-area="" asp-controller="ForUs" asp-action="Index">За нас</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

@@ -62,6 +62,12 @@
     <Content Update="Views\Fireplace\All.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="Views\ForUs\ThankYou.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Views\ForUs\Index.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Views\Project\All.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
