@@ -9,6 +9,10 @@
 
     public interface IForUsService
     {
+        IEnumerable<T> GetAllSendEmails<T>();
+
         Task SendEmailToAdmin(ContactFormViewModel model);
+
+        Task SendAnswer(string contentAnswer, string emailId);
     }
 }

@@ -16,11 +16,10 @@
     using KaminiCenter.Web.ViewModels.Comment;
     using KaminiCenter.Web.ViewModels.Fireplace;
 
+    using static KaminiCenter.Common.GlobalConstants;
+
     public class CommentService : ICommentService
     {
-        private const string EmailAdminForSendingEmails = "nikolay.doichev@gmail.com";
-        private const string NameForSendingEmails = "Екипът на Камини Център";
-
         private readonly IDeletableEntityRepository<Comment> commentRepository;
         private readonly IProductService productService;
         private readonly IFireplaceService fireplaceService;
@@ -65,7 +64,7 @@
             await this.emailSender.SendEmailAsync(
                 model.Email,
                 model.FullName,
-                EmailAdminForSendingEmails,
+                AdminEmail,
                 "Запитване",
                 content);
 
@@ -94,10 +93,10 @@
             await this.commentRepository.SaveChangesAsync();
 
             await this.emailSender.SendEmailAsync(
-                EmailAdminForSendingEmails,
+                AdminEmail,
                 NameForSendingEmails,
                 comment.Email,
-                "Отговор на Ваш коментар в сайта на Камини Център",
+                SubjectForSendingEmails,
                 contentAnswer);
         }
 

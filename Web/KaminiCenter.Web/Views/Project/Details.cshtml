@@ -24,7 +24,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="/Home/Index">Начало</a>
+                            <a asp-area="" asp-controller="Home" asp-action="Index">Начало</a>
                         </li>
                         <li class="breadcrumb-item">
                             <a asp-controller="Project" asp-action="All" asp-route-typeLocation="@Model.TypeLocation" asp-route-type="@Model.TypeProject">Проекти</a>

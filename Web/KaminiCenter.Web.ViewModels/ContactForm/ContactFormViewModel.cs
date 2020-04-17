@@ -5,7 +5,10 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text;
 
-    public class ContactFormViewModel
+    using KaminiCenter.Data.Models;
+    using KaminiCenter.Services.Mapping;
+
+    public class ContactFormViewModel : IMapFrom<ContactFormRecords>
     {
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "Име и Фамилия")]

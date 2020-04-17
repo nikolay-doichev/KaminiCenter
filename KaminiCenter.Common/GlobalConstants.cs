@@ -17,5 +17,11 @@
         public const string CloudFolderForProjectPhotos = "project_photos";
 
         public const int ItemsPerPage = 3;
+
+        public const string AdminEmail = "nikolay.doichev@gmail.com";
+
+        public const string NameForSendingEmails = "Екипът на Камини Център";
+
+        public const string SubjectForSendingEmails = "Отговор на Ваш коментар в сайта на Камини Център";
     }
 }

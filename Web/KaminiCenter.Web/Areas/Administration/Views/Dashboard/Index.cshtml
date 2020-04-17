@@ -1,7 +1,90 @@
-﻿@model KaminiCenter.Web.ViewModels.Administration.Dashboard.IndexViewModel
+﻿@model KaminiCenter.Web.ViewModels.Administration.Dashboard.AllSendEmailsViewModel
+@using KaminiCenter.Common
 @{
-    this.ViewData["Title"] = "Admin dashboard";
+    this.ViewData["Title"] = "Страница на админ";
 }
 
-<h1>@this.ViewData["Title"]</h1>
-Settings: @this.Model.SettingsCount
+<h1>Всички получени имейли</h1>
+
+<div class="row">
+    <!--All UnAnswered Emails start-->
+    <div class="col-md-6 col-lg-6 mt-4">
+        <div class="title-box-d">
+            <h3 class="title-d">Не отговорени Имейли (@Model.SendEmails.Count(x => string.IsNullOrEmpty(x.Answer)))</h3>
+        </div>
+        @foreach (var emails in Model.SendEmails.Where(x => string.IsNullOrEmpty(x.Answer)))
+        {
+            <div class="box-comments">
+                <ul class="list-comments">
+                    <li>
+
+                        <div class="comment-details">
+                            <h4 class="comment-author">@emails.FullName</h4>
+                            <div class="text-muted small">
+                                <time datetime="@emails.CreatedOn.ToString("O")"></time>
+                            </div>
+                            <p class="comment-description border-bottom border-success">
+                                @emails.Content
+                            </p>
+                            @if (this.User.Identity.IsAuthenticated && this.User.IsInRole(GlobalConstants.AdministratorRoleName) && emails.Answer == null)
+                            {
+                                <form asp-area="Administration" asp-controller="Dashboard" asp-action="CreateAnswer" method="post">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <input type="hidden" name="CommentId" value="@emails.Id" />
+                                            <textarea name="answerContent" rows="6" cols="80"></textarea>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-success pull-right">Отговори</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            }
+                            @if (emails.Answer != null)
+                            {
+                                <p class="content-d color-text-a border-bottom border-success">
+                                    @emails.Answer
+                                </p>
+                            }
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        }
+
+    </div>
+    <!--All UnAnswered Emails end-->
+    <!--All Answered Emails start-->
+    <div class="col-md-6 col-lg-6 mt-4">
+        <div class="title-box-d">
+            <h3 class="title-d">Oтговорени Имейли (@Model.SendEmails.Count(x => !string.IsNullOrEmpty(x.Answer)))</h3>
+        </div>
+        @foreach (var emails in Model.SendEmails.Where(x => !string.IsNullOrEmpty(x.Answer)))
+        {
+            <div class="box-comments">
+                <ul class="list-comments">
+                    <li>
+
+                        <div class="comment-details">
+                            <h4 class="comment-author">@emails.FullName</h4>
+                            <div class="text-muted small">
+                                Отговорено на: <time datetime="@emails.DateSendAnswer.Value.ToString("O")"></time>
+                            </div>
+                            <p class="comment-description border-bottom border-success">
+                                @emails.Content
+                            </p>
+                            <p class="comment-description border-bottom border-success">
+                                @emails.Answer
+                            </p>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        }
+
+    </div>
+    <!--All UnAnswered Emails end-->
+</div>
