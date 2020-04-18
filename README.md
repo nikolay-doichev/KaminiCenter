@@ -8,3 +8,6 @@
 
 <h2>Front-End</h2>
 <div>For the Front-End im mainly using bootstrap 4, css and html</div>
+
+<h2>Deployment</h2>
+<dev>Project is deploy in Azure portal and it can be access on https://kaminicenter.azurewebsites.net/</div>
