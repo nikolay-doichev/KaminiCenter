@@ -131,6 +131,21 @@
             return projectModel.Id;
         }
 
+        public IEnumerable<T> GetAll<T>(int? take = null, int skip = 0)
+        {
+            IQueryable<Project> projects = this.projectRepository
+                .AllAsNoTracking()
+                .OrderBy(x => x.Product.Name)
+                .Skip(skip);
+
+            if (take.HasValue)
+            {
+                projects = projects.Take(take.Value);
+            }
+
+            return projects.To<T>().ToList();
+        }
+
         public IEnumerable<T> GetAllProjectAsync<T>(string typeLocation, string type, int? take = null, int skip = 0)
         {
             var typeOfProject = Enum.Parse<TypeProject>(type);

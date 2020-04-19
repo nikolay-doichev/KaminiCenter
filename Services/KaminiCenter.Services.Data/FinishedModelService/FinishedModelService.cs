@@ -16,18 +16,20 @@
     using KaminiCenter.Services.Mapping;
     using KaminiCenter.Web.ViewModels.FinishedModels;
 
+    using static KaminiCenter.Web.ViewModels.ModelValidation;
+
     public class FinishedModelService : IFinishedModelService
     {
         private const string NullFinishedModelPropertiesErrorMessage = "There is a property with null or whitespec value";
         private const string InvalidFinishedModelNameErrorMessage = "FinishedModel with Name: {0} does not exist.";
 
-        private readonly IDeletableEntityRepository<Finished_Model> finishedModelRepository;
+        private readonly IDeletableEntityRepository<KaminiCenter.Data.Models.Finished_Model> finishedModelRepository;
         private readonly IProductService productService;
         private readonly IGroupService groupService;
         private readonly ICloudinaryService cloudinaryService;
 
         public FinishedModelService(
-            IDeletableEntityRepository<Finished_Model> finishedModelRepository,
+            IDeletableEntityRepository<KaminiCenter.Data.Models.Finished_Model> finishedModelRepository,
             IProductService productService,
             IGroupService groupService,
             ICloudinaryService cloudinaryService)
@@ -57,7 +59,7 @@
                $"{model.Group}_{model.Name}_{model.Id}",
                GlobalConstants.CloudFolderForFinishedModelPhotos);
 
-            var finishedModel = new Finished_Model
+            var finishedModel = new KaminiCenter.Data.Models.Finished_Model
             {
                 Id = Guid.NewGuid().ToString(),
                 CreatedOn = DateTime.UtcNow,
@@ -127,11 +129,26 @@
             return finishedModel.Id;
         }
 
+        public IEnumerable<T> GetAll<T>(int? take = null, int skip = 0)
+        {
+            IQueryable<KaminiCenter.Data.Models.Finished_Model> finishedModels = this.finishedModelRepository
+                .AllAsNoTracking()
+                .OrderBy(x => x.Product.Name)
+                .Skip(skip);
+
+            if (take.HasValue)
+            {
+                finishedModels = finishedModels.Take(take.Value);
+            }
+
+            return finishedModels.To<T>().ToList();
+        }
+
         public IEnumerable<T> GetAllFinishedModelsAsync<T>(string type, int? take = null, int skip = 0)
         {
             var typeOfProject = Enum.Parse<TypeProject>(type);
 
-            IQueryable<Finished_Model> finishedModels = this.finishedModelRepository
+            IQueryable<KaminiCenter.Data.Models.Finished_Model> finishedModels = this.finishedModelRepository
                 .All()
                 .OrderBy(x => x.Product.Name)
                 .Where(x => x.TypeProject == typeOfProject)

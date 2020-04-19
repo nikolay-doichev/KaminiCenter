@@ -1,5 +1,6 @@
 ﻿namespace KaminiCenter.Web.ViewModels.Fireplace
 {
+    using System.Collections.Generic;
     using System.Net;
     using System.Text.RegularExpressions;
 
@@ -21,6 +22,8 @@
         public string TypeOfChamber { get; set; }
 
         public string Description { get; set; }
+
+        public IList<string> SelectedFireplaces { get; set; }
 
         public string ShortDesciption
         {

@@ -17,7 +17,9 @@
         "dist/css/bootstrap.css",
         "dist/css/bootstrap.min.css",
         "dist/js/bootstrap.js",
-        "dist/js/bootstrap.min.js"
+        "dist/js/bootstrap.min.js",
+        "dist/js/bootstrap.bundle.js",
+        "dist/js/bootstrap.bundle.min.js"
       ]
     },
     {
@@ -58,6 +60,16 @@
       "destination": "wwwroot/lib/moment/",
       "files": [
         "min/moment-with-locales.min.js"
+      ]
+    },
+    {
+      "library": "bootstrap-select@1.13.14",
+      "destination": "wwwroot/lib/bootstrap-select/",
+      "files": [
+        "dist/js/bootstrap-select.min.js",
+        "dist/css/bootstrap-select.css",
+        "js/i18n/defaults-bg_BG.min.js",
+        "js/bootstrap-select.js"
       ]
     }
   ]

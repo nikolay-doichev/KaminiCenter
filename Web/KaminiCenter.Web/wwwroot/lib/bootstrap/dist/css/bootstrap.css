@@ -4367,7 +4367,6 @@ input[type="button"].btn-block {
   margin-bottom: 0;
   list-style: none;
 }
-   
 
 .navbar-nav .nav-link {
   padding-right: 0;
@@ -8213,7 +8212,7 @@ button.bg-dark:focus {
 
 .mb-4,
 .my-4 {
-  margin-bottom: -1rem !important;
+  margin-bottom: 1.5rem !important;
 }
 
 .ml-4,
