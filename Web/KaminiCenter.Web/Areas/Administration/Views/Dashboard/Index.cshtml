@@ -21,7 +21,7 @@
                         <div class="comment-details">
                             <h4 class="comment-author">@emails.FullName</h4>
                             <div class="text-muted small">
-                                <time datetime="@emails.CreatedOn.ToString("O")"></time>
+                                <time>@emails.CreatedOnAsString</time>
                             </div>
                             <p class="comment-description border-bottom border-success">
                                 @emails.Content
@@ -70,7 +70,7 @@
                         <div class="comment-details">
                             <h4 class="comment-author">@emails.FullName</h4>
                             <div class="text-muted small">
-                                Отговорено на: <time datetime="@emails.DateSendAnswer.Value.ToString("O")"></time>
+                                Отговорено на: <time>@emails.DateSendAnswerAsString</time>
                             </div>
                             <p class="comment-description border-bottom border-success">
                                 @emails.Content

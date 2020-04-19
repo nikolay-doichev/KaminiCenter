@@ -1,0 +1,49 @@
+﻿@model IEnumerable<KaminiCenter.Web.ViewModels.Fireplace.IndexFireplaceViewModel>
+
+@{
+    ViewData["Title"] = "Търсене на камина";
+}
+
+<h1 class="m-4">Търсене на камина</h1>
+<hr />
+
+<form asp-controller="Dashboard" asp-action="FindFireplaceForFilling" method="get">
+    <p>
+        <input type="search" placeholder="Моля въведете името на камината" value="@ViewData["GetFireplacesDetails"]" name="searchTerm" style="width:500px" />
+        <span class="active-cyan-4 mb-4">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </span>
+        <a class="btn btn-info"
+           asp-action="FindFireplaceForFilling">Покажи всички камини</a>
+    </p>
+</form>
+
+<div class="row">
+
+    @foreach (var fireplace in Model.ToList())
+    {
+        <div class="col-md-3">
+            <div class="card" style="width: 18rem;">
+                <img src="@fireplace.ImagePath" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@fireplace.Name</h5>
+                    <p class="card-text">@fireplace.ShortDesciption</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">@fireplace.Power</li>
+                    <li class="list-group-item">@fireplace.Size</li>
+                </ul>
+                <div class="card-body">
+                    <a asp-controller="Dashboard" asp-action="FillingSuggestion" asp-route-productName="@fireplace.Name" class="card-link">Добавяне на предложения</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

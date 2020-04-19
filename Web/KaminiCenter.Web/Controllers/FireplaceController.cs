@@ -52,6 +52,27 @@
             return this.View(viewModel);
         }
 
+        public IActionResult AllWithoutParameter(int page = 1)
+        {
+            int count = this.fireplaceService.GetAllFireplace<AllFireplaceViewModel>().Count();
+
+            var viewModel = new AllFireplaceViewModel
+            {
+                Fireplaces = this.fireplaceService.GetAllFireplace<IndexFireplaceViewModel>(
+                     GlobalConstants.ItemsPerPage,
+                     (page - 1) * GlobalConstants.ItemsPerPage),
+                PagesCount = (int)Math.Ceiling((double)count / GlobalConstants.ItemsPerPage),
+                CurrentPage = page,
+            };
+
+            if (viewModel.PagesCount == 0)
+            {
+                viewModel.PagesCount = 1;
+            }
+
+            return this.View(viewModel);
+        }
+
         public IActionResult Details(string name)
         {
             var viewModel = this.fireplaceService.GetByName<DetailsFireplaceViewModel>(name);

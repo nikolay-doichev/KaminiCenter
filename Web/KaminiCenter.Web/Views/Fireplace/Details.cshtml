@@ -149,7 +149,7 @@
                                         <div class="comment-details">
                                             <h4 class="comment-author">@comment.FullName</h4>
                                             <div class="text-muted small">
-                                                <time datetime="@comment.CreatedOn.ToString("O")"></time>
+                                                <time>@comment.CreatedOnAsString</time>
                                             </div>
                                             <p class="comment-description border-bottom border-success">
                                                 @comment.Content

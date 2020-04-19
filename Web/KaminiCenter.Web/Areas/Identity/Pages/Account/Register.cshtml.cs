@@ -19,7 +19,7 @@ namespace KaminiCenter.Web.Areas.Identity.Pages.Account
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
 
-    [AllowAnonymous]
+    [Authorize]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> signInManager;
@@ -75,11 +75,11 @@ namespace KaminiCenter.Web.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public IActionResult OnGetAsync(string returnUrl = null)
         {
-            this.ReturnUrl = returnUrl;
-            this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-           // return this.RedirectToAction("/Account/Login");
+            //this.ReturnUrl = returnUrl;
+            //this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+           return this.RedirectToAction("/Account/Login");
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

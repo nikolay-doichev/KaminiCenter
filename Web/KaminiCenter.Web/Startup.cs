@@ -164,6 +164,7 @@
                         endpoints.MapControllerRoute("accessorieEdit", "{controller=Accessorie}/{action=Edit}/{id:minlength(3)}", new { control = "Accessorie", action = "Edit" });
 
                         endpoints.MapControllerRoute("fireplaceAllWithPage", "{controller=Fireplace}/{action=All}/{type:minlength(3)}/{page?}", new { control = "Fireplace", action = "All" });
+                        endpoints.MapControllerRoute("fireplaceAllWithPageAndNoParameter", "{controller=Fireplace}/{action=AllWithoutParameter}/{page?}", new { control = "Fireplace", action = "AllWithoutParameter" });
                         endpoints.MapControllerRoute("finishedModelAllWithPage", "{controller=FinishedModels}/{action=All}/{type:minlength(3)}/{page?}", new { control = "FinishedModels", action = "All" });
                         endpoints.MapControllerRoute("projectWithPage", "{controller=Project}/{action=All}/{typeLocation:minlength(3)}/{type:minlength(3)}/{page?}", new { control = "Project", action = "All" });
                         endpoints.MapControllerRoute("accessorieAllWithPage", "{controller=Accessorie}/{action=All}/{page?}", new { control = "Accessorie", action = "All" });

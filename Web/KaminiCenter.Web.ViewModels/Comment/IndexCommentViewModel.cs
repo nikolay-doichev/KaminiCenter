@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Text;
 
     using AutoMapper;
@@ -14,6 +15,11 @@
         public string FullName { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public string CreatedOnAsString =>
+            this.CreatedOn.Hour == 0 && this.CreatedOn.Minute == 0
+                ? this.CreatedOn.ToString("ddd, dd MMM yyyy", new CultureInfo("bg-BG"))
+                : this.CreatedOn.ToString("ddd, dd MMM yyyy HH:mm", new CultureInfo("bg-BG"));
 
         public string Content { get; set; }
 

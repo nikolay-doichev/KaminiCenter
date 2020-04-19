@@ -4,14 +4,16 @@ using KaminiCenter.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KaminiCenter.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200418152749_AddSuggestProductEntity")]
+    partial class AddSuggestProductEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -542,12 +544,6 @@ namespace KaminiCenter.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FireplaceId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Fireplace_ChamberId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -558,8 +554,6 @@ namespace KaminiCenter.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Fireplace_ChamberId");
 
                     b.HasIndex("IsDeleted");
 
@@ -754,10 +748,6 @@ namespace KaminiCenter.Data.Migrations
 
             modelBuilder.Entity("KaminiCenter.Data.Models.SuggestProduct", b =>
                 {
-                    b.HasOne("KaminiCenter.Data.Models.Fireplace_chamber", "Fireplace_Chamber")
-                        .WithMany("SuggestProducts")
-                        .HasForeignKey("Fireplace_ChamberId");
-
                     b.HasOne("KaminiCenter.Data.Models.Product", "Product")
                         .WithMany("SuggestProducts")
                         .HasForeignKey("ProductId");

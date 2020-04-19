@@ -15,6 +15,8 @@
 
         IEnumerable<T> GetAllFireplaceAsync<T>(string type, int? take = null, int skip = 0);
 
+        IEnumerable<T> GetAllFireplace<T>(int? take = null, int skip = 0);
+
         T GetByName<T>(string name);
 
         T GetById<T>(string id);

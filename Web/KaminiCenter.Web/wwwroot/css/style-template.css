@@ -949,7 +949,7 @@ a:hover {
 
 .intro .intro-body .price-a {
   color: #ffffff;
-  padding: 1rem 1.5rem;
+  padding: 0.75rem .5rem;
   border: 2px solid #2eca6a;
   border-radius: 50px;
   text-transform: uppercase;
@@ -985,8 +985,8 @@ a:hover {
 }
 
 .intro .intro-subtitle.intro-price {
-  padding-top: 1rem;
-  font-size: 1.2rem;
+  padding-top: 0.5rem;
+  font-size: 1.0rem;
 }
 
 /*------/ Intro Single /------*/

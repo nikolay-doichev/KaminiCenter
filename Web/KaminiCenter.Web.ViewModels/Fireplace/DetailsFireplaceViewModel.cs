@@ -32,6 +32,8 @@
 
         public string ImagePath { get; set; }
 
+        public IEnumerable<SuggestProductViewModel> SuggestProducts { get; set; }
+
         public IEnumerable<IndexCommentViewModel> Comments { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

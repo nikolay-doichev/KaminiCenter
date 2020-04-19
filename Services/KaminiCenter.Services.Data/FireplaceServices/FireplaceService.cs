@@ -19,7 +19,6 @@
 
     public class FireplaceService : IFireplaceService
     {
-        private const string InvalidFireplaceIdErrorMessage = "Fireplace with Id: {0} does not exist.";
         private const string InvalidFireplaceNameErrorMessage = "Fireplace with Name: {0} does not exist.";
 
         private readonly IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository;
@@ -136,6 +135,21 @@
 
             await this.fireplaceRepository.SaveChangesAsync();
             return fireplace.Id;
+        }
+
+        public IEnumerable<T> GetAllFireplace<T>(int? take = null, int skip = 0)
+        {
+            IQueryable<Fireplace_chamber> fireplaces = this.fireplaceRepository
+                .AllAsNoTracking()
+                .OrderBy(x => x.Product.Name)
+                .Skip(skip);
+
+            if (take.HasValue)
+            {
+                fireplaces = fireplaces.Take(take.Value);
+            }
+
+            return fireplaces.To<T>().ToList();
         }
 
         public IEnumerable<T> GetAllFireplaceAsync<T>(string type, int? take = null, int skip = 0)

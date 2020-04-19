@@ -20,7 +20,6 @@
         [Required]
         public string Chimney { get; set; }
 
-        [Range(typeof(decimal), "0.00", "79228162514264337593543950335")]
         public decimal Price { get; set; }
 
         public string Description { get; set; }
@@ -28,6 +27,8 @@
         public string ImagePath { get; set; }
 
         public TypeOfChamber TypeOfChamber { get; set; }
+
+        public ICollection<SuggestProduct> SuggestProducts { get; set; }
 
         [Required]
         public string ProductId { get; set; }

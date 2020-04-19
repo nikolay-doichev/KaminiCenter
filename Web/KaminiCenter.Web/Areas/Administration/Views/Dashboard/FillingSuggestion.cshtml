@@ -1,0 +1,55 @@
+﻿@model KaminiCenter.Web.ViewModels.Fireplace.DetailsFireplaceViewModel
+@using KaminiCenter.Services;
+@using KaminiCenter.Common;
+@{
+    var title = "Добавяне на предложения";
+    ViewData["Title"] = title;
+
+}
+<h1 class="display-4 m-4 mb-4">@title</h1>
+<hr />
+
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="agent-avatar-box">
+                <img src="@Model.ImagePath" alt="@Model.Name" class="agent-avatar img-fluid">
+            </div>
+        </div>
+        <div class="col-md-5 section-md-t3">
+            <div class="agent-info-box">
+                <div class="agent-title">
+                    <div class="title-box-d">
+                        <h3 class="title-d">
+                            @Model.Name
+                        </h3>
+                    </div>
+                </div>
+                <div class="agent-content mb-3">
+                    <div class="info-agents color-a">
+                        <p>
+                            <strong>Модел: </strong>
+                            <span class="color-text-a"> @Model.Name</span>
+                        </p>
+                        <p>
+                            <strong>Мощност: </strong>
+                            <span class="color-text-a"> @Model.Power</span>
+                        </p>
+                        <p>
+                            <strong>Размери: </strong>
+                            <span class="color-text-a"> @Model.Size</span>
+                        </p>
+                        <p>
+                            <strong>Димоотвод: </strong>
+                            <span class="color-text-a"> @Model.Chimney</span>
+                        </p>
+                        <p>
+                            <strong>Цена: </strong>
+                            <span class="color-text-a"> @Model.Price лв.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
