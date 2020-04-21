@@ -7,6 +7,7 @@
     using KaminiCenter.Data.Models;
     using KaminiCenter.Services.Mapping;
     using KaminiCenter.Web.ViewModels.Comment;
+    using KaminiCenter.Web.ViewModels.SuggestProduct;
 
     public class DetailsFireplaceViewModel : IMapFrom<Fireplace_chamber>, IHaveCustomMappings
     {
@@ -32,7 +33,7 @@
 
         public string ImagePath { get; set; }
 
-        public IEnumerable<SuggestProductViewModel> SuggestProducts { get; set; }
+        public IEnumerable<IndexSuggestProductViewModel> SuggestProducts { get; set; }
 
         public IEnumerable<IndexCommentViewModel> Comments { get; set; }
 

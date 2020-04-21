@@ -102,6 +102,7 @@
     </div>
     <div class="form-group m-4">
         <input type="submit" value="Създай" class="btn btn-primary" />
-
+        <input type="hidden" name="productName" value="fireplaceForFulling"/>
+        <input type="hidden" name="fireplaceId" value="@Model.Fireplaces.First(f => f.Name == fireplaceForFulling).Id"/>
     </div>
 </form>

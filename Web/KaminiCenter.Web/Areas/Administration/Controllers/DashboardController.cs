@@ -99,13 +99,17 @@
         }
 
         [HttpPost]
-        public IActionResult FillingSuggestion(
+        public async Task<IActionResult> FillingSuggestion(
+            string productName,
+            string fireplaceId,
             string[] selectedFireplaces,
             string[] selectedFinishedModels,
             string[] selectedProjects,
             string[] selectedAccessories)
         {
-            return this.View();
+            await this.fireplaceService.AddSuggestionToFireplaceAsync(productName, fireplaceId, selectedFireplaces, selectedFinishedModels, selectedProjects, selectedAccessories);
+
+            return this.RedirectToAction("Details", "Fireplace", new { name = productName, area = string.Empty });
         }
     }
 }

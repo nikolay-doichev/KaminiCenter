@@ -7,24 +7,26 @@
     using KaminiCenter.Services;
     using KaminiCenter.Services.Data.CommentServices;
     using KaminiCenter.Services.Data.FireplaceServices;
+    using KaminiCenter.Services.Data.SuggestProduct;
     using KaminiCenter.Web.ViewModels.Comment;
     using KaminiCenter.Web.ViewModels.Fireplace;
+    using KaminiCenter.Web.ViewModels.SuggestProduct;
     using Microsoft.AspNetCore.Mvc;
 
     public class FireplaceController : Controller
     {
         private readonly IFireplaceService fireplaceService;
-        private readonly IEnumParseService enumParseService;
         private readonly ICommentService commentService;
+        private readonly ISuggestProduct suggestService;
 
         public FireplaceController(
             IFireplaceService fireplaceService,
-            IEnumParseService enumParseService,
-            ICommentService commentService)
+            ICommentService commentService,
+            ISuggestProduct suggestService)
         {
             this.fireplaceService = fireplaceService;
-            this.enumParseService = enumParseService;
             this.commentService = commentService;
+            this.suggestService = suggestService;
         }
 
         [Route("Fireplace/All/{type}/{page?}")]
@@ -77,8 +79,10 @@
         {
             var viewModel = this.fireplaceService.GetByName<DetailsFireplaceViewModel>(name);
             var comments = this.commentService.GetAllComments<IndexCommentViewModel>(viewModel.ProductId).ToList();
+            var suggestion = this.suggestService.GetAllSuggestion<IndexSuggestProductViewModel>(viewModel.Id);
 
             viewModel.Comments = comments;
+            viewModel.SuggestProducts = suggestion;
 
             return this.View(viewModel);
         }

@@ -20,6 +20,7 @@
     using KaminiCenter.Services.Data.GroupService;
     using KaminiCenter.Services.Data.ProductService;
     using KaminiCenter.Services.Data.ProjectsService;
+    using KaminiCenter.Services.Data.SuggestProduct;
     using KaminiCenter.Services.Mapping;
     using KaminiCenter.Services.Messaging;
     using KaminiCenter.Web.ViewModels;
@@ -109,6 +110,7 @@
             services.AddTransient<IProjectService, ProjectService>();
             services.AddTransient<IAccessoriesService, AccessoriesService>();
             services.AddTransient<IForUsService, ForUsService>();
+            services.AddTransient<ISuggestProduct, SuggestProdcut>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

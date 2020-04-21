@@ -11,6 +11,8 @@
 
     public class IndexFireplaceViewModel : IMapFrom<Fireplace_chamber>, IHaveCustomMappings
     {
+        public string Id { get; set; }
+
         public string Name { get; set; }
 
         public string Power { get; set; }

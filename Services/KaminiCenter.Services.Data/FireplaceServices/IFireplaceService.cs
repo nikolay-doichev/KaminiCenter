@@ -7,7 +7,15 @@
 
     public interface IFireplaceService
     {
-        Task<string> AddFireplaceAsync(FireplaceInputModel fireplaceInputModel, string userId);
+        Task<string> AddFireplaceAsync<T>(FireplaceInputModel fireplaceInputModel, string userId);
+
+        Task AddSuggestionToFireplaceAsync(
+            string productName,
+            string fireplaceId,
+            string[] selectedFireplaces,
+            string[] selectedFinishedModels,
+            string[] selectedProjects,
+            string[] selectedAccessories);
 
         Task<string> EditAsync<T>(EditFireplaceViewModel editModel);
 

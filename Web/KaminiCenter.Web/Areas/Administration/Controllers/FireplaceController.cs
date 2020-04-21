@@ -42,7 +42,7 @@
 
             var user = await this.userManager.GetUserAsync(this.User);
 
-            await this.fireplaceService.AddFireplaceAsync(inputModel, user.Id.ToString());
+            await this.fireplaceService.AddFireplaceAsync<FireplaceInputModel>(inputModel, user.Id.ToString());
             var typeOfChamber = Enum.Parse<TypeOfChamber>(inputModel.TypeOfChamber);
             this.TempData["SuccessfullyCreateFireplace"] = $"Успешно създадена камина {inputModel.Name}";
 

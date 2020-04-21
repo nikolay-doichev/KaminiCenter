@@ -14,6 +14,7 @@
     using KaminiCenter.Services.Data.CommentServices;
     using KaminiCenter.Services.Data.GroupService;
     using KaminiCenter.Services.Data.ProductService;
+    using KaminiCenter.Services.Data.SuggestProduct;
     using KaminiCenter.Services.Mapping;
     using KaminiCenter.Web.ViewModels.Fireplace;
 
@@ -25,20 +26,23 @@
         private readonly IGroupService groupService;
         private readonly IProductService productService;
         private readonly ICloudinaryService cloudinaryService;
+        private readonly ISuggestProduct suggestProduct;
 
         public FireplaceService(
             IDeletableEntityRepository<Fireplace_chamber> fireplaceRepository,
             IGroupService groupService,
             IProductService productService,
-            ICloudinaryService cloudinaryService)
+            ICloudinaryService cloudinaryService,
+            ISuggestProduct suggestProduct)
         {
             this.fireplaceRepository = fireplaceRepository;
             this.groupService = groupService;
             this.productService = productService;
             this.cloudinaryService = cloudinaryService;
+            this.suggestProduct = suggestProduct;
         }
 
-        public async Task<string> AddFireplaceAsync(FireplaceInputModel model, string userId)
+        public async Task<string> AddFireplaceAsync<T>(FireplaceInputModel model, string userId)
         {
             var typeOfChamber = Enum.Parse<TypeOfChamber>(model.TypeOfChamber);
 
@@ -79,6 +83,47 @@
             await this.fireplaceRepository.AddAsync(fireplace);
             await this.fireplaceRepository.SaveChangesAsync();
             return fireplace.Id;
+        }
+
+        public async Task AddSuggestionToFireplaceAsync(
+            string productName,
+            string fireplaceId,
+            string[] selectedFireplaces,
+            string[] selectedFinishedModels,
+            string[] selectedProjects,
+            string[] selectedAccessories)
+        {
+            var fireplace = this.fireplaceRepository.All().Where(f => f.Id == fireplaceId).FirstOrDefault();
+
+            // Adding Fireplace
+            foreach (var fireplaceName in selectedFireplaces)
+            {
+                var productId = this.productService.GetIdByNameAndGroup(fireplaceName, GroupType.Fireplace.ToString());
+                await this.suggestProduct.AddSuggestProductAsync(fireplaceId, productId);
+            }
+
+            // Adding FinishedModels
+            foreach (var finishedModel in selectedFinishedModels)
+            {
+                var productId = this.productService.GetIdByNameAndGroup(finishedModel, GroupType.Finished_Models.ToString());
+                await this.suggestProduct.AddSuggestProductAsync(fireplaceId, productId);
+            }
+
+            // Adding Project
+            foreach (var project in selectedProjects)
+            {
+                var productId = this.productService.GetIdByNameAndGroup(project, GroupType.Project.ToString());
+                await this.suggestProduct.AddSuggestProductAsync(fireplaceId, productId);
+            }
+
+            // Adding Accessories
+            foreach (var accessorie in selectedAccessories)
+            {
+                var productId = this.productService.GetIdByNameAndGroup(accessorie, GroupType.Accessories.ToString());
+                await this.suggestProduct.AddSuggestProductAsync(fireplaceId, productId);
+            }
+
+            await this.fireplaceRepository.SaveChangesAsync();
         }
 
         public async Task DeleteAsync<T>(DeleteFireplaceViewModel deleteModel)
