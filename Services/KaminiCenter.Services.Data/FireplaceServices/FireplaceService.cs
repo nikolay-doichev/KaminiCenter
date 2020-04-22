@@ -86,7 +86,6 @@
         }
 
         public async Task AddSuggestionToFireplaceAsync(
-            string productName,
             string fireplaceId,
             string[] selectedFireplaces,
             string[] selectedFinishedModels,
@@ -95,32 +94,45 @@
         {
             var fireplace = this.fireplaceRepository.All().Where(f => f.Id == fireplaceId).FirstOrDefault();
 
+            if (fireplace == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionsServices.Null_Fireplace_Id_ErrorMessage, fireplaceId));
+            }
+
             // Adding Fireplace
-            foreach (var fireplaceName in selectedFireplaces)
+            if (selectedFireplaces != null)
             {
-                var productId = this.productService.GetIdByNameAndGroup(fireplaceName, GroupType.Fireplace.ToString());
-                await this.suggestProduct.AddSuggestProductAsync(fireplaceId, productId);
+                foreach (var fireplaceName in selectedFireplaces)
+                {
+                    await this.AddProductToFireplace(fireplaceId, fireplaceName);
+                }
             }
 
-            // Adding FinishedModels
-            foreach (var finishedModel in selectedFinishedModels)
+            if (selectedFinishedModels != null)
             {
-                var productId = this.productService.GetIdByNameAndGroup(finishedModel, GroupType.Finished_Models.ToString());
-                await this.suggestProduct.AddSuggestProductAsync(fireplaceId, productId);
+                // Adding FinishedModels
+                foreach (var finishedModel in selectedFinishedModels)
+                {
+                    await this.AddProductToFireplace(fireplaceId, finishedModel);
+                }
             }
 
-            // Adding Project
-            foreach (var project in selectedProjects)
+            if (selectedProjects != null)
             {
-                var productId = this.productService.GetIdByNameAndGroup(project, GroupType.Project.ToString());
-                await this.suggestProduct.AddSuggestProductAsync(fireplaceId, productId);
+                // Adding Project
+                foreach (var project in selectedProjects)
+                {
+                    await this.AddProductToFireplace(fireplaceId, project);
+                }
             }
 
-            // Adding Accessories
-            foreach (var accessorie in selectedAccessories)
+            if (selectedAccessories != null)
             {
-                var productId = this.productService.GetIdByNameAndGroup(accessorie, GroupType.Accessories.ToString());
-                await this.suggestProduct.AddSuggestProductAsync(fireplaceId, productId);
+                // Adding Accessories
+                foreach (var accessorie in selectedAccessories)
+                {
+                    await this.AddProductToFireplace(fireplaceId, accessorie);
+                }
             }
 
             await this.fireplaceRepository.SaveChangesAsync();
@@ -251,6 +263,17 @@
             var typeOfChamber = Enum.Parse<TypeOfChamber>(type);
 
             return this.fireplaceRepository.All().Count(x => x.TypeOfChamber == typeOfChamber);
+        }
+
+        private async Task AddProductToFireplace(string fireplaceId, string fireplaceName)
+        {
+            var productId = this.productService.GetIdByNameAndGroup(fireplaceName, GroupType.Fireplace.ToString());
+            if (productId == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            await this.suggestProduct.AddSuggestProductAsync(fireplaceId, productId);
         }
     }
 }

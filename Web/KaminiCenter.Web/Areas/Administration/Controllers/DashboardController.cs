@@ -70,7 +70,7 @@
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                allFireplaces = allFireplaces.Where(f => f.Name.Contains(searchTerm));
+                allFireplaces = allFireplaces.Where(f => f.Name.ToLower().Contains(searchTerm.ToLower()));
             }
 
             return this.View(allFireplaces);
@@ -107,7 +107,7 @@
             string[] selectedProjects,
             string[] selectedAccessories)
         {
-            await this.fireplaceService.AddSuggestionToFireplaceAsync(productName, fireplaceId, selectedFireplaces, selectedFinishedModels, selectedProjects, selectedAccessories);
+            await this.fireplaceService.AddSuggestionToFireplaceAsync(fireplaceId, selectedFireplaces, selectedFinishedModels, selectedProjects, selectedAccessories);
 
             return this.RedirectToAction("Details", "Fireplace", new { name = productName, area = string.Empty });
         }

@@ -161,7 +161,7 @@
                 },
                 new Fireplace_chamber
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = "abc2",
                     Power = "15w",
                     Chimney = "200Ф",
                     CreatedOn = DateTime.UtcNow,
@@ -183,6 +183,243 @@
             await context.SaveChangesAsync();
 
             return fireplaces.Count;
+        }
+
+        public async Task<int> SeedFinishedModelssAsync(ApplicationDbContext context)
+        {
+            var user = new ApplicationUser
+            {
+                Id = "abc",
+                FirstName = "Nikolay",
+                LastName = "Doychev",
+                Email = "nikolay.doichev@gmail.com",
+                EmailConfirmed = true,
+            };
+
+            var groups = new Product_Group[]
+            {
+                new Product_Group() { Id = "abc1", GroupName = Enum.Parse<GroupType>("Fireplace") },
+                new Product_Group() { Id = "abc2", GroupName = Enum.Parse<GroupType>("Finished_Models") },
+                new Product_Group() { Id = "abc3", GroupName = Enum.Parse<GroupType>("Project") },
+                new Product_Group() { Id = "abc4", GroupName = Enum.Parse<GroupType>("Accessories") },
+            };
+
+            var products = new Product[]
+            {
+                new Product()
+                {
+                    Id = "abc",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[0].Id,
+                    Name = "Модел 1",
+                    UserId = user.Id,
+                },
+
+                new Product()
+                {
+                    Id = "abc2",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[0].Id,
+                    Name = "Модел 2",
+                    UserId = user.Id,
+                },
+            };
+
+            var finishedModels = new List<Finished_Model>
+            {
+                new Finished_Model
+                {
+                    Id = "abc1",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[1].Id,
+                    ProductId = products[0].Id,
+                    Description = "Some description test 1",
+                    ImagePath = "Some dummy picture 1",
+                    TypeProject = TypeProject.Classic,
+                },
+                new Finished_Model
+                {
+                    Id = "abc2",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[1].Id,
+                    ProductId = products[1].Id,
+                    Description = "Some description test 2",
+                    ImagePath = "Some dummy picture 2",
+                    TypeProject = TypeProject.Classic,
+                },
+            };
+
+            foreach (var product in products)
+            {
+                await context.Products.AddAsync(product);
+            }
+
+            foreach (var finishedModel in finishedModels)
+            {
+                await context.Finished_Models.AddAsync(finishedModel);
+            }
+
+            await context.SaveChangesAsync();
+
+            return finishedModels.Count;
+        }
+
+        public async Task<int> SeedProjectAsync(ApplicationDbContext context)
+        {
+            var user = new ApplicationUser
+            {
+                Id = "abc",
+                FirstName = "Nikolay",
+                LastName = "Doychev",
+                Email = "nikolay.doichev@gmail.com",
+                EmailConfirmed = true,
+            };
+
+            var groups = new Product_Group[]
+            {
+                new Product_Group() { Id = "abc1", GroupName = Enum.Parse<GroupType>("Fireplace") },
+                new Product_Group() { Id = "abc2", GroupName = Enum.Parse<GroupType>("Finished_Models") },
+                new Product_Group() { Id = "abc3", GroupName = Enum.Parse<GroupType>("Project") },
+                new Product_Group() { Id = "abc4", GroupName = Enum.Parse<GroupType>("Accessories") },
+            };
+
+            var products = new Product[]
+            {
+                new Product()
+                {
+                    Id = "abc",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[0].Id,
+                    Name = "Проект 1",
+                    UserId = user.Id,
+                },
+
+                new Product()
+                {
+                    Id = "abc2",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[0].Id,
+                    Name = "Проект 2",
+                    UserId = user.Id,
+                },
+            };
+
+            var projects = new List<Project>
+            {
+                new Project
+                {
+                    Id = "abc1",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[2].Id,
+                    ProductId = products[0].Id,
+                    Description = "Some description test 1",
+                    ImagePath = "Some dummy picture 1",
+                    TypeProject = TypeProject.Classic,
+                    TypeLocation = TypeLocation.Corner,
+                },
+                new Project
+                {
+                    Id = "abc2",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[2].Id,
+                    ProductId = products[1].Id,
+                    Description = "Some description test 2",
+                    ImagePath = "Some dummy picture 2",
+                    TypeProject = TypeProject.Classic,
+                    TypeLocation = TypeLocation.Corner,
+                },
+            };
+
+            foreach (var product in products)
+            {
+                await context.Products.AddAsync(product);
+            }
+
+            foreach (var project in projects)
+            {
+                await context.Projects.AddAsync(project);
+            }
+
+            await context.SaveChangesAsync();
+
+            return projects.Count;
+        }
+
+        public async Task<int> SeedAccessorieAsync(ApplicationDbContext context)
+        {
+            var user = new ApplicationUser
+            {
+                Id = "abc",
+                FirstName = "Nikolay",
+                LastName = "Doychev",
+                Email = "nikolay.doichev@gmail.com",
+                EmailConfirmed = true,
+            };
+
+            var groups = new Product_Group[]
+            {
+                new Product_Group() { Id = "abc1", GroupName = Enum.Parse<GroupType>("Fireplace") },
+                new Product_Group() { Id = "abc2", GroupName = Enum.Parse<GroupType>("Finished_Models") },
+                new Product_Group() { Id = "abc3", GroupName = Enum.Parse<GroupType>("Project") },
+                new Product_Group() { Id = "abc4", GroupName = Enum.Parse<GroupType>("Accessories") },
+            };
+
+            var products = new Product[]
+            {
+                new Product()
+                {
+                    Id = "abc",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[0].Id,
+                    Name = "Аксесоар 1",
+                    UserId = user.Id,
+                },
+
+                new Product()
+                {
+                    Id = "abc2",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[0].Id,
+                    Name = "Аксесоар 2",
+                    UserId = user.Id,
+                },
+            };
+
+            var accessories = new List<Accessorie>
+            {
+                new Accessorie
+                {
+                    Id = "abc1",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[3].Id,
+                    ProductId = products[0].Id,
+                    Description = "Some description test 1",
+                    ImagePath = "Some dummy picture 1",
+                },
+                new Accessorie
+                {
+                    Id = "abc2",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[3].Id,
+                    ProductId = products[1].Id,
+                    Description = "Some description test 2",
+                    ImagePath = "Some dummy picture 2",
+                },
+            };
+
+            foreach (var product in products)
+            {
+                await context.Products.AddAsync(product);
+            }
+
+            foreach (var accessorie in accessories)
+            {
+                await context.Accessories.AddAsync(accessorie);
+            }
+
+            await context.SaveChangesAsync();
+
+            return accessories.Count;
         }
     }
 }
