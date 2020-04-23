@@ -8,8 +8,6 @@
     {
         Task CreateAsync(string name);
 
-        Task FindById(string id);
-
         Product_Group FindByGroupName(string name);
     }
 }

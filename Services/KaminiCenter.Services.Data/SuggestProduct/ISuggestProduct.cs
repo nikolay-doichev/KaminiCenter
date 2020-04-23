@@ -7,7 +7,7 @@
 
     public interface ISuggestProduct
     {
-        Task<string> AddSuggestProductAsync(string fireplaceId, string productId);
+        Task AddSuggestProductAsync(string fireplaceId, string productId);
 
         IEnumerable<T> GetAllSuggestion<T>(string fireplaceId);
     }

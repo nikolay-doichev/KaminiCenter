@@ -31,7 +31,12 @@
 
             if (group == null)
             {
-                throw new ArgumentNullException("There isn`t such group name");
+                throw new ArgumentException("There isn`t such group name");
+            }
+
+            if (this.productRepository.All().Any(p => p.Name == name))
+            {
+                throw new ArgumentException($"There is Product with name: {name}");
             }
 
             var product = new Product

@@ -86,6 +86,7 @@
         }
 
         public async Task AddSuggestionToFireplaceAsync(
+            string productName,
             string fireplaceId,
             string[] selectedFireplaces,
             string[] selectedFinishedModels,
@@ -104,7 +105,7 @@
             {
                 foreach (var fireplaceName in selectedFireplaces)
                 {
-                    await this.AddProductToFireplace(fireplaceId, fireplaceName);
+                    await this.AddProductToFireplace(fireplaceId, fireplaceName, GroupType.Fireplace.ToString());
                 }
             }
 
@@ -113,7 +114,7 @@
                 // Adding FinishedModels
                 foreach (var finishedModel in selectedFinishedModels)
                 {
-                    await this.AddProductToFireplace(fireplaceId, finishedModel);
+                    await this.AddProductToFireplace(fireplaceId, finishedModel, GroupType.Finished_Models.ToString());
                 }
             }
 
@@ -122,7 +123,7 @@
                 // Adding Project
                 foreach (var project in selectedProjects)
                 {
-                    await this.AddProductToFireplace(fireplaceId, project);
+                    await this.AddProductToFireplace(fireplaceId, project, GroupType.Project.ToString());
                 }
             }
 
@@ -131,7 +132,7 @@
                 // Adding Accessories
                 foreach (var accessorie in selectedAccessories)
                 {
-                    await this.AddProductToFireplace(fireplaceId, accessorie);
+                    await this.AddProductToFireplace(fireplaceId, accessorie, GroupType.Accessories.ToString());
                 }
             }
 
@@ -166,6 +167,7 @@
             }
 
             var photoUrl = string.Empty;
+
             if (editModel.ImagePath == null)
             {
                 photoUrl = fireplace.ImagePath;
@@ -265,9 +267,9 @@
             return this.fireplaceRepository.All().Count(x => x.TypeOfChamber == typeOfChamber);
         }
 
-        private async Task AddProductToFireplace(string fireplaceId, string fireplaceName)
+        private async Task AddProductToFireplace(string fireplaceId, string productName, string groupName)
         {
-            var productId = this.productService.GetIdByNameAndGroup(fireplaceName, GroupType.Fireplace.ToString());
+            var productId = this.productService.GetIdByNameAndGroup(productName, groupName);
             if (productId == null)
             {
                 throw new NullReferenceException();

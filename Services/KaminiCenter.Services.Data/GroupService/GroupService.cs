@@ -40,10 +40,5 @@
 
             return groupName;
         }
-
-        public Task FindById(string id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

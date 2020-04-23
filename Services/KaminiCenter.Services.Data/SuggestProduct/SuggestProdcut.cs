@@ -19,27 +19,23 @@
             this.suggestProductRepository = suggestProductRepository;
         }
 
-        public async Task<string> AddSuggestProductAsync(string fireplaceId, string productId)
+        public async Task AddSuggestProductAsync(string fireplaceId, string productId)
         {
             var suggestProduct = new SuggestProduct
             {
                 Id = Guid.NewGuid().ToString(),
-                CreatedOn = DateTime.UtcNow,
                 FireplaceId = fireplaceId,
                 ProductId = productId,
             };
 
             await this.suggestProductRepository.AddAsync(suggestProduct);
             await this.suggestProductRepository.SaveChangesAsync();
-
-            return suggestProduct.Id;
         }
 
         public IEnumerable<T> GetAllSuggestion<T>(string fireplaceId)
         {
             IQueryable<SuggestProduct> suggestions = this.suggestProductRepository
                 .All()
-                .OrderByDescending(c => c.CreatedOn)
                 .Where(x => x.FireplaceId == fireplaceId);
 
             return suggestions.To<T>().ToList();

@@ -201,7 +201,7 @@
                 Price = 1800.00M,
                 Size = "60 / 40 / h50",
                 TypeOfChamber = TypeOfChamber.Basic.ToString(),
-                Name = "Гк Мая",
+                Name = "Гк Амелия",
             };
 
             var seeder = new DbContextTestsSeeder();
@@ -213,9 +213,9 @@
             AutoMapperConfig.RegisterMappings(typeof(FireplaceInputModel).Assembly);
             var result = await fireplaceService.AddFireplaceAsync<FireplaceInputModel>(fireplace, user.Id.ToString());
 
-            var actual = context.Fireplace_Chambers.FirstOrDefault(x => x.Product.Name == "Гк Мая");
+            var actual = context.Fireplace_Chambers.FirstOrDefault(x => x.Product.Name == "Гк Амелия");
 
-            var expectedName = "Гк Мая";
+            var expectedName = "Гк Амелия";
             var expectedPower = "10w";
             var expectedChimney = "200Ф";
             var expectedPrice = 1800.00M;
@@ -694,7 +694,7 @@
 
             // Act
             AutoMapperConfig.RegisterMappings(typeof(FireplaceInputModel).Assembly);
-            await fireplaceService.AddSuggestionToFireplaceAsync("abc1", selectedFireplace, null, null, null);
+            await fireplaceService.AddSuggestionToFireplaceAsync("Гк Мая", "abc1", selectedFireplace, null, null, null);
             var count = context.SuggestProducts.Count();
 
             // Assert
@@ -727,7 +727,7 @@
 
             // Act and Asseart
             AutoMapperConfig.RegisterMappings(typeof(DeleteFireplaceViewModel).Assembly);
-            await Assert.ThrowsAsync<NullReferenceException>(() => fireplaceService.AddSuggestionToFireplaceAsync("Test id", selectedFireplace, null, null, null));
+            await Assert.ThrowsAsync<NullReferenceException>(() => fireplaceService.AddSuggestionToFireplaceAsync("Гк Мая","Test id", selectedFireplace, null, null, null));
         }
 
         [Fact]
@@ -752,11 +752,17 @@
             await seeder.SeedGroupAsync(context);
             await seeder.SeedProdcutAsync(context);
             await seeder.SeedFireplacesAsync(context);
-            string[] selectedFireplace = new string[] { "Test Id" };
+            string[] selectedFireplace = new string[] { "Test Name" };
+            string[] selectedFinishedModel = new string[] { "Test Name" };
+            string[] selectedProjects = new string[] { "Test Name" };
+            string[] selectedAccessories = new string[] { "Test Name" };
 
             // Act and Asseart
             AutoMapperConfig.RegisterMappings(typeof(DeleteFireplaceViewModel).Assembly);
-            await Assert.ThrowsAsync<NullReferenceException>(() => fireplaceService.AddSuggestionToFireplaceAsync("abc1", selectedFireplace, null, null, null));
+            await Assert.ThrowsAsync<NullReferenceException>(() => fireplaceService.AddSuggestionToFireplaceAsync("Гк Мая", "abc1", selectedFireplace, null, null, null));
+            await Assert.ThrowsAsync<NullReferenceException>(() => fireplaceService.AddSuggestionToFireplaceAsync("Гк Мая",  "abc1", null, selectedFinishedModel, null, null));
+            await Assert.ThrowsAsync<NullReferenceException>(() => fireplaceService.AddSuggestionToFireplaceAsync("Гк Мая",  "abc1", null, null, selectedProjects, null));
+            await Assert.ThrowsAsync<NullReferenceException>(() => fireplaceService.AddSuggestionToFireplaceAsync("Гк Мая",  "abc1", null, null, null, selectedAccessories));
         }
     }
 }

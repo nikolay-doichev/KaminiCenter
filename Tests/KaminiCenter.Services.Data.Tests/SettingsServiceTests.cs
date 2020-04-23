@@ -1,4 +1,7 @@
-﻿namespace KaminiCenter.Services.Data.Tests
+﻿using KaminiCenter.Services.Mapping;
+using KaminiCenter.Web.ViewModels.Settings;
+
+namespace KaminiCenter.Services.Data.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -46,6 +49,27 @@
             var repository = new EfDeletableEntityRepository<Setting>(dbContext);
             var service = new SettingsService(repository);
             Assert.Equal(3, service.GetCount());
+        }
+
+        [Fact]
+        public async Task GetAllSettings_WithCorrectData_ShouldReturnAllCorrectly()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "SettingsTestDb").Options;
+            var dbContext = new ApplicationDbContext(options);
+            dbContext.Settings.Add(new Setting());
+            dbContext.Settings.Add(new Setting());
+            dbContext.Settings.Add(new Setting());
+            await dbContext.SaveChangesAsync();
+
+            var repository = new EfDeletableEntityRepository<Setting>(dbContext);
+            var service = new SettingsService(repository);
+
+            AutoMapperConfig.RegisterMappings(typeof(SettingViewModel).Assembly);
+            var result = service.GetAll<SettingViewModel>();
+            var actual = dbContext.Settings.Count();
+
+            Assert.Equal(result.Count(), actual);
         }
     }
 }

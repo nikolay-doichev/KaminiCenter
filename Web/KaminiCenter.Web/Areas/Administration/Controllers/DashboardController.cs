@@ -85,8 +85,6 @@
 
             this.TempData["fireplaceForFill"] = productName;
 
-            var model = this.fireplaceService.GetByName<DetailsFireplaceViewModel>(productName);
-
             var allProducts = new AllProductsViewModel
             {
                 Fireplaces = allFireplaces,
@@ -107,7 +105,7 @@
             string[] selectedProjects,
             string[] selectedAccessories)
         {
-            await this.fireplaceService.AddSuggestionToFireplaceAsync(fireplaceId, selectedFireplaces, selectedFinishedModels, selectedProjects, selectedAccessories);
+            await this.fireplaceService.AddSuggestionToFireplaceAsync(productName, fireplaceId, selectedFireplaces, selectedFinishedModels, selectedProjects, selectedAccessories);
 
             return this.RedirectToAction("Details", "Fireplace", new { name = productName, area = string.Empty });
         }

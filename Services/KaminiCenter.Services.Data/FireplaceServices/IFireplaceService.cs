@@ -10,6 +10,7 @@
         Task<string> AddFireplaceAsync<T>(FireplaceInputModel fireplaceInputModel, string userId);
 
         Task AddSuggestionToFireplaceAsync(
+            string productName,
             string fireplaceId,
             string[]? selectedFireplaces,
             string[]? selectedFinishedModels,

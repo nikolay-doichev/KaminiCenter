@@ -421,5 +421,307 @@
 
             return accessories.Count;
         }
+
+        public async Task<int> SeedSuggestProductAsync(ApplicationDbContext context)
+        {
+            var user = new ApplicationUser
+            {
+                Id = "abc",
+                FirstName = "Nikolay",
+                LastName = "Doychev",
+                Email = "nikolay.doichev@gmail.com",
+                EmailConfirmed = true,
+            };
+
+            var groups = new Product_Group[]
+            {
+                new Product_Group() { Id = "abc1", GroupName = Enum.Parse<GroupType>("Fireplace") },
+                new Product_Group() { Id = "abc2", GroupName = Enum.Parse<GroupType>("Finished_Models") },
+                new Product_Group() { Id = "abc3", GroupName = Enum.Parse<GroupType>("Project") },
+                new Product_Group() { Id = "abc4", GroupName = Enum.Parse<GroupType>("Accessories") },
+            };
+
+            var products = new Product[]
+            {
+                new Product()
+                {
+                    Id = "abc",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[0].Id,
+                    Name = "Гк Мая",
+                    UserId = user.Id,
+                },
+
+                new Product()
+                {
+                    Id = "abc2",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[0].Id,
+                    Name = "Гк Оливия",
+                    UserId = user.Id,
+                },
+
+                new Product()
+                {
+                    Id = "abc3",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[0].Id,
+                    Name = "Гк Амелия",
+                    UserId = user.Id,
+                },
+            };
+
+            var fireplaces = new List<Fireplace_chamber>
+            {
+                new Fireplace_chamber
+                {
+                    Id = "abc1",
+                    Power = "10w",
+                    Chimney = "200Ф",
+                    CreatedOn = DateTime.UtcNow,
+                    Description = "Some description test 1",
+                    GroupId = groups[0].Id,
+                    ImagePath = "https://cdn11.bigcommerce.com/s-j2bzz1q4/images/stencil/1280x1280/products/206/4809/Biltmore-Wood-Burning-Fireplace-2-main__66102.1541203308.jpg?c=2&imbypass=on",
+                    Price = 1800.00M,
+                    Size = "60 / 40 / h50",
+                    TypeOfChamber = TypeOfChamber.Basic,
+                    ProductId = products[0].Id,
+                },
+                new Fireplace_chamber
+                {
+                    Id = "abc2",
+                    Power = "15w",
+                    Chimney = "200Ф",
+                    CreatedOn = DateTime.UtcNow,
+                    Description = "Some description test 2",
+                    GroupId = groups[0].Id,
+                    ImagePath = "https://cdn11.bigcommerce.com/s-j2bzz1q4/images/stencil/1280x1280/products/206/4809/Biltmore-Wood-Burning-Fireplace-2-main__66102.1541203308.jpg?c=2&imbypass=on",
+                    Price = 1200.00M,
+                    Size = "40 / 20 / h30",
+                    TypeOfChamber = TypeOfChamber.Basic,
+                    ProductId = products[1].Id,
+                },
+                new Fireplace_chamber
+                {
+                    Id = "abc3",
+                    Power = "17w",
+                    Chimney = "200Ф",
+                    CreatedOn = DateTime.UtcNow,
+                    Description = "Some description test 3",
+                    GroupId = groups[0].Id,
+                    ImagePath = "https://cdn11.bigcommerce.com/s-j2bzz1q4/images/stencil/1280x1280/products/206/4809/Biltmore-Wood-Burning-Fireplace-2-main__66102.1541203308.jpg?c=2&imbypass=on",
+                    Price = 1350.00M,
+                    Size = "45 / 25 / h35",
+                    TypeOfChamber = TypeOfChamber.Basic,
+                    ProductId = products[1].Id,
+                },
+            };
+
+            var suggestProducts = new List<SuggestProduct>
+            {
+                new SuggestProduct
+                {
+                    Id = "abc1",
+                    FireplaceId = fireplaces[0].Id,
+                    ProductId = products[1].Id,
+                },
+                new SuggestProduct
+                {
+                    Id = "abc2",
+                    FireplaceId = fireplaces[0].Id,
+                    ProductId = products[2].Id,
+                },
+            };
+
+            foreach (var product in products)
+            {
+                await context.Products.AddAsync(product);
+            }
+
+            foreach (var fireplace in fireplaces)
+            {
+                await context.Fireplace_Chambers.AddAsync(fireplace);
+            }
+
+            foreach (var suggestProduct in suggestProducts)
+            {
+                await context.SuggestProducts.AddAsync(suggestProduct);
+            }
+
+            await context.SaveChangesAsync();
+
+            return suggestProducts.Count;
+        }
+
+        public async Task<int> SeedCommentsAsync(ApplicationDbContext context)
+        {
+            var user = new ApplicationUser
+            {
+                Id = "abc",
+                FirstName = "Nikolay",
+                LastName = "Doychev",
+                Email = "nikolay.doichev@gmail.com",
+                EmailConfirmed = true,
+            };
+
+            var groups = new Product_Group[]
+            {
+                new Product_Group() { Id = "abc1", GroupName = Enum.Parse<GroupType>("Fireplace") },
+                new Product_Group() { Id = "abc2", GroupName = Enum.Parse<GroupType>("Finished_Models") },
+                new Product_Group() { Id = "abc3", GroupName = Enum.Parse<GroupType>("Project") },
+                new Product_Group() { Id = "abc4", GroupName = Enum.Parse<GroupType>("Accessories") },
+            };
+
+            var products = new Product[]
+            {
+                new Product()
+                {
+                    Id = "abc",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[0].Id,
+                    Name = "Гк Мая",
+                    UserId = user.Id,
+                },
+
+                new Product()
+                {
+                    Id = "abc2",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[0].Id,
+                    Name = "Гк Оливия",
+                    UserId = user.Id,
+                },
+
+                new Product()
+                {
+                    Id = "abc3",
+                    CreatedOn = DateTime.UtcNow,
+                    GroupId = groups[0].Id,
+                    Name = "Гк Амелия",
+                    UserId = user.Id,
+                },
+            };
+
+            var fireplaces = new List<Fireplace_chamber>
+            {
+                new Fireplace_chamber
+                {
+                    Id = "abc1",
+                    Power = "10w",
+                    Chimney = "200Ф",
+                    CreatedOn = DateTime.UtcNow,
+                    Description = "Some description test 1",
+                    GroupId = groups[0].Id,
+                    ImagePath = "https://cdn11.bigcommerce.com/s-j2bzz1q4/images/stencil/1280x1280/products/206/4809/Biltmore-Wood-Burning-Fireplace-2-main__66102.1541203308.jpg?c=2&imbypass=on",
+                    Price = 1800.00M,
+                    Size = "60 / 40 / h50",
+                    TypeOfChamber = TypeOfChamber.Basic,
+                    ProductId = products[0].Id,
+                },
+                new Fireplace_chamber
+                {
+                    Id = "abc2",
+                    Power = "15w",
+                    Chimney = "200Ф",
+                    CreatedOn = DateTime.UtcNow,
+                    Description = "Some description test 2",
+                    GroupId = groups[0].Id,
+                    ImagePath = "https://cdn11.bigcommerce.com/s-j2bzz1q4/images/stencil/1280x1280/products/206/4809/Biltmore-Wood-Burning-Fireplace-2-main__66102.1541203308.jpg?c=2&imbypass=on",
+                    Price = 1200.00M,
+                    Size = "40 / 20 / h30",
+                    TypeOfChamber = TypeOfChamber.Basic,
+                    ProductId = products[1].Id,
+                },
+                new Fireplace_chamber
+                {
+                    Id = "abc3",
+                    Power = "17w",
+                    Chimney = "200Ф",
+                    CreatedOn = DateTime.UtcNow,
+                    Description = "Some description test 3",
+                    GroupId = groups[0].Id,
+                    ImagePath = "https://cdn11.bigcommerce.com/s-j2bzz1q4/images/stencil/1280x1280/products/206/4809/Biltmore-Wood-Burning-Fireplace-2-main__66102.1541203308.jpg?c=2&imbypass=on",
+                    Price = 1350.00M,
+                    Size = "45 / 25 / h35",
+                    TypeOfChamber = TypeOfChamber.Basic,
+                    ProductId = products[1].Id,
+                },
+            };
+
+            var comments = new List<Comment>
+            {
+                new Comment()
+                {
+                    Id = "comId1",
+                    FullName = "Павлина Якимова",
+                    Email = "random@gmail.com",
+                    Content = "Some content",
+                    CreatedOn = DateTime.UtcNow,
+                    ProductId = products[0].Id,
+                },
+                new Comment()
+                {
+                    Id = "comId2",
+                    FullName = "Методи Якимов",
+                    Email = "randomEmail@gmail.com",
+                    Content = "Some content 2",
+                    CreatedOn = DateTime.UtcNow,
+                    ProductId = products[0].Id,
+                },
+            };
+
+            foreach (var product in products)
+            {
+                await context.Products.AddAsync(product);
+            }
+
+            foreach (var fireplace in fireplaces)
+            {
+                await context.Fireplace_Chambers.AddAsync(fireplace);
+            }
+
+            foreach (var comment in comments)
+            {
+                await context.Comments.AddAsync(comment);
+            }
+
+            await context.SaveChangesAsync();
+
+            return comments.Count;
+        }
+
+        public async Task<int> SeedContactFormRecordsAsync(ApplicationDbContext context)
+        {
+            var contactFormRecordses = new List<ContactFormRecords>
+            {
+                new ContactFormRecords()
+                {
+                    Id = "comId1",
+                    FullName = "Павлина Якимова",
+                    Email = "random@gmail.com",
+                    Content = "Some content",
+                    CreatedOn = DateTime.UtcNow,
+                    Subject = "Random Subject",
+                },
+                new ContactFormRecords()
+                {
+                    Id = "comId2",
+                    FullName = "Методи Якимов",
+                    Email = "randomEmail@gmail.com",
+                    Content = "Some content 2",
+                    CreatedOn = DateTime.UtcNow,
+                    Subject = "Random Subject",
+                },
+            };
+
+            foreach (var recordse in contactFormRecordses)
+            {
+                await context.ContactForms.AddAsync(recordse);
+            }
+
+            await context.SaveChangesAsync();
+
+            return contactFormRecordses.Count;
+        }
     }
 }
