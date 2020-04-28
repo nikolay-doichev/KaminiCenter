@@ -26,6 +26,8 @@
             public const int SizeMinLength = 3;
             public const int SizeMaxLength = 20;
 
+            public const int FireplaceImageMaxSize = 15 * 1024 * 1024;
+
             // Description max lenght
             public const int DescriptionMaxLength = 2000;
 
@@ -51,17 +53,21 @@
         public static class Finished_Model
         {
             // Error Message
+            public const int FinishedModelImageMaxSize = 15 * 1024 * 1024;
             public const string NameError = "Името на продукта трябва да е между {2} и {1} символи";
             public const string TypeOfProjectError = "Изберете тип на проекта!";
         }
 
         public static class Project
         {
+            public const int ProjectImageMaxSize = 15 * 1024 * 1024;
             public const string NameError = "Името на проекта трябва да е между {2} и {1} символи";
         }
 
         public static class Accessorie
         {
+            public const int AccessorieImageMaxSize = 15 * 1024 * 1024;
+
             public const string NameError = "Името на аксесоара трябва да е между {2} и {1} символи";
         }
     }

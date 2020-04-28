@@ -1,4 +1,6 @@
-﻿namespace KaminiCenter.Web.ViewModels.Fireplace
+﻿using KaminiCenter.Web.Infrastructure.CustomAttributes;
+
+namespace KaminiCenter.Web.ViewModels.Fireplace
 {
     using System;
     using System.Collections.Generic;
@@ -51,7 +53,7 @@
         public string Chimney { get; set; }
 
         [Display(Name = "Цена на продукта")]
-        [Range(1, int.MaxValue)]
+        [Range(1, int.MaxValue, ErrorMessage = "Моля въведете положителна стойсност")]
         public decimal Price { get; set; }
 
         [Display(Name = "Описание на продукта")]
@@ -60,6 +62,8 @@
         public string Description { get; set; }
 
         [Display(Name = "Снимка на продукта")]
+        [MaxFileSize(FireplaceImageMaxSize)]
+        [AllowedExtensions]
         public IFormFile ImagePath { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

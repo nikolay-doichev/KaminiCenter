@@ -9,6 +9,7 @@
     using KaminiCenter.Data.Models;
     using KaminiCenter.Data.Models.Enums;
     using KaminiCenter.Services.Mapping;
+    using KaminiCenter.Web.Infrastructure.CustomAttributes;
     using Microsoft.AspNetCore.Http;
 
     using static KaminiCenter.Web.ViewModels.ModelValidation;
@@ -35,6 +36,8 @@
         public string Description { get; set; }
 
         [Display(Name = "Снимка на проекта")]
+        [MaxFileSize(AccessorieImageMaxSize)]
+        [AllowedExtensions]
         public IFormFile ImagePath { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

@@ -23,5 +23,11 @@
         public const string NameForSendingEmails = "Екипът на Камини Център";
 
         public const string SubjectForSendingEmails = "Отговор на Ваш коментар в сайта на Камини Център";
+
+        public const string MaxFileSizeErrorMessage = "Максималния размер на файла не може да превошава {0} mb.";
+
+        public const string AllowedExtensionsErrorMessage = "Видът на файла не е в позволения формат";
+
+        public static readonly string[] AllowedImageExtensions = { ".jpg", ".png", ".jpeg" };
     }
 }

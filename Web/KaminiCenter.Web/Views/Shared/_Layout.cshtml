@@ -3,7 +3,7 @@
 @using KaminiCenter.Services
 @inject IEnumParseService enumParseService;
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -93,24 +93,29 @@
                                         @foreach (var type in (TypeProject[])Enum.GetValues(typeof(TypeProject)))
                                         {
                                             var typeName = this.enumParseService.GetEnumDescription(type.ToString(), typeof(TypeProject));
-                                            <li><a class="dropdown-item"
-                                                   asp-controller="Project" 
-                                                   asp-action="All" 
-                                                   asp-route-typeLocation="@TypeLocation.Corner" 
-                                                   asp-route-type="@type">@typeName
-                                                </a></li>
-                                        }
+                                            <li>
+                                                <a class="dropdown-item"
+                                                   asp-controller="Project"
+                                                   asp-action="All"
+                                                   asp-route-typeLocation="@TypeLocation.Corner"
+                                                   asp-route-type="@type">
+                                                    @typeName
+                                            </a>
+                                        </li>
+                                    }
                                     </ul>
                                     <a tabindex="-1" href="#" class="dropdown-item dropdown-toggle">Модел на права стена</a>
                                     <ul style="list-style-type:circle" class="dropdown-content">
                                         @foreach (var type in (TypeProject[])Enum.GetValues(typeof(TypeProject)))
                                         {
                                             var typeName = this.enumParseService.GetEnumDescription(type.ToString(), typeof(TypeProject));
-                                            <li><a class="dropdown-item"
+                                            <li>
+                                                <a class="dropdown-item"
                                                    asp-controller="Project"
                                                    asp-action="All"
                                                    asp-route-typeLocation="@TypeLocation.StraightWall"
-                                                   asp-route-type="@type">@typeName</a></li>
+                                                   asp-route-type="@type">@typeName</a>
+                                            </li>
                                         }
                                     </ul>
                                 </li>
@@ -139,8 +144,120 @@
             @this.RenderBody()
         </main>
     </div>
+    <!--/ footer Star /-->
+    <section class="section-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <div class="widget-a">
+                        <div class="w-header-a">
+                            <h3 class="w-title-a text-brand">Камини Център</h3>
+                        </div>
+                        <div class="w-body-a">
+                            <p class="w-text-a color-text-a">
+                                Enim minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip exea commodo consequat duis
+                                sed aute irure.
+                            </p>
+                        </div>
+                        <div class="w-footer-a">
+                            <ul class="list-unstyled">
+                                <li class="color-a">
+                                    <span class="color-text-a">Phone .</span> kaminicent@abv.bg
+                                </li>
+                                <li class="color-a">
+                                    <span class="color-text-a">Email .</span> +359 2 962 48 17
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="widget-a">
+                        <div class="w-header-a">
+                            <h3 class="w-title-a text-brand">Представител на</h3>
+                        </div>
+                        <div class="w-footer-a">
+                            <ul class="list-unstyled">
+                                <li class="title-d">
+                                    <a href="http://www.caminettimontegrappa.it/" class="link-two">
+                                        Caminetti Montegrappa
+                                    </a>
+                                </li>
+                                <li class="title-d">
+                                    <a href="http://www.kratki.pl/" class="link-two">
+                                        Kratki
+                                    </a>
+                                </li>
+                                <li class="title-d">
+                                    <a href="http://www.krby-bef.cz/" class="link-two">
+                                        Bef Home
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-    <footer class="border-top footer text-muted">
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="nav-footer">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a asp-area="" asp-controller="Home" asp-action="Index">Начална страница</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a asp-area="" asp-controller="ForUs" asp-action="Index">За нас</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="socials-a">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a href="https://www.facebook.com/kaminicenter">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://twitter.com/">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.instagram.com/">
+                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.pinterest.com/">
+                                    <i class="fa fa-pinterest-p" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="copyright-footer">
+                        <p class="copyright color-text-a">
+                            &copy; Copyright
+                            <span class="color-a">EstateAgency</span> All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="credits">
+                        <!--
+                          All the links in the footer should remain intact.
+                          You can delete the links only if you purchased the pro version.
+                          Licensing information: https://bootstrapmade.com/license/
+                          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=EstateAgency
+                        -->
+                        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ Footer End /-->
         <div class="container">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
@@ -187,13 +304,13 @@
 </body>
 </html>
 <script asp-append-version="true">
-     $(document).ready(function() {
-    $('.dropdown-toggle').dropdown();
+    $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
 
-    $('.dropdown-submenu>a').unbind('click').click(function(e){
-        $(this).next('ul').toggle();
-        e.stopPropagation();
-        e.preventDefault();
+        $('.dropdown-submenu>a').unbind('click').click(function (e) {
+            $(this).next('ul').toggle();
+            e.stopPropagation();
+            e.preventDefault();
+        });
     });
-});
 </script>

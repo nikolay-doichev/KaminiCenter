@@ -55,7 +55,7 @@ namespace KaminiCenter.Services.Data.Tests
         public async Task GetAllSettings_WithCorrectData_ShouldReturnAllCorrectly()
         {
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                .UseInMemoryDatabase(databaseName: "SettingsTestDb").Options;
+                .UseInMemoryDatabase(databaseName: "SettingsTestDb2").Options;
             var dbContext = new ApplicationDbContext(options);
             dbContext.Settings.Add(new Setting());
             dbContext.Settings.Add(new Setting());

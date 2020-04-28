@@ -1,4 +1,6 @@
-﻿namespace KaminiCenter.Web.ViewModels.FinishedModels
+﻿using KaminiCenter.Web.Infrastructure.CustomAttributes;
+
+namespace KaminiCenter.Web.ViewModels.FinishedModels
 {
     using System;
     using System.Collections.Generic;
@@ -33,6 +35,8 @@
         public string TypeProject { get; set; }
 
         [Display(Name = "Снимка на продукта")]
+        [MaxFileSize(FinishedModelImageMaxSize)]
+        [AllowedExtensions]
         public IFormFile ImagePath { get; set; }
 
         [Display(Name = "Тип на продукта")]

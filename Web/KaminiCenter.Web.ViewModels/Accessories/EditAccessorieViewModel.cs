@@ -1,4 +1,6 @@
-﻿namespace KaminiCenter.Web.ViewModels.Accessories
+﻿using KaminiCenter.Web.Infrastructure.CustomAttributes;
+
+namespace KaminiCenter.Web.ViewModels.Accessories
 {
     using System.ComponentModel.DataAnnotations;
 
@@ -22,7 +24,9 @@
         [Display(Name = "Тип на продукта")]
         public string Group { get; set; }
 
+        [MaxFileSize(AccessorieImageMaxSize)]
         [Display(Name = "Снимка на проекта")]
+        [AllowedExtensions]
         public IFormFile ImagePath { get; set; }
 
         [Display(Name = "Описание на проекта")]
