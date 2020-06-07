@@ -63,7 +63,7 @@
             var count = result.ToList().Count;
 
             // Assert
-            Assert.True(count == 2, string.Format(ErrorMessage, "GetAllFireplaces"));
+            Assert.True(count == context.Fireplace_Chambers.Count(), string.Format(ErrorMessage, "GetAllFireplaces"));
         }
 
         [Fact]
